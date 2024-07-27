@@ -26,15 +26,19 @@ export default function Home() {
             type='text'
             placeholder='사용자명'
             value={username}
+            className='border'
             onChange={e => setUsername(e.target.value)}
           />
           <input
             type='password'
             placeholder='비밀번호'
             value={password}
+            className='border'
             onChange={e => setPassword(e.target.value)}
           />
-          <button type='submit'>로그인</button>
+          <button className='border' type='submit'>
+            로그인
+          </button>
         </form>
       )}
     </main>
