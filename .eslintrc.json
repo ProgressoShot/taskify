@@ -1,25 +1,14 @@
 {
   "extends": [
     "next/core-web-vitals", // nextjs설정
-    "airbnb",
-    "airbnb-typescript", // airbnb 규칙
-    "plugin:storybook/recommended", // 스토리북
-    "prettier"
+    "plugin:storybook/recommended" // 스토리북
   ],
-  "plugins": ["simple-import-sort", "@typescript-eslint"],
+  "plugins": ["simple-import-sort"],
   "rules": {
     "react/react-in-jsx-scope": "off", // React import
-    "react/jsx-uses-react": "off",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "no-useless-catch": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "jsxSingleQuote": true // JSX에서 single quote 사용
-      }
-    ]
+    "react/jsx-uses-react": "off", // js/jsx 구분
+    "simple-import-sort/imports": "error", // import sort
+    "simple-import-sort/exports": "error" // export sort
   },
   "settings": {
     "import/parsers": {
@@ -28,10 +17,5 @@
     "react": {
       "version": "detect"
     }
-  },
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "sourceType": "module",
-    "ecmaVersion": "latest"
   }
 }
