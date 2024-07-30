@@ -1,8 +1,8 @@
 'use client'
-
 import Image from 'next/image'
 import { useState } from 'react'
 
+import Button from '@/components/Button'
 import useAuthStore from '@/store/authSampleStore'
 
 export default function Home() {
@@ -38,6 +38,7 @@ export default function Home() {
             className='border'
             onChange={e => setPassword(e.target.value)}
           />
+          <Button>da</Button>
           <button className='border' type='submit'>
             로그인
           </button>
