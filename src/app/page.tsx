@@ -38,7 +38,6 @@ export default function Home() {
             className='border'
             onChange={e => setPassword(e.target.value)}
           />
-          <Button>da</Button>
           <button className='border' type='submit'>
             로그인
           </button>
