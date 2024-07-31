@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import cn from 'classnames'
 import { ReactNode } from 'react'
 interface ButtonProps {
   children: ReactNode
@@ -23,7 +23,7 @@ export default function Button({
   isDisabled = false,
 }: ButtonProps) {
   const buttonColorStyle = styleByColor[color]
-  const buttonClass = classNames(buttonBaseStyle, buttonColorStyle, className)
+  const buttonClass = cn(buttonBaseStyle, buttonColorStyle, className)
   return (
     <button
       className={buttonClass}
