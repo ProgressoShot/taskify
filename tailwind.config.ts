@@ -6,7 +6,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/layouts/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/*.{js,ts,jsx,tsx,mdx}',
 
     // `src` directory를 사용한다면
     // './src/**/*.{js,ts,jsx,tsx,mdx}',
