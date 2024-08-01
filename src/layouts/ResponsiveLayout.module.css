@@ -1,0 +1,18 @@
+.ResponsiveLayoutLeft {
+  grid-template-columns: 300px auto;
+  transition: all 0.16s;
+}
+
+/* Tablet */
+@media screen and (max-width: 1199px) {
+  .ResponsiveLayoutLeft {
+    grid-template-columns: 160px auto;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .ResponsiveLayoutLeft {
+    grid-template-columns: 67px auto;
+  }
+}
