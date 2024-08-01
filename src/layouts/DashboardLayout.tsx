@@ -21,7 +21,7 @@ function Container({ children }: ChildrenProp) {
   )
 }
 
-const Content = ({ children }: ChildrenProp) => {
+function Content({ children }: ChildrenProp) {
   return (
     <div className='h-full w-full overflow-hidden bg-[#fafafa]'>
       <div className='h-full w-full overflow-auto'>
