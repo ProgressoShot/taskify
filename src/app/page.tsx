@@ -1,21 +1,6 @@
 'use client'
-import Link from 'next/link'
-import { useState } from 'react'
 
-import RootHeader from '@/layouts/RootHeader'
-import useAuthStore from '@/store/authSampleStore'
-
-export default function LandingPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const { isAuthenticated, login, user } = useAuthStore()
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    login(username, password)
-    setUsername('')
-    setPassword('')
-  }
+export default function Home() {
   return (
     <>
       <RootHeader theme='dark'>
