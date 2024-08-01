@@ -23,14 +23,14 @@ export default function MyDashboard() {
         </RootHeader.Features>
       </RootHeader>
       <DashboardLayout.Container>
-        <DashboardLayout.Aside>
+        <DashboardLayout.Sidebar>
           {/**
            * @JuhyeokC
            * @todo
            * 사이드 컴포넌트 구현 필요
            */}
           aside
-        </DashboardLayout.Aside>
+        </DashboardLayout.Sidebar>
         <DashboardLayout.Content>
           {/**
            * @JuhyeokC
