@@ -1,16 +1,13 @@
 import { DashboardName, DashboardNameProps } from '@/components/DashboardName'
 
-type DashboardInfo = {
-  id: number
-  title: string
-  color: string
-  createdAt: Date
-  updatedAt: Date
-  createdByMe: Boolean
-  userId: number
-}
-
 interface DashboardCardProps extends DashboardNameProps {
+  id?: number
+  title?: string
+  color?: string
+  createdAt?: Date
+  updatedAt?: Date
+  createdByMe?: Boolean
+  userId?: number
   onClick?: () => void
 }
 
