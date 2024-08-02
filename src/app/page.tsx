@@ -1,11 +1,9 @@
 'use client'
-import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
-import Button from '@/components/Button'
+import RootHeader from '@/layouts/RootHeader'
 import useAuthStore from '@/store/authSampleStore'
-import RootHeader from "@/layouts/RootHeader";
-import Link from "next/link";
 
 export default function LandingPage() {
   const [username, setUsername] = useState('')
@@ -23,15 +21,17 @@ export default function LandingPage() {
       <RootHeader theme='dark'>
         <RootHeader.Features theme='dark'>
           <div className='flex gap-9'>
-            <Link href={'/auth/login'}>로그인</Link>
-            <Link href={'/auth/sign'}>회원가입</Link>
+            <Link href={'/login'}>로그인</Link>
+            <Link href={'/sign'}>회원가입</Link>
           </div>
         </RootHeader.Features>
       </RootHeader>
       <main className='flex min-h-screen flex-col items-center justify-between p-24'>
         {isAuthenticated ? `is login - ${user?.username}` : 'is logout'}
 
-        <p>id:user, pw:password를 입력하면 zustand의 store데이터가 변경됩니다</p>
+        <p>
+          id:user, pw:password를 입력하면 zustand의 store데이터가 변경됩니다
+        </p>
 
         {!isAuthenticated && (
           <form onSubmit={handleLogin}>
