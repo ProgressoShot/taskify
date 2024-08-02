@@ -8,7 +8,14 @@
     "react/react-in-jsx-scope": "off", // React import
     "react/jsx-uses-react": "off", // js/jsx 구분
     "simple-import-sort/imports": "error", // import sort
-    "simple-import-sort/exports": "error" // export sort
+    "simple-import-sort/exports": "error", // export sort
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
   },
   "settings": {
     "import/parsers": {
