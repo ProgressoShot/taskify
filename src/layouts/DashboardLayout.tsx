@@ -4,7 +4,7 @@ import styles from './ResponsiveLayout.module.css'
 import RootSidebar from './RootSidebar'
 
 export type ChildrenProp = {
-  children: ReactElement | any
+  children: React.PropsWithChildren | any
 }
 
 function DashboardLayout({ children }: ChildrenProp) {
@@ -23,9 +23,9 @@ function Container({ children }: ChildrenProp) {
 
 function Content({ children }: ChildrenProp) {
   return (
-    <div className='h-full w-full overflow-hidden bg-[#fafafa]'>
+    <div className='h-full w-full overflow-hidden bg-[#fafafa] text-custom-black-200'>
       <div className='h-full w-full overflow-auto'>
-        <article>{children}</article>
+        <article className='p-10'>{children}</article>
       </div>
     </div>
   )
