@@ -1,5 +1,3 @@
-'use client'
-
 import AddSquareIcon from '@/assets/add-square.svg'
 
 import { ChildrenProp } from './DashboardLayout'
