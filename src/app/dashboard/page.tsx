@@ -1,7 +1,7 @@
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
 
-export default function MyDashboard() {
+export default function DashboardPage() {
   return (
     <DashboardLayout>
       <RootHeader border>

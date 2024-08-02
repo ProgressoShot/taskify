@@ -7,7 +7,7 @@ import useAuthStore from '@/store/authSampleStore'
 import RootHeader from "@/layouts/RootHeader";
 import Link from "next/link";
 
-export default function Home() {
+export default function LandingPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { isAuthenticated, login, user } = useAuthStore()
