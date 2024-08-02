@@ -40,11 +40,13 @@ export function DashboardName({ type, children }: DashboardNameProps) {
     crown: type === 'side' ? 'scale-90 hidden md:block' : 'scale-100',
   }
 
+  const color = 'green'
+
   return (
     <article className={`flex items-center ${classNames.wrap}`}>
       <section className={`flex items-center ${classNames.gap}`}>
         {type !== 'add' && (
-          <BulletIcon className={classNames.mr} fill='#7AC555' />
+          <BulletIcon className={`text-custom-${color} ${classNames.mr}`} />
         )}
         <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
         {type === 'add' && <AddBoxIcon />}
