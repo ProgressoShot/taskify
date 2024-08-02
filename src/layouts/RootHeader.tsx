@@ -11,7 +11,7 @@ export type HeaderProps = HeaderContextProps & { children?: any }
 function RootHeader({ theme, border, children }: HeaderProps) {
   return (
     <header
-      className={`grid h-[70px] w-screen ${styles['ResponsiveLayoutLeft']} ${theme === 'dark' ? '#000000' : 'bg-[#ffffff]'}`}
+      className={`grid h-[70px] w-full ${styles['ResponsiveLayoutLeft']} ${theme === 'dark' ? '#000000' : 'bg-[#ffffff]'}`}
     >
       <div
         className={`h-full w-full overflow-hidden px-4 py-4 md:px-6 ${border ? 'border-r-[1px] border-[#d9d9d9]' : ''}`}
