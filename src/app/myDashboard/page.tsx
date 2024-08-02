@@ -1,50 +1,7 @@
-import { DashboardName, DashboardNameProps } from '@/components/DashboardName'
-import DashboardLayout, { ChildrenProp } from '@/layouts/DashboardLayout'
+import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
 
-type DashboardInfo = {
-  id: number
-  title: string
-  color: string
-  createdAt: Date
-  updatedAt: Date
-  createdByMe: Boolean
-  userId: number
-}
-
-interface DashboardCardProps extends DashboardNameProps {
-  onClick?: () => void
-}
-
-function DashboardCard({ type, children, onClick }: DashboardCardProps) {
-  const classNames =
-    type === 'side'
-      ? 'py-3 px-4'
-      : 'round-container h-full w-full border border-custom-gray-300 bg-white p-5'
-
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-lg transition hover:bg-custom-gray-100 ${classNames}`}
-    >
-      <DashboardName type={type}>{children}</DashboardName>
-    </button>
-  )
-}
-
-function DashboardCardList({ children }: ChildrenProp) {
-  return (
-    <section
-      className='grid gap-4'
-      style={{
-        gridTemplateColumns: 'repeat(3, 1fr)',
-      }}
-    >
-      <DashboardCard type='add'>새로운 대시보드</DashboardCard>
-      {children}
-    </section>
-  )
-}
+import { DashboardCard } from './components/DashboardCard'
 
 const DASHBOARD_TEMP_ARRAY = Array.from(
   { length: 5 },
@@ -93,7 +50,15 @@ export default function MyDashboard() {
            * @todo
            * 나의 대시보드 컴포넌트 구현 필요
            */}
-          <DashboardCardList>
+
+          <section
+            className='grid gap-4'
+            style={{
+              gridTemplateColumns: 'repeat(3, 1fr)',
+            }}
+          >
+            <DashboardCard type='add'>새로운 대시보드</DashboardCard>
+
             {DASHBOARD_TEMP_ARRAY.map((item, index) => {
               return (
                 <DashboardCard type='card' key={`dashboard-card-${index}`}>
@@ -101,7 +66,7 @@ export default function MyDashboard() {
                 </DashboardCard>
               )
             })}
-          </DashboardCardList>
+          </section>
         </DashboardLayout.Content>
       </DashboardLayout.Container>
     </DashboardLayout>
