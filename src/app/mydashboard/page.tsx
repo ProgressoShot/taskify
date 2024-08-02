@@ -1,6 +1,5 @@
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
-
 import { DashboardCard } from './components/DashboardCard'
 
 const DASHBOARD_TEMP_ARRAY = Array.from(
