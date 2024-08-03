@@ -11,7 +11,7 @@ export type HeaderProps = HeaderContextProps & { children?: any }
 function RootHeader({ theme, border, children }: HeaderProps) {
   return (
     <header
-      className={`grid h-[70px] w-full ${styles['ResponsiveLayoutLeft']} ${theme === 'dark' ? '#000000' : 'bg-[#ffffff]'}`}
+      className={`grid h-[70px] w-full dark:bg-black ${styles['ResponsiveLayoutLeft']}`}
     >
       <div
         className={`h-full w-full overflow-hidden px-4 py-4 md:px-6 ${border ? 'border-r-[1px] border-[#d9d9d9]' : ''}`}
@@ -30,12 +30,12 @@ function RootHeader({ theme, border, children }: HeaderProps) {
 }
 
 function Title({ theme, children }: HeaderProps) {
-  const classNames = `flex flex-1 h-full items-center ${theme === 'dark' ? 'text-[#ffffff]' : 'text-[#333236]'}`
+  const classNames = `flex flex-1 h-full items-center text-[#333236] dark:text-white }`
   return <section className={classNames}>{children}</section>
 }
 
 function Features({ theme, children }: HeaderProps) {
-  const classNames = `flex h-full items-center ${theme === 'dark' ? 'text-[#ffffff]' : 'text-[#333236]'}`
+  const classNames = `flex h-full items-center dark:text-white text-[#333236]`
   return <section className={classNames}>{children}</section>
 }
 

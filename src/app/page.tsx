@@ -4,21 +4,20 @@ import Link from 'next/link'
 import IconFacebook from '/public/icons/facebook.svg'
 import IconInsta from '/public/icons/instagram.svg'
 import IconMail from '/public/icons/mail.svg'
-import Button from '@/components/Button'
 import RootHeader from '@/layouts/RootHeader'
 
 export default function Home() {
   return (
     <>
-      <RootHeader theme='dark'>
-        <RootHeader.Features theme='dark'>
+      <RootHeader>
+        <RootHeader.Features>
           <div className='flex gap-9'>
             <Link href={'/auth/login'}>로그인</Link>
             <Link href={'/auth/sign'}>회원가입</Link>
           </div>
         </RootHeader.Features>
       </RootHeader>
-      <main className='flex min-h-screen flex-col items-center justify-between gap-24 bg-black p-[40px] text-white'>
+      <main className='flex min-h-screen flex-col items-center justify-between gap-24 p-[40px] dark:bg-black dark:text-white'>
         <Image
           src='/images/banner.svg'
           width={722}
@@ -34,11 +33,14 @@ export default function Home() {
           </span>
         </h1>
 
-        <Button className='mb-44 inline-flex h-[54px] w-72 items-center justify-center gap-2.5 rounded-lg px-[101px] py-[9px] text-center text-[18px] font-medium'>
+        <Link
+          href=''
+          className='mb-44 flex h-8 h-[54px] w-auto items-center justify-center gap-[6px] rounded-lg bg-custom-violet px-[101px] py-[9px] text-center text-lg font-medium text-white disabled:bg-custom-gray-200 disabled:text-white md:gap-2'
+        >
           로그인하기
-        </Button>
+        </Link>
 
-        <section className='flex h-[600px] w-full max-w-screen-xl gap-24 rounded-lg bg-custom-black-300'>
+        <section className='flex h-[600px] w-full max-w-screen-xl gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300'>
           <div className='ml-16 basis-1/2'>
             <div className='mb-24 mt-28 text-[22px] font-medium text-gray-400'>
               Point 1
@@ -57,7 +59,7 @@ export default function Home() {
             />
           </div>
         </section>
-        <section className='flex h-[600px] w-full max-w-screen-xl flex-row-reverse gap-24 rounded-lg bg-custom-black-300'>
+        <section className='flex h-[600px] w-full max-w-screen-xl flex-row-reverse gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300'>
           <div className='basis-1/2'>
             <div className='mb-24 mt-28 text-[22px] font-medium text-gray-400'>
               Point 2
@@ -82,7 +84,7 @@ export default function Home() {
           </h3>
           <ul className='flex w-full justify-center gap-8'>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-neutral-600 align-middle'>
+              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
                 <Image
                   className='object-contain'
                   src='/images/landing-03.png'
@@ -92,15 +94,17 @@ export default function Home() {
                 />
               </div>
 
-              <div className='bg-custom-black-300 p-8'>
-                <h4 className='text-lg font-bold'>대시보드 설정</h4>
+              <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
+                <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  대시보드 설정
+                </h4>
                 <p className='font-base text-medium'>
                   대시보드 사진과 이름을 변경할 수 있어요.
                 </p>
               </div>
             </li>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-neutral-600 align-middle'>
+              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
                 <Image
                   className='object-contain'
                   src='/images/landing-04.png'
@@ -109,15 +113,17 @@ export default function Home() {
                   height={231}
                 />
               </div>
-              <div className='bg-custom-black-300 p-8'>
-                <h4 className='text-lg font-bold'>초대</h4>
+              <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
+                <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  초대
+                </h4>
                 <p className='font-base text-medium'>
                   새로운 팀원을 초대할 수 있어요.
                 </p>
               </div>
             </li>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-neutral-600 align-middle'>
+              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
                 <Image
                   className='object-contain'
                   src='/images/landing-05.png'
@@ -126,8 +132,10 @@ export default function Home() {
                   height={195}
                 />
               </div>
-              <div className='bg-custom-black-300 p-8'>
-                <h4 className='text-lg font-bold'>구성원</h4>
+              <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
+                <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  구성원
+                </h4>
                 <p className='font-base text-medium'>
                   구성원을 초대하고 내보낼 수 있어요.
                 </p>
@@ -136,7 +144,7 @@ export default function Home() {
           </ul>
         </section>
       </main>
-      <footer className='bg-black text-custom-black-100'>
+      <footer className='text-custom-black-100 dark:bg-black dark:text-custom-black-100'>
         <div className='mx-36 flex h-[100px] place-content-between items-center'>
           <div className='flex items-center'>©codeit - 2023</div>
           <div className='flex h-auto items-center gap-4'>
@@ -147,8 +155,8 @@ export default function Home() {
               FAQ
             </Link>
           </div>
-          <div className='flex gap-4'>
-            <Link href='' className='p-2' aria-label='이메일 링크'>
+          <div className='flex items-center gap-4'>
+            <Link href='mailto:' className='p-2' aria-label='이메일 링크'>
               <IconMail />
             </Link>
             <Link href='' className='p-2' aria-label='페이스북 링크'>
