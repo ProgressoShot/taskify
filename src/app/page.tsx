@@ -21,9 +21,10 @@ export default function Home() {
         <Image
           src='/images/banner.svg'
           width={722}
-          height={422}
+          height={423}
           alt='사람들이 회의하는 모습'
-          className='mx-16'
+          className='mx-16 h-[423px] w-[722px]'
+          priority={true}
         />
 
         <h1 className='mt-10 text-center text-[76px] font-bold leading-[100px]'>
@@ -35,7 +36,7 @@ export default function Home() {
 
         <Link
           href=''
-          className='mb-44 flex h-8 h-[54px] w-auto items-center justify-center gap-[6px] rounded-lg bg-custom-violet px-[101px] py-[9px] text-center text-lg font-medium text-white disabled:bg-custom-gray-200 disabled:text-white md:gap-2'
+          className='mb-44 flex h-[54px] w-auto items-center justify-center gap-[6px] rounded-lg bg-custom-violet px-[101px] py-[9px] text-center text-lg font-medium text-white disabled:bg-custom-gray-200 disabled:text-white md:gap-2'
         >
           로그인하기
         </Link>
@@ -46,12 +47,12 @@ export default function Home() {
               Point 1
             </div>
             <h2 className='break-keep text-5xl font-bold leading-[64px]'>
-              일의 우선순위를 관리하세요
+              일의 우선순위를 <br /> 관리하세요
             </h2>
           </div>
-          <div className='justify-right flex basis-1/2 align-bottom'>
+          <div className='justify-right flex basis-1/2 items-end'>
             <Image
-              className='object-contain object-bottom'
+              className='h-[497px] w-[594px] object-contain object-bottom'
               src='/images/landing-01.svg'
               width={594}
               height={497}
@@ -65,12 +66,13 @@ export default function Home() {
               Point 2
             </div>
             <h2 className='break-keep text-5xl font-bold leading-[64px]'>
-              해야 할 일을 등록하세요
+              해야 할 일을 <br />
+              등록하세요
             </h2>
           </div>
-          <div className='flex basis-1/2 justify-center align-bottom'>
+          <div className='flex basis-1/2 items-end justify-center'>
             <Image
-              className='justify-center object-contain object-bottom'
+              className='h-[502px] w-[436px] object-contain'
               src='/images/landing-02.svg'
               width={436}
               height={502}
@@ -84,9 +86,9 @@ export default function Home() {
           </h3>
           <ul className='flex w-full justify-center gap-8'>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
+              <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
                 <Image
-                  className='object-contain'
+                  className='h-[124px] w-[300px] object-contain'
                   src='/images/landing-03.png'
                   alt='대시보드 캡쳐 화면'
                   width={300}
@@ -104,9 +106,9 @@ export default function Home() {
               </div>
             </li>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
+              <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
                 <Image
-                  className='object-contain'
+                  className='h-[231px] w-[300px] object-contain'
                   src='/images/landing-04.png'
                   alt='초대 캡쳐 화면'
                   width={300}
@@ -123,9 +125,9 @@ export default function Home() {
               </div>
             </li>
             <li className='w-full overflow-hidden rounded-lg'>
-              <div className='flex h-[260px] justify-center bg-custom-violet align-middle dark:bg-neutral-600'>
+              <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
                 <Image
-                  className='object-contain'
+                  className='h-[195px] w-[300px] object-contain'
                   src='/images/landing-05.png'
                   alt='구성원 목록 캡쳐 화면'
                   width={300}

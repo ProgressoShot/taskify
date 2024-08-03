@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='ko'>
+    <html lang='ko' suppressHydrationWarning>
       <head>
         <title>Taskify - 새로운 일정 관리</title>
       </head>
