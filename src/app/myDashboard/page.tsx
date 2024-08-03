@@ -1,13 +1,12 @@
 'use client'
 
+import DashboardCard from '@/components/DashboardCard'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
 
-import { DashboardCard } from './components/DashboardCard'
-
-const DASHBOARD_TEMP_ARRAY = Array.from(
+const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   { length: 5 },
-  (_, index) => `대시보드-${index + 1}`
+  (_: never, index: number) => `대시보드-${index + 1}`
 )
 
 export default function MyDashboard() {
@@ -46,7 +45,7 @@ export default function MyDashboard() {
             )
           })}
         </DashboardLayout.Sidebar>
-        <DashboardLayout.Content className='grid max-w-5xl gap-4'>
+        <DashboardLayout.Content className='pd-10 grid max-w-5xl gap-4 p-10'>
           {/**
            * @JuhyeokC
            * @todo
