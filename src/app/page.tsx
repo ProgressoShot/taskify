@@ -1,9 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import IconFacebook from '/public/icons/facebook.svg'
-import IconInsta from '/public/icons/instagram.svg'
-import IconMail from '/public/icons/mail.svg'
+import LandingFooter from '@/LandingFooter'
 import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
@@ -20,19 +18,19 @@ export default function Home() {
             </div>
           </RootHeader.Features>
         </RootHeader>
-        <main className='flex min-h-screen flex-col items-center justify-between gap-24 p-[40px] dark:bg-black dark:text-white'>
+        <main className='flex min-h-screen flex-col items-center justify-between gap-16 p-4 dark:bg-black dark:text-white xl:gap-24 xl:p-[40px]'>
           <Image
             src='/images/banner.svg'
             width={722}
             height={423}
             alt='사람들이 회의하는 모습'
-            className='mx-16 h-[423px] w-[722px]'
+            className='mx-16 mt-24 h-auto w-full max-w-[540px] xl:h-[423px] xl:w-[722px] xl:max-w-[722px]'
             priority={true}
           />
 
-          <h1 className='mt-10 text-center text-[76px] font-bold leading-[100px]'>
+          <h1 className='mt-10 text-center text-[40px] font-bold sm:text-[70px] xl:text-[76px] xl:leading-[100px]'>
             새로운 일정 관리{' '}
-            <span className='font-montserrat text-[90px] font-bold leading-[65px] text-indigo-600'>
+            <span className='font-montserrat text-[42px] font-bold text-indigo-600 sm:text-[70px] xl:text-[90px] xl:leading-[65px]'>
               Taskify
             </span>
           </h1>
@@ -44,18 +42,18 @@ export default function Home() {
             로그인하기
           </Link>
 
-          <section className='flex h-[600px] w-full max-w-screen-xl gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300'>
-            <div className='ml-16 basis-1/2'>
-              <div className='mb-24 mt-28 text-[22px] font-medium text-gray-400'>
+          <section className='w-full max-w-[664px] gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300 xl:flex xl:h-[600px] xl:max-w-screen-xl'>
+            <div className='basis-1/2 sm:ml-16'>
+              <div className='mb-20 mt-14 text-center text-[22px] font-medium text-gray-400 sm:text-left xl:mb-24 xl:mt-28'>
                 Point 1
               </div>
-              <h2 className='break-keep text-5xl font-bold leading-[64px]'>
+              <h2 className='leading-break-keep mb-40 text-center text-[36px] font-bold leading-snug sm:mb-72 sm:text-left xl:text-5xl'>
                 일의 우선순위를 <br /> 관리하세요
               </h2>
             </div>
-            <div className='justify-right flex basis-1/2 items-end'>
+            <div className='justify-right flex basis-1/2 items-end pl-12'>
               <Image
-                className='h-[497px] w-[594px] object-contain object-bottom'
+                className='object-contain object-bottom sm:ml-auto xl:h-[497px] xl:w-[594px]'
                 src='/images/landing-01.svg'
                 width={594}
                 height={497}
@@ -63,19 +61,19 @@ export default function Home() {
               />
             </div>
           </section>
-          <section className='flex h-[600px] w-full max-w-screen-xl flex-row-reverse gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300'>
-            <div className='basis-1/2'>
-              <div className='mb-24 mt-28 text-[22px] font-medium text-gray-400'>
+          <section className='w-full max-w-[664px] flex-row-reverse gap-24 rounded-lg bg-[#F1EFFD] dark:bg-custom-black-300 xl:flex xl:h-[600px] xl:max-w-screen-xl'>
+            <div className='basis-1/2 sm:ml-16'>
+              <div className='mb-20 mt-14 text-center text-[22px] font-medium text-gray-400 sm:text-left xl:mb-24 xl:mt-28'>
                 Point 2
               </div>
-              <h2 className='break-keep text-5xl font-bold leading-[64px]'>
+              <h2 className='leading-break-keep mb-40 text-center text-[36px] font-bold leading-snug sm:mb-72 sm:text-left xl:text-5xl'>
                 해야 할 일을 <br />
                 등록하세요
               </h2>
             </div>
-            <div className='flex basis-1/2 items-end justify-center'>
+            <div className='flex basis-1/2 items-end justify-center px-16'>
               <Image
-                className='h-[502px] w-[436px] object-contain'
+                className='h-auto w-auto object-contain xl:h-[502px] xl:w-[436px]'
                 src='/images/landing-02.svg'
                 width={436}
                 height={502}
@@ -84,12 +82,12 @@ export default function Home() {
             </div>
           </section>
           <section className='w-full max-w-screen-xl'>
-            <h3 className='mb-8 w-full text-left text-[28px] font-bold'>
+            <h3 className='mb-8 mt-16 w-full text-center text-[28px] font-bold xl:text-left'>
               생산성을 높이는 다양한 설정 ⚡
             </h3>
-            <ul className='flex w-full justify-center gap-8'>
+            <ul className='mx-auto flex w-full max-w-96 flex-col items-center justify-center gap-8 xl:max-w-full xl:flex-row'>
               <li className='w-full overflow-hidden rounded-lg'>
-                <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
+                <div className='flex h-[260px] items-center justify-center bg-custom-violet px-10 dark:bg-neutral-600'>
                   <Image
                     className='h-[124px] w-[300px] object-contain'
                     src='/images/landing-03.png'
@@ -100,7 +98,7 @@ export default function Home() {
                 </div>
 
                 <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
-                  <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  <h4 className='mb-4 text-lg font-bold text-custom-violet dark:text-white'>
                     대시보드 설정
                   </h4>
                   <p className='font-base text-medium'>
@@ -109,7 +107,7 @@ export default function Home() {
                 </div>
               </li>
               <li className='w-full overflow-hidden rounded-lg'>
-                <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
+                <div className='flex h-[260px] items-center justify-center bg-custom-violet px-10 dark:bg-neutral-600'>
                   <Image
                     className='h-[231px] w-[300px] object-contain'
                     src='/images/landing-04.png'
@@ -119,7 +117,7 @@ export default function Home() {
                   />
                 </div>
                 <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
-                  <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  <h4 className='mb-4 text-lg font-bold text-custom-violet dark:text-white'>
                     초대
                   </h4>
                   <p className='font-base text-medium'>
@@ -128,7 +126,7 @@ export default function Home() {
                 </div>
               </li>
               <li className='w-full overflow-hidden rounded-lg'>
-                <div className='flex h-[260px] items-center justify-center bg-custom-violet dark:bg-neutral-600'>
+                <div className='flex h-[260px] items-center justify-center bg-custom-violet px-10 dark:bg-neutral-600'>
                   <Image
                     className='h-[195px] w-[300px] object-contain'
                     src='/images/landing-05.png'
@@ -138,7 +136,7 @@ export default function Home() {
                   />
                 </div>
                 <div className='bg-[#F1EFFD] p-8 dark:bg-custom-black-300'>
-                  <h4 className='mb-4 text-lg font-bold text-custom-violet'>
+                  <h4 className='mb-4 text-lg font-bold text-custom-violet dark:text-white'>
                     구성원
                   </h4>
                   <p className='font-base text-medium'>
@@ -149,30 +147,8 @@ export default function Home() {
             </ul>
           </section>
         </main>
-        <footer className='text-custom-black-100 dark:bg-black dark:text-custom-black-100'>
-          <div className='mx-36 flex h-[100px] place-content-between items-center'>
-            <div className='flex items-center'>©codeit - 2023</div>
-            <div className='flex h-auto items-center gap-4'>
-              <Link href='' className='p-2'>
-                Privacy Policy
-              </Link>
-              <Link href='' className='p-2'>
-                FAQ
-              </Link>
-            </div>
-            <div className='flex items-center gap-4'>
-              <Link href='mailto:' className='p-2' aria-label='이메일 링크'>
-                <IconMail />
-              </Link>
-              <Link href='' className='p-2' aria-label='페이스북 링크'>
-                <IconFacebook />
-              </Link>
-              <Link href='' className='p-2' aria-label='인스타그램 링크'>
-                <IconInsta />
-              </Link>
-            </div>
-          </div>
-        </footer>
+        <div className='hidden h-auto flex-col items-center sm:mx-36 sm:mt-0 sm:h-[100px] sm:flex-row sm:justify-between'></div>
+        <LandingFooter />
       </Providers>
     </>
   )
