@@ -1,4 +1,5 @@
 'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -10,6 +11,7 @@ import Button from '@/components/Button'
 import RootHeader from '@/layouts/RootHeader'
 
 export default function Home() {
+
   return (
     <>
       <RootHeader theme='dark'>
@@ -162,6 +164,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
     </>
   )
 }
