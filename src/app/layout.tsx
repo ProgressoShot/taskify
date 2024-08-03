@@ -22,9 +22,7 @@ export default function RootLayout({
       <head>
         <title>Taskify - 새로운 일정 관리</title>
       </head>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
