@@ -9,7 +9,7 @@ const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   (_: never, index: number) => `대시보드-${index + 1}`
 )
 
-export default function MyDashboard() {
+export default function MyDashboardPage() {
   return (
     <DashboardLayout>
       <RootHeader border>
