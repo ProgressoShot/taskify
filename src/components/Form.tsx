@@ -1,8 +1,6 @@
 import cn from 'classnames'
 import { ReactNode } from 'react'
 
-import Button from '@/components/Button'
-
 interface BasicProps {
   children: ReactNode
   className: string
@@ -11,18 +9,19 @@ interface BasicProps {
 interface FormProps extends BasicProps {
   formId: string
 }
+
 interface LabelProps extends BasicProps {}
 
 type InputType = 'email' | 'password' | 'text'
+type InputName = 'email' | 'nickname' | 'password' | 'passwordConfirm'
 
 interface InputProps {
   children?: ReactNode
   className: string
-  type?: InputType
+  type: InputType
+  name: InputName
   required?: boolean
 }
-
-interface SubmitProps extends BasicProps {}
 
 export default function Form({ children, className, formId }: FormProps) {
   const formClass = cn('max-w-[520px]', className)
@@ -42,9 +41,9 @@ function LabelHeader({ children, className }: LabelProps) {
   return <h3 className={headerClass}> {children} </h3>
 }
 
-function Input({ children, className, type, required }: InputProps) {
+function Input({ children, className, name, type, required }: InputProps) {
   const inputClass = cn(
-    'block w-full rounded-lg border border-custom-gray-200 px-4 py-3 placeholder:text-custom-gray-200',
+    'block w-full rounded-lg border border-custom-gray-300 px-4 py-3 placeholder:text-custom-gray-400',
     className
   )
   return (
@@ -52,24 +51,15 @@ function Input({ children, className, type, required }: InputProps) {
       {children}
       <input
         className={inputClass}
+        name={name}
         type={type}
         required={required}
-        placeholder={`${type} 을/를 입력해주세요`}
+        placeholder={`${name} 을/를 입력해주세요`}
       />
     </div>
-  )
-}
-
-function Submit({ children, className }: SubmitProps) {
-  const submitClass = cn('h-[50px] w-full', className)
-  return (
-    <Button className={submitClass} type='submit'>
-      {children}
-    </Button>
   )
 }
 
 Form.Label = Label
 Form.LabelHeader = LabelHeader
 Form.Input = Input
-Form.Submit = Submit
