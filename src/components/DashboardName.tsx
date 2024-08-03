@@ -1,30 +1,36 @@
-import { ChildrenProp } from '@/layouts/DashboardLayout'
-
 import AddBoxIcon from '../../public/icons/add-box2.svg'
 import BulletIcon from '../../public/icons/bullet.svg'
 import CaretRightIcon from '../../public/icons/caret-right.svg'
 import CrownIcon from '../../public/icons/crown.svg'
 
-type DashboardCardType = 'card' | 'side' | 'add'
+type Colors = 'violet' | 'red' | 'green' | 'purple' | 'orange' | 'blue' | 'pink'
 
-export interface DashboardNameProps {
-  type: DashboardCardType
-  children: ChildrenProp | any
+const COLOR_PRESET: Record<Colors, string> = {
+  violet: 'text-custom-violet',
+  red: 'text-custom-red',
+  green: 'text-custom-green',
+  purple: 'text-custom-purple',
+  orange: 'text-custom-orange',
+  blue: 'text-custom-blue',
+  pink: 'text-custom-pink',
 }
 
-export function DashboardName({ type, children }: DashboardNameProps) {
+type DashboardCardType = 'card' | 'side' | 'add'
+
+export interface DashboardCardTypeProp {
+  type: DashboardCardType
+}
+
+export default function DashboardName({
+  children,
+  type,
+}: React.PropsWithChildren & DashboardCardTypeProp) {
   /**
    * @todo
    * 1. BulletIcon fill 색상 color 받아오기
    * 2. CrownIcon 출력조건 createByMe 받아오기
    */
-  const classNames: {
-    wrap: string
-    gap: string
-    mr: string
-    txt: string
-    crown: string
-  } = {
+  const classNames: Record<string, string> = {
     wrap:
       type === 'add'
         ? 'justify-center'
@@ -40,11 +46,13 @@ export function DashboardName({ type, children }: DashboardNameProps) {
     crown: type === 'side' ? 'scale-90 hidden md:block' : 'scale-100',
   }
 
+  const color: Colors = 'blue'
+
   return (
     <article className={`flex items-center ${classNames.wrap}`}>
       <section className={`flex items-center ${classNames.gap}`}>
         {type !== 'add' && (
-          <BulletIcon className={classNames.mr} fill='#7AC555' />
+          <BulletIcon className={`${COLOR_PRESET[color]} ${classNames.mr}`} />
         )}
         <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
         {type === 'add' && <AddBoxIcon />}

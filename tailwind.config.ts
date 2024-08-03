@@ -6,6 +6,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/layouts/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/*.{js,ts,jsx,tsx,mdx}',
 
     // `src` directory를 사용한다면
     // './src/**/*.{js,ts,jsx,tsx,mdx}',
@@ -26,6 +27,9 @@ const config: Config = {
           orange: '#FFA500',
           blue: '#76A5EA',
           pink: '#E876EA',
+          light: {
+            violet: '#F1EFFD',
+          },
           black: {
             100: '#4B4B4B',
             200: '#333236',
