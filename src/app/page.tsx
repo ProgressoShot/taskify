@@ -1,7 +1,6 @@
-'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 
 import IconFacebook from '/public/icons/facebook.svg'
 import IconInsta from '/public/icons/instagram.svg'
