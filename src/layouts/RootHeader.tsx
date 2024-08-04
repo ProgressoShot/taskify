@@ -7,62 +7,45 @@ import styles from './ResponsiveLayout.module.css'
 
 export const HEADER_HEIGHT = 70
 
-type Theme = 'dark' | 'light'
-interface ThemeProp {
-  theme?: Theme
-}
-
 interface BorderProp {
   border?: boolean
 }
 
-interface HeaderProps extends ThemeProp, BorderProp {}
-
-function Logo({ theme }: ThemeProp) {
-  const fill: string = theme === 'dark' ? 'text-white' : 'text-custom-violet'
-  const classNames: Record<string, string> = {
-    icon: cn('hidden md:block', fill),
-    symbol: cn('block md:hidden', fill),
-  }
-
+function Logo() {
   return (
     <section className='flex h-full w-full items-center justify-center md:justify-start'>
       <Link href={'/'}>
-        <LogoIcon className={classNames.icon} />
-        <LogoSymbol className={classNames.symbol} />
+        <LogoIcon className='hidden text-custom-violet md:block dark:text-white' />
+        <LogoSymbol className='block text-custom-violet md:hidden dark:text-white' />
       </Link>
     </section>
   )
 }
 
-function Title({ children, theme }: React.PropsWithChildren & ThemeProp) {
-  const classNames: string = cn(
-    'flex flex-1 h-full items-center',
-    theme === 'dark' ? 'text-white' : 'text-custom-black-200'
+function Title({ children }: React.PropsWithChildren) {
+  return (
+    <section className='flex h-full flex-1 items-center text-custom-black-200 dark:text-white'>
+      {children}
+    </section>
   )
-
-  return <section className={classNames}>{children}</section>
 }
 
-function Features({ children, theme }: React.PropsWithChildren & ThemeProp) {
-  const classNames: string = cn(
-    'flex h-full items-center',
-    theme === 'dark' ? 'text-white' : 'text-custom-black-200'
+function Features({ children }: React.PropsWithChildren) {
+  return (
+    <section className='flex h-full items-center text-custom-black-200 dark:text-white'>
+      {children}
+    </section>
   )
-
-  return <section className={classNames}>{children}</section>
 }
 
 function RootHeader({
   children,
-  theme,
   border,
-}: React.PropsWithChildren & ThemeProp & BorderProp) {
+}: React.PropsWithChildren & BorderProp) {
   const classNames: Record<string, string> = {
     wrap: cn(
-      `grid h-[${HEADER_HEIGHT}px] w-full`,
-      styles['ResponsiveLayoutLeft'],
-      theme !== 'dark' && 'bg-white'
+      `grid h-[${HEADER_HEIGHT}px] w-full dark:bg-black`,
+      styles['ResponsiveLayoutLeft']
     ),
     left: cn(
       'h-full w-full overflow-hidden px-4 py-4 md:px-6',
@@ -77,7 +60,7 @@ function RootHeader({
   return (
     <header className={classNames.wrap}>
       <div className={classNames.left}>
-        <Logo theme={theme} />
+        <Logo />
       </div>
       <div className={classNames.right}>
         <section className='relative flex h-full w-full items-center justify-end'>

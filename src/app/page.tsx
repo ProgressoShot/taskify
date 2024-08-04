@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 
 import IconFacebook from '/public/icons/facebook.svg'
 import IconInsta from '/public/icons/instagram.svg'
@@ -9,7 +8,6 @@ import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
 
-export default function Home() {
 export default function Home() {
   return (
     <>
