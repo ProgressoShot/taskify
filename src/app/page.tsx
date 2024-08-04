@@ -147,7 +147,7 @@ export default function Home() {
             </ul>
           </section>
         </main>
-        <div className='hidden h-auto flex-col items-center sm:mx-36 sm:mt-0 sm:h-[100px] sm:flex-row sm:justify-between'></div>
+        <div className='sm:mb- hidden h-auto flex-col items-center sm:mx-36 sm:mt-0 sm:h-[100px] sm:flex-row sm:justify-between'></div>
         <LandingFooter />
       </Providers>
     </>
