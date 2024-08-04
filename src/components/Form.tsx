@@ -21,6 +21,15 @@ interface InputProps {
   type: InputType
   name: InputName
   required?: boolean
+  placeholder?: string
+}
+
+interface TextAreaProps {
+  children?: ReactNode
+  className: string
+  name: InputName
+  required?: boolean
+  placeholder?: string
 }
 
 export default function Form({ children, className, formId }: FormProps) {
@@ -41,7 +50,14 @@ function LabelHeader({ children, className }: LabelProps) {
   return <h3 className={headerClass}> {children} </h3>
 }
 
-function Input({ children, className, name, type, required }: InputProps) {
+function Input({
+  children,
+  className,
+  name,
+  type,
+  required,
+  placeholder,
+}: InputProps) {
   const inputClass = cn(
     'block w-full rounded-lg border border-custom-gray-300 px-4 py-3 placeholder:text-custom-gray-400',
     className
@@ -54,7 +70,31 @@ function Input({ children, className, name, type, required }: InputProps) {
         name={name}
         type={type}
         required={required}
-        placeholder={`${name} 을/를 입력해주세요`}
+        placeholder={`${placeholder}을/를 입력해주세요`}
+      />
+    </div>
+  )
+}
+
+function TextArea({
+  children,
+  className,
+  name,
+  required,
+  placeholder,
+}: TextAreaProps) {
+  const textAreaClass = cn(
+    'block h-[126px] w-full resize-none rounded-lg border border-custom-gray-300 px-4 py-3 placeholder:text-custom-gray-400block w-full rounded-lg border border-custom-gray-300 px-4 py-3 placeholder:text-custom-gray-400 resize-none',
+    className
+  )
+  return (
+    <div className='relative'>
+      {children}
+      <textarea
+        className={textAreaClass}
+        name={name}
+        required={required}
+        placeholder={`${placeholder}을/를 입력해주세요`}
       />
     </div>
   )
@@ -63,3 +103,4 @@ function Input({ children, className, name, type, required }: InputProps) {
 Form.Label = Label
 Form.LabelHeader = LabelHeader
 Form.Input = Input
+Form.TextArea = TextArea
