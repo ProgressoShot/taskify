@@ -9,12 +9,7 @@ const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   (_: never, index: number) => `대시보드-${index + 1}`
 )
 
-const COLUMN_TEMP_ARRAY: string[] = Array.from(
-  { length: 3 },
-  (_: never, index: number) => `COL-${index + 1}`
-)
-
-export default function Dashboard() {
+export default function MyDashboardPage() {
   return (
     <DashboardLayout>
       <RootHeader border>
@@ -42,7 +37,7 @@ export default function Dashboard() {
            * @todo
            * 사이드 컴포넌트 구현 필요
            */}
-          {DASHBOARD_TEMP_ARRAY.map((item: string, index: number) => {
+          {DASHBOARD_TEMP_ARRAY.map((item, index) => {
             return (
               <DashboardCard type='side' key={`dashboard-side-${index}`}>
                 {item}
@@ -50,27 +45,43 @@ export default function Dashboard() {
             )
           })}
         </DashboardLayout.Sidebar>
-        <DashboardLayout.Content className='flex h-full w-full flex-col flex-nowrap lg:flex-row'>
+        <DashboardLayout.Content className='pd-10 grid max-w-5xl gap-4 p-10'>
           {/**
            * @JuhyeokC
            * @todo
-           * 대시보드 컴포넌트 구현 필요
+           * 나의 대시보드 컴포넌트 구현 필요
            */}
-          {COLUMN_TEMP_ARRAY.map((item: string, index: number) => {
-            return (
-              <section
-                key={`column-${index}`}
-                className='h-auto w-full flex-none overflow-hidden border-b border-custom-gray-200 lg:h-full lg:w-[354px] lg:border-r'
-              >
-                <article className='h-full w-full overflow-auto px-5 py-6'>
-                  <span className='block w-full'>{item}</span>
-                </article>
-              </section>
-            )
-          })}
-          <section className='h-auto w-full flex-none overflow-hidden border-r border-custom-gray-200 lg:h-full lg:w-[354px]'>
-            <div className='px-5 py-5 lg:py-16'>
-              <DashboardCard type='add'>새로운 칼럼 추가하기</DashboardCard>
+
+          <section className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            <DashboardCard type='add'>새로운 대시보드</DashboardCard>
+
+            {DASHBOARD_TEMP_ARRAY.map((item, index) => {
+              return (
+                <DashboardCard type='card' key={`dashboard-card-${index}`}>
+                  {item}
+                </DashboardCard>
+              )
+            })}
+          </section>
+
+          <section className='rounded-lg bg-white'>
+            <div className='px-7 pb-6 pt-8'>
+              <h2 className='mb-8 text-2xl font-semibold'>초대받은 대시보드</h2>
+              <article className='rounded-md border border-custom-gray-300 p-2'>
+                <label>
+                  <span>검색 폼 컴포넌트</span>
+                </label>
+                <input
+                  type='text'
+                  name='dashboardSearch'
+                  value='value'
+                  placeholder='검색'
+                  onChange={() => console.log('test')}
+                />
+              </article>
+            </div>
+            <div>
+              <p>대시보드 초대 리스트 컴포넌트</p>
             </div>
           </section>
         </DashboardLayout.Content>

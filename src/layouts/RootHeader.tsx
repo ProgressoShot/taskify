@@ -1,42 +1,74 @@
-import styles from './ResponsiveLayout.module.css'
-import RootLogo from './RootLogo'
+import cn from 'classnames'
+import Link from 'next/link'
 
-type HeaderContextProps = {
-  theme?: 'dark' | 'light'
+import LogoIcon from '../../public/logo/logo.svg'
+import LogoSymbol from '../../public/logo/logo-symbol.svg'
+import styles from './ResponsiveLayout.module.css'
+
+export const HEADER_HEIGHT = 70
+
+interface BorderProp {
   border?: boolean
 }
 
-export type HeaderProps = HeaderContextProps & { children?: any }
-
-function RootHeader({ theme, border, children }: HeaderProps) {
+function Logo() {
   return (
-    <header
-      className={`grid h-[70px] w-screen ${styles['ResponsiveLayoutLeft']} ${theme === 'dark' ? '#000000' : 'bg-[#ffffff]'}`}
-    >
-      <div
-        className={`h-full w-full overflow-hidden px-4 py-4 md:px-6 ${border ? 'border-r-[1px] border-[#d9d9d9]' : ''}`}
-      >
-        <RootLogo theme={theme} />
+    <section className='flex h-full w-full items-center justify-center md:justify-start'>
+      <Link href={'/'}>
+        <LogoIcon className='hidden text-custom-violet dark:text-white md:block' />
+        <LogoSymbol className='block text-custom-violet dark:text-white md:hidden' />
+      </Link>
+    </section>
+  )
+}
+
+function Title({ children }: React.PropsWithChildren) {
+  return (
+    <section className='flex h-full flex-1 items-center text-custom-black-200 dark:text-white'>
+      {children}
+    </section>
+  )
+}
+
+function Features({ children }: React.PropsWithChildren) {
+  return (
+    <section className='flex h-full items-center text-custom-black-200 dark:text-white'>
+      {children}
+    </section>
+  )
+}
+
+function RootHeader({
+  children,
+  border,
+}: React.PropsWithChildren & BorderProp) {
+  const classNames: Record<string, string> = {
+    wrap: cn(
+      `grid h-[${HEADER_HEIGHT}px] w-full bg-white dark:bg-black`,
+      styles['ResponsiveLayoutLeft']
+    ),
+    left: cn(
+      'h-full w-full overflow-hidden px-4 py-4 md:px-6',
+      border && 'border-r border-custom-gray-300'
+    ),
+    right: cn(
+      'h-full w-full overflow-hidden px-10 py-4',
+      border && 'border-b border-custom-gray-300'
+    ),
+  }
+
+  return (
+    <header className={classNames.wrap}>
+      <div className={classNames.left}>
+        <Logo />
       </div>
-      <div
-        className={`h-full w-full overflow-hidden px-10 py-4 ${border ? 'border-b-[1px] border-[#d9d9d9]' : ''}`}
-      >
+      <div className={classNames.right}>
         <section className='relative flex h-full w-full items-center justify-end'>
           {children}
         </section>
       </div>
     </header>
   )
-}
-
-function Title({ theme, children }: HeaderProps) {
-  const classNames = `flex flex-1 h-full items-center ${theme === 'dark' ? 'text-[#ffffff]' : 'text-[#333236]'}`
-  return <section className={classNames}>{children}</section>
-}
-
-function Features({ theme, children }: HeaderProps) {
-  const classNames = `flex h-full items-center ${theme === 'dark' ? 'text-[#ffffff]' : 'text-[#333236]'}`
-  return <section className={classNames}>{children}</section>
 }
 
 RootHeader.Title = Title
