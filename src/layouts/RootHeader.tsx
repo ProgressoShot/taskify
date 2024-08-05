@@ -15,8 +15,8 @@ function Logo() {
   return (
     <section className='flex h-full w-full items-center justify-center md:justify-start'>
       <Link href={'/'}>
-        <LogoIcon className='hidden text-custom-violet dark:text-white md:block' />
-        <LogoSymbol className='block text-custom-violet dark:text-white md:hidden' />
+        <LogoIcon className='hidden text-custom-violet md:block dark:text-white' />
+        <LogoSymbol className='block text-custom-violet md:hidden dark:text-white' />
       </Link>
     </section>
   )

@@ -1,6 +1,9 @@
 import cn from 'classnames'
 import { ReactNode } from 'react'
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feat/#13
 interface ButtonProps {
   children: ReactNode
   className?: string
