@@ -3,6 +3,8 @@ import cn from 'classnames'
 import styles from './ResponsiveLayout.module.css'
 import { HEADER_HEIGHT } from './RootHeader'
 import RootSidebar from './RootSidebar'
+import DashboardCol from './DashboardCol'
+import TaskCard from '../components/TaskCard'
 
 interface ClassNameProp {
   className?: string
