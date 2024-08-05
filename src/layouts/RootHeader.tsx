@@ -44,7 +44,7 @@ function RootHeader({
 }: React.PropsWithChildren & BorderProp) {
   const classNames: Record<string, string> = {
     wrap: cn(
-      `grid h-[${HEADER_HEIGHT}px] w-full bg-white dark:bg-black`,
+      `grid h-[${HEADER_HEIGHT}px] w-full dark:bg-black`,
       styles['ResponsiveLayoutLeft']
     ),
     left: cn(
