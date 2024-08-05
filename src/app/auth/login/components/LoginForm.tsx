@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
@@ -29,10 +30,12 @@ export default function LoginForm() {
     await axios
       .post('https://sp-taskify-api.vercel.app/7-2/auth/login', data)
       .then(function (response) {
-        console.log(response)
+        const message = `환영합니다, ${response.data.user.nickname}님!`
+        openModal(<ConfirmModalContent message={message} />)
+        console.log(response.data.accessToken)
       })
       .catch(function (error) {
-        console.log(error.response.data.message) // 404 존재하지 않는 유저. 모달창 띄워야 함
+        openModal(<ConfirmModalContent message={error.response.data.message} />)
       })
   }
 
@@ -87,20 +90,6 @@ export default function LoginForm() {
         className='h-[50px] w-full'
       >
         로그인
-      </Button>
-      <Button
-        form=''
-        className='h-[50px] w-full'
-        onClick={() =>
-          openModal(
-            <div className='px-16 py-10'>
-              <h2>비밀번호가 일치하지 않습니다.</h2>
-              <Button onClick={() => closeModal()}>확인</Button>
-            </div>
-          )
-        }
-      >
-        모달 ON
       </Button>
     </Form>
   )
