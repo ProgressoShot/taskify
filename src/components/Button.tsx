@@ -39,7 +39,7 @@ export default function Button({
 }
 
 const buttonBaseStyle =
-  'disabled:bg-custom-gray-200 flex h-8 w-[84px] items-center justify-center gap-[6px] rounded-lg text-sm font-medium disabled:text-white md:gap-2'
+  'flex h-8 w-[84px] items-center justify-center gap-[6px] rounded-lg text-sm font-medium disabled:cursor-not-allowed disabled:bg-custom-gray-400 disabled:text-white md:gap-2'
 
 const styleByColor: Record<ButtonColor, string> = {
   primary: 'bg-custom-violet text-white',
