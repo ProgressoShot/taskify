@@ -16,7 +16,7 @@ export default function Home() {
           <RootHeader.Features>
             <div className='flex gap-9'>
               <Link href={'/auth/login'}>로그인</Link>
-              <Link href={'/auth/sign'}>회원가입</Link>
+              <Link href={'/auth/signup'}>회원가입</Link>
             </div>
           </RootHeader.Features>
         </RootHeader>
