@@ -42,7 +42,6 @@ export default function Dashboard() {
            * @todo
            * 사이드 컴포넌트 구현 필요
            */}
-<<<<<<< HEAD
           {DASHBOARD_TEMP_ARRAY.map((item: string, index: number) => {
             return (
               <DashboardCard type='side' key={`dashboard-side-${index}`}>
@@ -74,17 +73,6 @@ export default function Dashboard() {
               <DashboardCard type='add'>새로운 칼럼 추가하기</DashboardCard>
             </div>
           </section>
-=======
-          aside
-        </DashboardLayout.Sidebar>
-        <DashboardLayout.Content>
-          {/**
-           * @JuhyeokC
-           * @todo
-           * 나의 대시보드 컴포넌트 구현 필요
-           */}
-          content
->>>>>>> origin/feat/#13
         </DashboardLayout.Content>
       </DashboardLayout.Container>
     </DashboardLayout>
