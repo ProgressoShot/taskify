@@ -15,8 +15,8 @@ function Logo() {
   return (
     <section className='flex h-full w-full items-center justify-center md:justify-start'>
       <Link href={'/'}>
-        <LogoIcon className='hidden text-custom-violet md:block dark:text-white' />
-        <LogoSymbol className='block text-custom-violet md:hidden dark:text-white' />
+        <LogoIcon className='hidden text-custom-violet dark:text-white md:block' />
+        <LogoSymbol className='block text-custom-violet dark:text-white md:hidden' />
       </Link>
     </section>
   )
@@ -44,7 +44,7 @@ function RootHeader({
 }: React.PropsWithChildren & BorderProp) {
   const classNames: Record<string, string> = {
     wrap: cn(
-      `grid h-[${HEADER_HEIGHT}px] w-full dark:bg-black`,
+      `grid h-[${HEADER_HEIGHT}px] w-full bg-white dark:bg-black`,
       styles['ResponsiveLayoutLeft']
     ),
     left: cn(
