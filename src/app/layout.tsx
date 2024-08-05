@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
+import Modal from '@/components/Modal'
+
 import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +24,10 @@ export default function RootLayout({
       <head>
         <title>Taskify - 새로운 일정 관리</title>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Modal />
+      </body>
     </html>
   )
 }

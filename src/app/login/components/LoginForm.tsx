@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
 import Form from '@/components/Form'
+import useModalStore from '@/store/useModalStore'
 
 interface LoginFormValue {
   email: string
@@ -21,6 +22,8 @@ export default function LoginForm() {
     watch,
     formState: { errors, isLoading },
   } = useForm<LoginFormValue>()
+
+  const { openModal, closeModal } = useModalStore()
 
   const onSubmit = async (data: LoginFormValue) => {
     await axios
@@ -84,6 +87,20 @@ export default function LoginForm() {
         className='h-[50px] w-full'
       >
         로그인
+      </Button>
+      <Button
+        form=''
+        className='h-[50px] w-full'
+        onClick={() =>
+          openModal(
+            <div className='px-16 py-10'>
+              <h2>비밀번호가 일치하지 않습니다.</h2>
+              <Button onClick={() => closeModal()}>확인</Button>
+            </div>
+          )
+        }
+      >
+        모달 ON
       </Button>
     </Form>
   )
