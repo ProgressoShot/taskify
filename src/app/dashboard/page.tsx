@@ -3,6 +3,8 @@
 import DashboardCard from '@/components/DashboardCard'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
+import TaskCard from '@/components/TaskCard'
+import NewTaskButton from '@/components/NewTaskButton'
 
 const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   { length: 5 },
@@ -63,6 +65,8 @@ export default function Dashboard() {
                 className='h-auto w-full flex-none overflow-hidden border-b border-custom-gray-200 lg:h-full lg:w-[354px] lg:border-r'
               >
                 <article className='h-full w-full overflow-auto px-5 py-6'>
+                  <NewTaskButton />
+                  <TaskCard>새로운 일정</TaskCard>
                   <span className='block w-full'>{item}</span>
                 </article>
               </section>
