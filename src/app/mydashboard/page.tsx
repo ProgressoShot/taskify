@@ -4,7 +4,13 @@ import DashboardCard from '@/components/DashboardCard'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
 
-const DASHBOARD_TEMP_ARRAY = Array.from(
+import InvitationList from './components/InvitationList'
+
+/**
+ * @JuhyeokC
+ * TEST용 더미 배열 생성
+ */
+const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   { length: 5 },
   (_, index) => `대시보드-${index + 1}`
 )
@@ -45,19 +51,14 @@ export default function MyDashboard() {
             )
           })}
         </DashboardLayout.Sidebar>
-        <DashboardLayout.Content>
+        <DashboardLayout.Content className='pd-10 grid max-w-5xl gap-4 p-10'>
           {/**
            * @JuhyeokC
            * @todo
            * 나의 대시보드 컴포넌트 구현 필요
            */}
 
-          <section
-            className='grid gap-4'
-            style={{
-              gridTemplateColumns: 'repeat(3, 1fr)',
-            }}
-          >
+          <section className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
             <DashboardCard type='add'>새로운 대시보드</DashboardCard>
 
             {DASHBOARD_TEMP_ARRAY.map((item, index) => {
@@ -67,6 +68,36 @@ export default function MyDashboard() {
                 </DashboardCard>
               )
             })}
+
+            <div
+              style={{
+                gridColumn: '1/-1',
+                textAlign: 'right',
+              }}
+            >
+              <p>대시보드 리스트 페이지네이션 컴포넌트</p>
+            </div>
+          </section>
+
+          <section className='rounded-lg bg-white'>
+            <div className='px-7 pb-6 pt-8'>
+              <h2 className='mb-8 text-2xl font-semibold'>초대받은 대시보드</h2>
+              <article className='rounded-md border border-custom-gray-300 p-2'>
+                <label>
+                  <span>검색 폼 컴포넌트</span>
+                </label>
+                <input
+                  type='text'
+                  name='dashboardSearch'
+                  value='value'
+                  placeholder='검색'
+                  onChange={() => console.log('test')}
+                />
+              </article>
+            </div>
+            <div>
+              <InvitationList />
+            </div>
           </section>
         </DashboardLayout.Content>
       </DashboardLayout.Container>
