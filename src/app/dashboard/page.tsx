@@ -11,10 +11,10 @@ const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   (_: never, index: number) => `대시보드-${index + 1}`
 )
 
-const COLUMN_TEMP_ARRAY: string[] = Array.from(
-  { length: 3 },
-  (_: never, index: number) => `COL-${index + 1}`
-)
+// const COLUMN_TEMP_ARRAY: string[] = Array.from(
+//   { length: 3 },
+//   (_: never, index: number) => `COL-${index + 1}`
+// )
 
 export default function Dashboard() {
   return (
@@ -53,21 +53,21 @@ export default function Dashboard() {
           })}
         </DashboardLayout.Sidebar>
         <DashboardLayout.Content className='flex h-full w-full flex-col flex-nowrap lg:flex-row'>
-          {COLUMN_TEMP_ARRAY.map((item: string, index: number) => {
+          {/* {COLUMN_TEMP_ARRAY.map((item: string, index: number) => {
             return (
               <section
                 key={`column-${index}`}
                 className='h-auto w-full flex-none overflow-hidden border-b border-custom-gray-200 lg:h-full lg:w-[354px] lg:border-r'
               >
-                {/* <article className='h-full w-full overflow-auto px-5 py-6'>
+                <article className='h-full w-full overflow-auto px-5 py-6'>
                   <span className='block w-full'>{item}</span>
-                </article> */}
-                <DashboardCol title='To Do' colNum={3} />
-                <DashboardCol title='On Progress' colNum={2} />
-                <DashboardCol title='Done' colNum={4} />
+                </article>
               </section>
             )
-          })}
+          })} */}
+          <DashboardCol title='To Do' />
+          <DashboardCol title='On Progress' />
+          <DashboardCol title='Done' />
           <section className='h-auto w-full flex-none overflow-hidden border-r border-custom-gray-200 lg:h-full lg:w-[354px]'>
             <div className='px-5 py-5 lg:py-16'>
               <DashboardCard type='add'>새로운 칼럼 추가하기</DashboardCard>
