@@ -1,5 +1,5 @@
 'use client'
-
+import cn from 'classnames'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -20,8 +20,12 @@ export default function LandingFooter() {
   }
 
   return (
-    <footer className='items:center flex flex-col justify-center overflow-hidden text-custom-black-100 dark:bg-black dark:text-custom-black-100 sm:flex-row'>
-      <div className='mt-28 flex h-auto w-full flex-col items-center sm:mx-36 sm:h-[100px] sm:flex-row sm:justify-between'>
+    <footer
+      className={
+        'flex flex-col items-center justify-center overflow-hidden dark:bg-black dark:text-custom-black-100 sm:flex-row'
+      }
+    >
+      <div className='mt-16 flex h-auto w-full flex-col items-center sm:mx-10 sm:mt-28 sm:h-[100px] sm:flex-row sm:justify-between lg:mx-36'>
         <div className='items-center'>©codeit - 2023</div>
         <div className='flex h-auto items-center sm:gap-4'>
           <Link href='' className='p-2'>
@@ -31,7 +35,7 @@ export default function LandingFooter() {
             FAQ
           </Link>
         </div>
-        <div className='mb-20 flex items-center gap-4 sm:mb-0'>
+        <div className={'mb-20 mt-12 flex items-center gap-4 sm:mb-0 sm:mt-0'}>
           <Link href='mailto:' className='p-2' aria-label='이메일 링크'>
             <IconMail fill={theme === 'dark' ? '#fff' : '#333'} />
           </Link>
