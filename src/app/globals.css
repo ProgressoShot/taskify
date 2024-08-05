@@ -18,6 +18,10 @@
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+* {
+  outline: none;
+}
+
 body,
 html,
 p,

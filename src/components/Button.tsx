@@ -7,7 +7,7 @@ interface ButtonProps {
   color?: ButtonColor
   type?: ButtonType
   form?: string
-  onClick?: () => void
+  onClick?: any
   isDisabled?: boolean
 }
 
