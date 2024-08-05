@@ -11,22 +11,26 @@ interface InvitationProps {
 
 const classNames = {
   inner: {
-    default: 'px-4 md:grid md:grid-cols-3',
+    default: 'px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3',
     item: 'border-b border-b-custom-gray-200 py-3.5',
     mobile: 'flex w-full flex-col items-center',
   },
   cols: {
-    default: 'flex w-full justify-start',
+    default: 'grid w-full md:flex',
+    style: {
+      gridTemplateColumns: '64px auto',
+    },
   },
   label: {
-    default: 'text-custom-gray-400 text-nowrap',
+    default: 'px-2 text-custom-gray-400 text-nowrap',
     mobile: 'block w-16 flex-none md:hidden',
   },
   value: {
-    default: 'text-custom-black-200 text-nowrap',
+    default:
+      'px-2 text-custom-black-200 text-nowrap overflow-hidden text-ellipsis',
   },
   button: {
-    default: 'full rounded-[4px] md:w-20',
+    default: 'w-full rounded-[4px] md:w-20',
     area: 'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:flex md:flex-auto',
   },
 }
@@ -40,7 +44,10 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
         classNames.inner.mobile
       )}
     >
-      <div className={cn(classNames.cols.default)}>
+      <div
+        className={cn(classNames.cols.default)}
+        style={classNames.cols.style}
+      >
         <p
           className={cn(
             classNames.label.default,
@@ -52,7 +59,10 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
         </p>
         <p className={cn(classNames.value.default)}>{dashboardTitle}</p>
       </div>
-      <div className={cn(classNames.cols.default)}>
+      <div
+        className={cn(classNames.cols.default)}
+        style={classNames.cols.style}
+      >
         <p
           className={cn(
             classNames.label.default,
@@ -64,15 +74,20 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
         </p>
         <p className={cn(classNames.value.default)}>{inviter}</p>
       </div>
-      <div className='mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:flex md:flex-auto'>
+      <div
+        className={cn(
+          classNames.value.default,
+          'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
+        )}
+      >
         <Button
-          className='w-full rounded-[4px] md:w-20'
+          className={cn(classNames.button.default)}
           color={inviteAccepted ? 'primary' : 'secondary'}
         >
           수락
         </Button>
         <Button
-          className='w-full rounded-[4px] md:w-20'
+          className={cn(classNames.button.default)}
           color={!inviteAccepted ? 'primary' : 'secondary'}
         >
           거절

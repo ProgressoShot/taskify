@@ -30,7 +30,7 @@ const TEMP_INVITE_DASHBOARD_LIST: Array<Invited> = [
   {
     id: 0,
     inviter: {
-      nickname: 'inviter-1',
+      nickname: 'inviter-1inviter-1inviter-1inviter-1inviter-1inviter-1',
       email: 'inviter-1@이메일',
       id: 0,
     },
@@ -57,7 +57,8 @@ const TEMP_INVITE_DASHBOARD_LIST: Array<Invited> = [
     },
     teamId: '팀이름-2',
     dashboard: {
-      title: '대시보드명-2',
+      title:
+        '대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2',
       id: 1,
     },
     invitee: {
