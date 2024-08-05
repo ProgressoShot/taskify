@@ -71,7 +71,7 @@ export default function Home() {
                 등록하세요
               </h2>
             </div>
-            <div className='flex basis-1/2 items-end justify-center px-16'>
+            <div className='flex basis-1/2 items-end justify-center pr-16'>
               <Image
                 className='h-auto w-auto object-contain xl:h-[502px] xl:w-[436px]'
                 src='/images/landing-02.svg'
@@ -147,7 +147,7 @@ export default function Home() {
             </ul>
           </section>
         </main>
-        <div className='sm:mb- hidden h-auto flex-col items-center sm:mx-36 sm:mt-0 sm:h-[100px] sm:flex-row sm:justify-between'></div>
+        <div className='mt-28 hidden h-auto flex-col items-center dark:text-custom-black-100 sm:mx-10 sm:mb-0 sm:mt-0 sm:h-[100px] sm:flex-row sm:justify-between lg:mx-36'></div>
         <LandingFooter />
       </Providers>
     </>
