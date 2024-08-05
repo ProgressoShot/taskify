@@ -1,8 +1,6 @@
 import cn from 'classnames'
 import { ReactNode } from 'react'
 
-import Button from '@/components/Button'
-
 interface ModalProps {
   className?: string
   children: ReactNode

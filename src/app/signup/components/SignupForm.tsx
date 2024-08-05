@@ -131,7 +131,7 @@ export default function SignupForm() {
         type='submit'
         className='h-[50px] w-full'
       >
-        로그인
+        가입하기
       </Button>
     </Form>
   )

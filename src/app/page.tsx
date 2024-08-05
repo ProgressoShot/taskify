@@ -1,21 +1,12 @@
-<<<<<<< HEAD
-=======
-'use client'
->>>>>>> origin/feat/#13
 import Image from 'next/image'
 import Link from 'next/link'
 
-<<<<<<< HEAD
 import IconFacebook from '/public/icons/facebook.svg'
 import IconInsta from '/public/icons/instagram.svg'
 import IconMail from '/public/icons/mail.svg'
 import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
-=======
-import Button from '@/components/Button'
-import useAuthStore from '@/store/authSampleStore'
->>>>>>> origin/feat/#13
 
 export default function Home() {
   return (
