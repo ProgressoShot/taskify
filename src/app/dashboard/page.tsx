@@ -53,11 +53,6 @@ export default function Dashboard() {
           })}
         </DashboardLayout.Sidebar>
         <DashboardLayout.Content className='flex h-full w-full flex-col flex-nowrap lg:flex-row'>
-          {/**
-           * @JuhyeokC
-           * @todo
-           * 대시보드 컴포넌트 구현 필요
-           */}
           {COLUMN_TEMP_ARRAY.map((item: string, index: number) => {
             return (
               <section

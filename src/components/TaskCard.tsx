@@ -8,23 +8,28 @@ interface CardProps {
   children: ReactNode
 }
 
-export default function TaskCard({ children }: CardProps) {
+export default function Card({ children }: CardProps) {
   return (
     <div className='w-80 rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4'>
       <div className='w-[274px] pb-4'>
         <Exam className='size-full' />
       </div>
       <div className='pb-2.5 text-base font-medium'>{children}</div>
-      <div className='flex pb-2'>
+      <div className='flex pb-3'>
         <Chip>2</Chip>
         <Chip>태그1</Chip>
       </div>
       <div className='flex'>
-        <Calendar
-          className='mr-[6px] h-[15px] w-[15px] text-custom-gray-500'
-          viewBox='0 0 18 18'
-        />
-        <span className='text-[12px] text-custom-gray-500'>2022.12.31</span>
+        <div className='flex'>
+          <Calendar
+            className='mr-[6px] h-[15px] w-[15px] text-custom-gray-500'
+            viewBox='0 0 18 18'
+          />
+          <span className='text-[12px] text-custom-gray-500'>2022.12.31</span>
+        </div>
+        <span className='text-4 ml-auto mt-[-3px] flex h-6 w-6 justify-center rounded-[50%] bg-custom-green text-white'>
+          B
+        </span>
       </div>
     </div>
   )
