@@ -29,7 +29,7 @@ export default function LoginForm() {
         console.log(response)
       })
       .catch(function (error) {
-        console.log(error) // 404 존재하지 않는 유저. 모달창 띄워야 함
+        console.log(error.response.data.message) // 404 존재하지 않는 유저. 모달창 띄워야 함
       })
   }
 

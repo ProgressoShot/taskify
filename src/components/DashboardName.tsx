@@ -1,8 +1,14 @@
+<<<<<<< HEAD
+=======
+import { ChildrenProp } from '@/layouts/DashboardLayout'
+
+>>>>>>> origin/feat/#13
 import AddBoxIcon from '../../public/icons/add-box2.svg'
 import BulletIcon from '../../public/icons/bullet.svg'
 import CaretRightIcon from '../../public/icons/caret-right.svg'
 import CrownIcon from '../../public/icons/crown.svg'
 
+<<<<<<< HEAD
 type Colors = 'violet' | 'red' | 'green' | 'purple' | 'orange' | 'blue' | 'pink'
 
 const COLOR_PRESET: Record<Colors, string> = {
@@ -25,12 +31,32 @@ export default function DashboardName({
   children,
   type,
 }: React.PropsWithChildren & DashboardCardTypeProp) {
+=======
+type DashboardCardType = 'card' | 'side' | 'add'
+
+export interface DashboardNameProps {
+  type: DashboardCardType
+  children: ChildrenProp | any
+}
+
+export function DashboardName({ type, children }: DashboardNameProps) {
+>>>>>>> origin/feat/#13
   /**
    * @todo
    * 1. BulletIcon fill 색상 color 받아오기
    * 2. CrownIcon 출력조건 createByMe 받아오기
    */
+<<<<<<< HEAD
   const classNames: Record<string, string> = {
+=======
+  const classNames: {
+    wrap: string
+    gap: string
+    mr: string
+    txt: string
+    crown: string
+  } = {
+>>>>>>> origin/feat/#13
     wrap:
       type === 'add'
         ? 'justify-center'
@@ -46,13 +72,20 @@ export default function DashboardName({
     crown: type === 'side' ? 'scale-90 hidden md:block' : 'scale-100',
   }
 
+<<<<<<< HEAD
   const color: Colors = 'blue'
 
+=======
+>>>>>>> origin/feat/#13
   return (
     <article className={`flex items-center ${classNames.wrap}`}>
       <section className={`flex items-center ${classNames.gap}`}>
         {type !== 'add' && (
+<<<<<<< HEAD
           <BulletIcon className={`${COLOR_PRESET[color]} ${classNames.mr}`} />
+=======
+          <BulletIcon className={classNames.mr} fill='#7AC555' />
+>>>>>>> origin/feat/#13
         )}
         <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
         {type === 'add' && <AddBoxIcon />}
