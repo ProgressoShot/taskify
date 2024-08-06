@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
+import useToggle from '@/hooks/useToggle'
 import useModalStore from '@/store/useModalStore'
 
 interface LoginFormValue {
@@ -24,7 +25,9 @@ export default function LoginForm() {
     formState: { errors, isLoading },
   } = useForm<LoginFormValue>()
 
-  const { openModal, closeModal } = useModalStore()
+  const { openModal } = useModalStore()
+  const [pwdVisible, togglePwd] = useToggle(false)
+  const passwordType = pwdVisible ? 'text' : 'password'
 
   const onSubmit = async (data: LoginFormValue) => {
     await axios
@@ -47,7 +50,7 @@ export default function LoginForm() {
       className='mx-auto'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Form.Label className='mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>이메일</Form.LabelHeader>
         <Form.Input
           register={register('email', {
@@ -60,27 +63,30 @@ export default function LoginForm() {
           hasError={!!errors.email}
           type='email'
           name='email'
-          placeholder='이메일'
+          placeholder='이메일을 입력해주세요'
           required
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-6'>
+      <Form.Label className='mb-4 md:mb-6'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
-        <Form.Input
-          register={register('password', {
-            required: { value: true, message: '비밀번호를 입력해주세요.' },
-            minLength: {
-              value: PASSWORD_LENGTH,
-              message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
-            },
-          })}
-          hasError={!!errors.password}
-          type='password'
-          name='password'
-          placeholder='비밀번호'
-          required
-        />
+        <div className='relative'>
+          <Form.Input
+            register={register('password', {
+              required: { value: true, message: '비밀번호를 입력해주세요.' },
+              minLength: {
+                value: PASSWORD_LENGTH,
+                message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
+              },
+            })}
+            hasError={!!errors.password}
+            type={passwordType}
+            name='password'
+            placeholder='비밀번호를 입력해주세요.'
+            required
+          ></Form.Input>
+          <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
+        </div>
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
       <Button
