@@ -1,6 +1,8 @@
 import cn from 'classnames'
 import { ReactNode } from 'react'
+
 import Chip from '@/components/Chip'
+
 import Calendar from '../../public/icons/calendar.svg'
 
 interface CardProps {

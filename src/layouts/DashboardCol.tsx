@@ -1,8 +1,10 @@
-import { useState, ReactNode } from 'react'
 import cn from 'classnames'
+import { ReactNode, useState } from 'react'
+
+import NewTaskButton from '@/components/NewTaskButton'
+
 import Bullet from '../../public/icons/bullet.svg'
 import Setting from '../../public/icons/settings.svg'
-import NewTaskButton from '@/components/NewTaskButton'
 import TaskCard from '../components/TaskCard'
 
 interface DashboardColProps {
@@ -14,7 +16,7 @@ export default function DashboardCol({ title }: DashboardColProps) {
   const [taskCards, setTaskCards] = useState<ReactNode[]>([])
 
   const handleAddTask = () => {
-    setTaskCards([...taskCards, <TaskCard key={taskCards.length} />])
+    setTaskCards([...taskCards, <TaskCard key={taskCards.length}>q</TaskCard>])
   }
 
   return (
