@@ -122,7 +122,8 @@ export default function SignupForm() {
                 value: true,
                 message: '비밀번호를 한번 더 입력해주세요.',
               },
-              validate: value => value === password,
+              validate: value =>
+                value === password || '비밀번호가 일치하지 않습니다.',
             })}
             hasError={!!errors.passwordConfirm}
             type={passwordConfirmType}
@@ -135,11 +136,8 @@ export default function SignupForm() {
             onClick={togglePwdConfirm}
           />
         </div>
-        {errors.passwordConfirm?.type === 'required' && (
+        {errors.passwordConfirm && (
           <Form.Error>{errors.passwordConfirm.message}</Form.Error>
-        )}
-        {errors.passwordConfirm?.type === 'validate' && (
-          <Form.Error>비밀번호가 일치하지 않습니다.</Form.Error>
         )}
       </Form.Label>
       <Button
