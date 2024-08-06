@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import LogoMain from '/public/images/logo-main.svg'
@@ -14,7 +13,9 @@ interface AuthLayout {
 export default function AuthPageLayout({ children, page }: AuthLayout) {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center bg-custom-gray-100 px-3 py-16 text-custom-black-200'>
-      <LogoMain className='mb-2' />
+      <Link href='/'>
+        <LogoMain className='mb-2' />
+      </Link>
       <span className='mb-9 text-lg font-medium md:mb-[30px] md:text-xl'>
         {message[page].header}
       </span>
