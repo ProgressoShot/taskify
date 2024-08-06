@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { ReactNode } from 'react'
+
 import AddButton from '../../public/icons/add-box2.svg'
 
 interface NewTaskButtonProps {

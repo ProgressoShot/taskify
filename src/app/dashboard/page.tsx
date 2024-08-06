@@ -1,10 +1,10 @@
 'use client'
 
 import DashboardCard from '@/components/DashboardCard'
-import DashboardLayout from '@/layouts/DashboardLayout'
-import RootHeader from '@/layouts/RootHeader'
 import TaskCard from '@/components/TaskCard'
 import DashboardCol from '@/layouts/DashboardCol'
+import DashboardLayout from '@/layouts/DashboardLayout'
+import RootHeader from '@/layouts/RootHeader'
 
 const DASHBOARD_TEMP_ARRAY: string[] = Array.from(
   { length: 5 },
