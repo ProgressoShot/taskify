@@ -18,7 +18,7 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <RootHeader border>
-        <RootHeader.Title>내 대시보드</RootHeader.Title>
+        <RootHeader.Title>대시보드 이름</RootHeader.Title>
         <RootHeader.Features>
           {/**
            * @JuhyeokC
