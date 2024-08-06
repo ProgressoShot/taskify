@@ -43,7 +43,7 @@ export default function Form({
   onSubmit,
   formId,
 }: FormProps) {
-  const formClass = cn('max-w-[520px]', className)
+  const formClass = cn('w-full max-w-[520px]', className)
   return (
     <form id={formId} className={formClass} onSubmit={onSubmit}>
       {' '}

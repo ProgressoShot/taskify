@@ -47,7 +47,7 @@ export default function LoginForm() {
       className='mx-auto'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Form.Label className='mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>이메일</Form.LabelHeader>
         <Form.Input
           register={register('email', {
@@ -65,7 +65,7 @@ export default function LoginForm() {
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-6'>
+      <Form.Label className='mb-4 md:mb-6'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
         <Form.Input
           register={register('password', {

@@ -52,7 +52,7 @@ export default function SignupForm() {
       className='mx-auto'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Form.Label className='mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>이메일</Form.LabelHeader>
         <Form.Input
           register={register('email', {
@@ -70,7 +70,7 @@ export default function SignupForm() {
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>닉네임</Form.LabelHeader>
         <Form.Input
           register={register('nickname', {
@@ -84,7 +84,7 @@ export default function SignupForm() {
         />
         {errors.nickname && <Form.Error>{errors.nickname.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
         <Form.Input
           register={register('password', {
@@ -102,7 +102,7 @@ export default function SignupForm() {
         />
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-6'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호 확인</Form.LabelHeader>
         <Form.Input
           register={register('passwordConfirm', {
