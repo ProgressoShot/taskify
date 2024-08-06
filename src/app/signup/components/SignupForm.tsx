@@ -65,7 +65,7 @@ export default function SignupForm() {
           hasError={!!errors.email}
           type='email'
           name='email'
-          placeholder='이메일'
+          placeholder='이메일을 입력해주세요'
           required
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
@@ -79,7 +79,7 @@ export default function SignupForm() {
           hasError={!!errors.nickname}
           type='text'
           name='nickname'
-          placeholder='닉네임'
+          placeholder='닉네임을 입력해주세요'
           required
         />
         {errors.nickname && <Form.Error>{errors.nickname.message}</Form.Error>}
@@ -97,7 +97,7 @@ export default function SignupForm() {
           hasError={!!errors.password}
           type='password'
           name='password'
-          placeholder='비밀번호'
+          placeholder='비밀번호를 입력해주세요.'
           required
         />
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
