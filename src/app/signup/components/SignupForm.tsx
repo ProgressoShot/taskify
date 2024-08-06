@@ -1,11 +1,12 @@
 'use client'
 
 import axios from 'axios'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
 import Form from '@/components/Form'
+import useToggle from '@/hooks/useToggle'
+import useModalStore from '@/store/useModalStore'
 
 interface SignupFormValue {
   email: string
@@ -24,7 +25,12 @@ export default function SignupForm() {
     watch,
     formState: { errors, isLoading },
   } = useForm<SignupFormValue>()
-  const [isVisible, setIsVisible] = useState()
+
+  const { openModal } = useModalStore()
+  const [pwdVisible, togglePwd] = useToggle(false)
+  const [pwdConfirmVisible, togglePwdConfirm] = useToggle(false)
+  const passwordType = pwdVisible ? 'text' : 'password'
+  const passwordConfirmType = pwdConfirmVisible ? 'text' : 'password'
 
   const onSubmit = async (data: SignupFormValue) => {
     console.log(data)
@@ -50,7 +56,7 @@ export default function SignupForm() {
 
   return (
     <Form
-      formId='loginForm'
+      formId='signupForm'
       className='mx-auto'
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -86,7 +92,7 @@ export default function SignupForm() {
         />
         {errors.nickname && <Form.Error>{errors.nickname.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-2 md:mb-4'>
+      <Form.Label className='relative mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
         <Form.Input
           register={register('password', {
@@ -97,14 +103,15 @@ export default function SignupForm() {
             },
           })}
           hasError={!!errors.password}
-          type='password'
+          type={passwordType}
           name='password'
           placeholder='비밀번호를 입력해주세요.'
           required
         />
+        <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-2 md:mb-4'>
+      <Form.Label className='relative mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호 확인</Form.LabelHeader>
         <Form.Input
           register={register('passwordConfirm', {
@@ -115,11 +122,12 @@ export default function SignupForm() {
             validate: value => value === password,
           })}
           hasError={!!errors.passwordConfirm}
-          type='password'
+          type={passwordConfirmType}
           name='passwordConfirm'
           placeholder='비밀번호를 한번 더 입력해 주세요'
           required
         />
+        <Form.EyeButton isOpen={pwdConfirmVisible} onClick={togglePwdConfirm} />
         {errors.passwordConfirm?.type === 'required' && (
           <Form.Error>{errors.passwordConfirm.message}</Form.Error>
         )}
@@ -129,7 +137,7 @@ export default function SignupForm() {
       </Form.Label>
       <Button
         isDisabled={isDisabled}
-        form='loginForm'
+        form='signupForm'
         type='submit'
         className='h-[50px] w-full'
       >

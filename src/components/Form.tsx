@@ -126,7 +126,7 @@ function EyeButton({ className, isOpen, onClick }: EyeButtonProps) {
   )
   return (
     <button className={eyeButtonClass} onClick={onClick} type='button'>
-      {isOpen ? <EyeOpen /> : <EyeClosed className='' />}
+      {isOpen ? <EyeOpen /> : <EyeClosed />}
     </button>
   )
 }

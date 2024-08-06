@@ -1,12 +1,12 @@
 'use client'
 
 import axios from 'axios'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
+import useToggle from '@/hooks/useToggle'
 import useModalStore from '@/store/useModalStore'
 
 interface LoginFormValue {
@@ -26,12 +26,8 @@ export default function LoginForm() {
   } = useForm<LoginFormValue>()
 
   const { openModal } = useModalStore()
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const passwordType = isPasswordVisible ? 'text' : 'password'
-
-  const toggleVisibility = () => {
-    setIsPasswordVisible(prev => !prev)
-  }
+  const [pwdVisible, togglePwd] = useToggle(false)
+  const passwordType = pwdVisible ? 'text' : 'password'
 
   const onSubmit = async (data: LoginFormValue) => {
     await axios
@@ -88,7 +84,7 @@ export default function LoginForm() {
           placeholder='비밀번호를 입력해주세요.'
           required
         ></Form.Input>
-        <Form.EyeButton isOpen={isPasswordVisible} onClick={toggleVisibility} />
+        <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
       <Button
