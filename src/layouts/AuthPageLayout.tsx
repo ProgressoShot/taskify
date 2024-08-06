@@ -8,7 +8,7 @@ interface AuthLayout {
   children: ReactNode
 }
 
-export default function AuthLayout({ children }: AuthLayout) {
+export default function AuthPageLayout({ children }: AuthLayout) {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center bg-custom-gray-100 px-3 py-16 text-custom-black-200'>
       <LogoMain className='mb-2' />
