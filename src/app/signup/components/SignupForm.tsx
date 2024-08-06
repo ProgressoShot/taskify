@@ -1,8 +1,8 @@
 'use client'
 
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
+import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
@@ -34,8 +34,8 @@ export default function SignupForm() {
   const passwordConfirmType = pwdConfirmVisible ? 'text' : 'password'
 
   const onSubmit = async (data: SignupFormValue) => {
-    await axios
-      .post('https://sp-taskify-api.vercel.app/7-2/users', data)
+    await api
+      .post('users', data)
       .then(function (response) {
         const message = `가입이 완료되었습니다!`
         openModal(<ConfirmModalContent message={message} />)
