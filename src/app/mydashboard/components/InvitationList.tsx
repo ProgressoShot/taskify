@@ -1,3 +1,4 @@
+import ImageEmptyInvitation from '../../../../public/images/not-invited.svg'
 import Invitation from './Invitation'
 
 type Dashboard = {
@@ -93,20 +94,50 @@ const TEMP_INVITE_DASHBOARD_LIST: Array<Invited> = [
   },
 ]
 
-export default function InvitationList() {
+function EmptyInvitationList() {
   return (
-    <Invitation>
-      {TEMP_INVITE_DASHBOARD_LIST.map((item: Invited) => {
-        const { id, inviter, dashboard, invitee, inviteAccepted } = item
-        return (
-          <Invitation.Item
-            key={`invite-dashboard-${id}`}
-            dashboardTitle={dashboard.title}
-            inviter={inviter.nickname}
-            inviteAccepted={inviteAccepted}
-          />
-        )
-      })}
-    </Invitation>
+    <div className='flex h-80 flex-col items-center justify-center p-6'>
+      <ImageEmptyInvitation className='' />
+      <p className='mb-10 p-6 text-center text-lg font-normal text-custom-gray-400'>
+        아직 초대받은 대시보드가 없어요
+      </p>
+    </div>
+  )
+}
+
+export default function InvitationList() {
+  const INVITE_DASHBOARD_LIST = TEMP_INVITE_DASHBOARD_LIST
+  const length: number = INVITE_DASHBOARD_LIST.length && 0
+
+  if (length === 0) return <EmptyInvitationList />
+
+  return (
+    <>
+      <article className='mt-8 rounded-md border border-custom-gray-300 p-2'>
+        <label>
+          <span>검색 폼 컴포넌트</span>
+        </label>
+        <input
+          type='text'
+          name='dashboardSearch'
+          value='value'
+          placeholder='검색'
+          onChange={() => console.log('test')}
+        />
+      </article>
+      <Invitation>
+        {TEMP_INVITE_DASHBOARD_LIST.map((item: Invited) => {
+          const { id, inviter, dashboard, invitee, inviteAccepted } = item
+          return (
+            <Invitation.Item
+              key={`invite-dashboard-${id}`}
+              dashboardTitle={dashboard.title}
+              inviter={inviter.nickname}
+              inviteAccepted={inviteAccepted}
+            />
+          )
+        })}
+      </Invitation>
+    </>
   )
 }
