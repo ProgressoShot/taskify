@@ -81,23 +81,9 @@ export default function MyDashboard() {
 
           <section className='rounded-lg bg-white'>
             <div className='px-7 pb-6 pt-8'>
-              <h2 className='mb-8 text-2xl font-semibold'>초대받은 대시보드</h2>
-              <article className='rounded-md border border-custom-gray-300 p-2'>
-                <label>
-                  <span>검색 폼 컴포넌트</span>
-                </label>
-                <input
-                  type='text'
-                  name='dashboardSearch'
-                  value='value'
-                  placeholder='검색'
-                  onChange={() => console.log('test')}
-                />
-              </article>
+              <h2 className='text-2xl font-semibold'>초대받은 대시보드</h2>
             </div>
-            <div>
-              <InvitationList />
-            </div>
+            <InvitationList />
           </section>
         </DashboardLayout.Content>
       </DashboardLayout.Container>
