@@ -18,12 +18,10 @@ interface FormProps extends BasicProps {
 interface LabelProps extends BasicProps {}
 
 type InputType = 'email' | 'password' | 'text'
-type InputName = 'email' | 'nickname' | 'password' | 'passwordConfirm'
 
 interface InputProps {
   className?: string
   type: InputType
-  name: InputName
   required?: boolean
   placeholder?: string
   register?: ReturnType<UseFormRegister<FieldValues>>
@@ -32,7 +30,6 @@ interface InputProps {
 
 interface TextAreaProps {
   className?: string
-  name: InputName
   required?: boolean
   placeholder?: string
   register?: ReturnType<UseFormRegister<FieldValues>>
@@ -73,7 +70,6 @@ function LabelHeader({ children, className }: LabelProps) {
 }
 function Input({
   className,
-  name,
   type,
   required,
   placeholder,
@@ -91,7 +87,6 @@ function Input({
     <input
       className={inputClass}
       {...register}
-      name={name}
       type={type}
       required={required}
       placeholder={placeholder}
@@ -99,7 +94,7 @@ function Input({
   )
 }
 
-function TextArea({ className, name, required, placeholder }: TextAreaProps) {
+function TextArea({ className, required, placeholder }: TextAreaProps) {
   const textAreaClass = cn(
     'block h-[126px] w-full resize-none rounded-lg border border-custom-gray-300 px-4 py-3 text-custom-black-200 outline-custom-violet placeholder:text-custom-gray-400',
     className
@@ -107,7 +102,6 @@ function TextArea({ className, name, required, placeholder }: TextAreaProps) {
   return (
     <textarea
       className={textAreaClass}
-      name={name}
       required={required}
       placeholder={placeholder}
     />
