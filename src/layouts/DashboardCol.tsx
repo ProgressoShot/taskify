@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import { ReactNode, useState } from 'react'
 
+import Bullet from '/public/icons/bullet.svg'
+import Setting from '/public/icons/settings.svg'
 import NewTaskButton from '@/components/NewTaskButton'
 
-import Bullet from '../../public/icons/bullet.svg'
-import Setting from '../../public/icons/settings.svg'
 import TaskCard from '../components/TaskCard'
 
 interface DashboardColProps {

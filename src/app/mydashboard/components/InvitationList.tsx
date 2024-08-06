@@ -1,4 +1,5 @@
-import ImageEmptyInvitation from '../../../../public/images/not-invited.svg'
+import ImageEmptyInvitation from '/public/images/not-invited.svg'
+
 import Invitation from './Invitation'
 
 type Dashboard = {

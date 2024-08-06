@@ -1,8 +1,9 @@
 import cn from 'classnames'
 import Link from 'next/link'
 
-import LogoIcon from '../../public/logo/logo.svg'
-import LogoSymbol from '../../public/logo/logo-symbol.svg'
+import LogoIcon from '/public/logo/logo.svg'
+import LogoSymbol from '/public/logo/logo-symbol.svg'
+
 import styles from './ResponsiveLayout.module.css'
 
 export const HEADER_HEIGHT = 70
