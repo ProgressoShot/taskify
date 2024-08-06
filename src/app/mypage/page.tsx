@@ -1,4 +1,4 @@
-import { Link } from 'next/navigation'
+import Link from 'next/link'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
@@ -18,7 +18,7 @@ export default function MyPagePage() {
       <DashboardLayout.Container>
         <DashboardLayout.Sidebar>aside</DashboardLayout.Sidebar>
         <DashboardLayout.Content>
-          <Link hr>돌아가기</Link>
+          <Link href='#'>돌아가기</Link>
           <div>프로필 Modal</div>
           <div>비밀번호 변경 Modal</div>
         </DashboardLayout.Content>
