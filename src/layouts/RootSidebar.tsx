@@ -1,4 +1,4 @@
-import AddIcon from '../../public/icons/add-box.svg'
+import AddIcon from '/public/icons/add-box.svg'
 
 export default function RootSidebar({ children }: React.PropsWithChildren) {
   return (

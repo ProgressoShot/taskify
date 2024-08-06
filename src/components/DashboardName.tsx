@@ -1,7 +1,7 @@
-import AddBoxIcon from '../../public/icons/add-box2.svg'
-import BulletIcon from '../../public/icons/bullet.svg'
-import CaretRightIcon from '../../public/icons/caret-right.svg'
-import CrownIcon from '../../public/icons/crown.svg'
+import AddBoxIcon from '/public/icons/add-box2.svg'
+import BulletIcon from '/public/icons/bullet.svg'
+import CaretRightIcon from '/public/icons/caret-right.svg'
+import CrownIcon from '/public/icons/crown.svg'
 
 type Colors = 'violet' | 'red' | 'green' | 'purple' | 'orange' | 'blue' | 'pink'
 
