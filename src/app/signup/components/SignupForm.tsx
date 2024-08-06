@@ -1,6 +1,7 @@
 'use client'
 
 import axios from 'axios'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
@@ -23,6 +24,7 @@ export default function SignupForm() {
     watch,
     formState: { errors, isLoading },
   } = useForm<SignupFormValue>()
+  const [isVisible, setIsVisible] = useState()
 
   const onSubmit = async (data: SignupFormValue) => {
     console.log(data)

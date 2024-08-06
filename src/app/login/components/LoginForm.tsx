@@ -1,6 +1,7 @@
 'use client'
 
 import axios from 'axios'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
@@ -24,7 +25,13 @@ export default function LoginForm() {
     formState: { errors, isLoading },
   } = useForm<LoginFormValue>()
 
-  const { openModal, closeModal } = useModalStore()
+  const { openModal } = useModalStore()
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const passwordType = isPasswordVisible ? 'text' : 'password'
+
+  const toggleVisibility = () => {
+    setIsPasswordVisible(prev => !prev)
+  }
 
   const onSubmit = async (data: LoginFormValue) => {
     await axios
@@ -65,7 +72,7 @@ export default function LoginForm() {
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='mb-4 md:mb-6'>
+      <Form.Label className='relative mb-4 md:mb-6'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
         <Form.Input
           register={register('password', {
@@ -76,11 +83,12 @@ export default function LoginForm() {
             },
           })}
           hasError={!!errors.password}
-          type='password'
+          type={passwordType}
           name='password'
           placeholder='비밀번호를 입력해주세요.'
           required
-        />
+        ></Form.Input>
+        <Form.EyeButton isOpen={isPasswordVisible} onClick={toggleVisibility} />
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
       <Button

@@ -2,6 +2,9 @@ import cn from 'classnames'
 import { ReactNode } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
+import EyeClosed from '/public/icons/eye-closed.svg'
+import EyeOpen from '/public/icons/eye-open.svg'
+
 interface BasicProps {
   children: ReactNode
   className?: string
@@ -18,7 +21,6 @@ type InputType = 'email' | 'password' | 'text'
 type InputName = 'email' | 'nickname' | 'password' | 'passwordConfirm'
 
 interface InputProps {
-  children?: ReactNode
   className?: string
   type: InputType
   name: InputName
@@ -29,12 +31,17 @@ interface InputProps {
 }
 
 interface TextAreaProps {
-  children?: ReactNode
   className?: string
   name: InputName
   required?: boolean
   placeholder?: string
   register?: ReturnType<UseFormRegister<FieldValues>>
+}
+
+interface EyeButtonProps {
+  className?: string
+  isOpen: boolean
+  onClick: () => void
 }
 
 export default function Form({
@@ -65,7 +72,6 @@ function LabelHeader({ children, className }: LabelProps) {
   return <h3 className={headerClass}> {children} </h3>
 }
 function Input({
-  children,
   className,
   name,
   type,
@@ -82,41 +88,29 @@ function Input({
     className
   )
   return (
-    <div className='relative'>
-      {children}
-      <input
-        className={inputClass}
-        {...register}
-        name={name}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-      />
-    </div>
+    <input
+      className={inputClass}
+      {...register}
+      name={name}
+      type={type}
+      required={required}
+      placeholder={placeholder}
+    />
   )
 }
 
-function TextArea({
-  children,
-  className,
-  name,
-  required,
-  placeholder,
-}: TextAreaProps) {
+function TextArea({ className, name, required, placeholder }: TextAreaProps) {
   const textAreaClass = cn(
     'block h-[126px] w-full resize-none rounded-lg border border-custom-gray-300 px-4 py-3 text-custom-black-200 outline-custom-violet placeholder:text-custom-gray-400',
     className
   )
   return (
-    <div className='relative'>
-      {children}
-      <textarea
-        className={textAreaClass}
-        name={name}
-        required={required}
-        placeholder={`${placeholder}을/를 입력해주세요`}
-      />
-    </div>
+    <textarea
+      className={textAreaClass}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+    />
   )
 }
 
@@ -125,8 +119,21 @@ function Error({ children, className }: BasicProps) {
   return <span className={errorClasee}>{children}</span>
 }
 
+function EyeButton({ className, isOpen, onClick }: EyeButtonProps) {
+  const eyeButtonClass = cn(
+    'absolute bottom-[13px] right-4 text-custom-gray-400',
+    className
+  )
+  return (
+    <button className={eyeButtonClass} onClick={onClick} type='button'>
+      {isOpen ? <EyeOpen /> : <EyeClosed className='' />}
+    </button>
+  )
+}
+
 Form.Label = Label
 Form.LabelHeader = LabelHeader
 Form.Input = Input
 Form.TextArea = TextArea
 Form.Error = Error
+Form.EyeButton = EyeButton
