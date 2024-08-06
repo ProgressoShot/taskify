@@ -68,23 +68,25 @@ export default function LoginForm() {
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='relative mb-4 md:mb-6'>
+      <Form.Label className='mb-4 md:mb-6'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
-        <Form.Input
-          register={register('password', {
-            required: { value: true, message: '비밀번호를 입력해주세요.' },
-            minLength: {
-              value: PASSWORD_LENGTH,
-              message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
-            },
-          })}
-          hasError={!!errors.password}
-          type={passwordType}
-          name='password'
-          placeholder='비밀번호를 입력해주세요.'
-          required
-        ></Form.Input>
-        <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
+        <div className='relative'>
+          <Form.Input
+            register={register('password', {
+              required: { value: true, message: '비밀번호를 입력해주세요.' },
+              minLength: {
+                value: PASSWORD_LENGTH,
+                message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
+              },
+            })}
+            hasError={!!errors.password}
+            type={passwordType}
+            name='password'
+            placeholder='비밀번호를 입력해주세요.'
+            required
+          ></Form.Input>
+          <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
+        </div>
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
       <Button

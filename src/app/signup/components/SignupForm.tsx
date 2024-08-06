@@ -92,42 +92,49 @@ export default function SignupForm() {
         />
         {errors.nickname && <Form.Error>{errors.nickname.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='relative mb-2 md:mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호</Form.LabelHeader>
-        <Form.Input
-          register={register('password', {
-            required: { value: true, message: '비밀번호를 입력해주세요.' },
-            minLength: {
-              value: PASSWORD_LENGTH,
-              message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
-            },
-          })}
-          hasError={!!errors.password}
-          type={passwordType}
-          name='password'
-          placeholder='비밀번호를 입력해주세요.'
-          required
-        />
-        <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
+        <div className='relative'>
+          <Form.Input
+            register={register('password', {
+              required: { value: true, message: '비밀번호를 입력해주세요.' },
+              minLength: {
+                value: PASSWORD_LENGTH,
+                message: `${PASSWORD_LENGTH}자 이상 작성해 주세요.`,
+              },
+            })}
+            hasError={!!errors.password}
+            type={passwordType}
+            name='password'
+            placeholder='비밀번호를 입력해주세요.'
+            required
+          />
+          <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
+        </div>
         {errors.password && <Form.Error>{errors.password.message}</Form.Error>}
       </Form.Label>
-      <Form.Label className='relative mb-2 md:mb-4'>
+      <Form.Label className='mb-2 md:mb-4'>
         <Form.LabelHeader>비밀번호 확인</Form.LabelHeader>
-        <Form.Input
-          register={register('passwordConfirm', {
-            required: {
-              value: true,
-              message: '비밀번호를 한번 더 입력해주세요.',
-            },
-            validate: value => value === password,
-          })}
-          hasError={!!errors.passwordConfirm}
-          type={passwordConfirmType}
-          name='passwordConfirm'
-          placeholder='비밀번호를 한번 더 입력해 주세요'
-          required
-        />
-        <Form.EyeButton isOpen={pwdConfirmVisible} onClick={togglePwdConfirm} />
+        <div className='relative'>
+          <Form.Input
+            register={register('passwordConfirm', {
+              required: {
+                value: true,
+                message: '비밀번호를 한번 더 입력해주세요.',
+              },
+              validate: value => value === password,
+            })}
+            hasError={!!errors.passwordConfirm}
+            type={passwordConfirmType}
+            name='passwordConfirm'
+            placeholder='비밀번호를 한번 더 입력해 주세요'
+            required
+          />
+          <Form.EyeButton
+            isOpen={pwdConfirmVisible}
+            onClick={togglePwdConfirm}
+          />
+        </div>
         {errors.passwordConfirm?.type === 'required' && (
           <Form.Error>{errors.passwordConfirm.message}</Form.Error>
         )}
