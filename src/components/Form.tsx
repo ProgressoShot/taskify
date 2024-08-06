@@ -77,7 +77,7 @@ function Input({
   hasError,
 }: InputProps) {
   const inputClass = cn(
-    'block w-full rounded-lg border border-custom-gray-300 px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
+    'rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
     {
       'border-custom-red focus:border-custom-red': hasError,
     },
@@ -96,7 +96,7 @@ function Input({
 
 function TextArea({ className, required, placeholder }: TextAreaProps) {
   const textAreaClass = cn(
-    'block h-[126px] w-full resize-none rounded-lg border border-custom-gray-300 px-4 py-3 text-custom-black-200 outline-custom-violet placeholder:text-custom-gray-400',
+    'rounded-container block h-[126px] w-full resize-none px-4 py-3 text-custom-black-200 outline-custom-violet placeholder:text-custom-gray-400',
     className
   )
   return (
