@@ -63,7 +63,6 @@ export default function LoginForm() {
           })}
           hasError={!!errors.email}
           type='email'
-          name='email'
           placeholder='이메일을 입력해주세요'
           required
         />
@@ -82,7 +81,6 @@ export default function LoginForm() {
             })}
             hasError={!!errors.password}
             type={passwordType}
-            name='password'
             placeholder='비밀번호를 입력해주세요.'
             required
           ></Form.Input>

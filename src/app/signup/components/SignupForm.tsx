@@ -73,7 +73,6 @@ export default function SignupForm() {
           })}
           hasError={!!errors.email}
           type='email'
-          name='email'
           placeholder='이메일을 입력해주세요'
           required
         />
@@ -87,7 +86,6 @@ export default function SignupForm() {
           })}
           hasError={!!errors.nickname}
           type='text'
-          name='nickname'
           placeholder='닉네임을 입력해주세요'
           required
         />
@@ -106,7 +104,6 @@ export default function SignupForm() {
             })}
             hasError={!!errors.password}
             type={passwordType}
-            name='password'
             placeholder='비밀번호를 입력해주세요.'
             required
           />
@@ -128,7 +125,6 @@ export default function SignupForm() {
             })}
             hasError={!!errors.passwordConfirm}
             type={passwordConfirmType}
-            name='passwordConfirm'
             placeholder='비밀번호를 한번 더 입력해 주세요'
             required
           />
