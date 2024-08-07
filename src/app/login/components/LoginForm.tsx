@@ -1,5 +1,6 @@
 'use client'
 
+import axios, { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
@@ -7,6 +8,7 @@ import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
+import useDashboardStore from '@/store/useDashboardsStore'
 import useModalStore from '@/store/useModalStore'
 
 interface LoginFormValue {
@@ -26,21 +28,36 @@ export default function LoginForm() {
   } = useForm<LoginFormValue>()
 
   const { openModal } = useModalStore()
+  const { dashboards, setDashboards } = useDashboardStore()
+
   const [pwdVisible, togglePwd] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
 
   const onSubmit = async (data: LoginFormValue) => {
-    await api
-      .post('auth/login', data)
-      .then(function (response) {
-        const message = `환영합니다, ${response.data.user.nickname}님!`
-        openModal(<ConfirmModalContent message={message} />)
-        console.log(response)
-        console.log(response.data.accessToken)
-      })
-      .catch(function (error) {
-        openModal(<ConfirmModalContent message={error.response.data.message} />)
-      })
+    try {
+      const response = await api.post('auth/login', data)
+      const { accessToken } = response.data
+      sessionStorage.setItem('accessToken', accessToken)
+      try {
+        const dashboardsResponse = await api.get(
+          'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
+        )
+        const { dashboards } = dashboardsResponse.data
+        setDashboards(dashboards)
+      } catch (error) {
+        console.log(error)
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        openModal(
+          <ConfirmModalContent message={error.response?.data.message} />
+        )
+      } else {
+        openModal(
+          <ConfirmModalContent message='서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?' />
+        )
+      }
+    }
   }
 
   const isDisabled = !!(errors.email || errors.password || isLoading)
