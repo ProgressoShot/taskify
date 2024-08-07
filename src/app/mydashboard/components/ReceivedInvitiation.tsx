@@ -11,7 +11,7 @@ interface InvitationProps {
 
 const classNames = {
   inner: {
-    default: 'px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3',
+    default: 'px-4 md:px-8 md:grid md:grid-cols-3',
     item: 'border-b border-b-custom-gray-200 py-3.5',
     mobile: 'flex w-full flex-col items-center',
   },
@@ -93,7 +93,7 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
 
 function ReceivedInvitiation({ children }: PropsWithChildren) {
   return (
-    <div className='pb-8'>
+    <div className='py-4 md:py-8'>
       <div className={cn(classNames.inner.default, 'hidden')}>
         <p className={cn(classNames.label.default, 'text-base')}>이름</p>
         <p className={cn(classNames.label.default, 'text-base')}>초대자</p>
