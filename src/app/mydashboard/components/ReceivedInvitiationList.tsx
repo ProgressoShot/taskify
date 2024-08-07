@@ -1,6 +1,6 @@
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
 
-import Invitation from './Invitation'
+import ReceivedInvitiation from './ReceivedInvitiation'
 
 type Dashboard = {
   id: number
@@ -106,9 +106,9 @@ function EmptyInvitationList() {
   )
 }
 
-export default function InvitationList() {
+export default function ReceivedInvitiationList() {
   const INVITE_DASHBOARD_LIST = TEMP_INVITE_DASHBOARD_LIST
-  const length: number = INVITE_DASHBOARD_LIST.length && 0
+  const length: number = INVITE_DASHBOARD_LIST.length
 
   if (length === 0) return <EmptyInvitationList />
 
@@ -126,11 +126,11 @@ export default function InvitationList() {
           onChange={() => console.log('test')}
         />
       </article>
-      <Invitation>
+      <ReceivedInvitiation>
         {TEMP_INVITE_DASHBOARD_LIST.map((item: Invited) => {
           const { id, inviter, dashboard, invitee, inviteAccepted } = item
           return (
-            <Invitation.Item
+            <ReceivedInvitiation.Item
               key={`invite-dashboard-${id}`}
               dashboardTitle={dashboard.title}
               inviter={inviter.nickname}
@@ -138,7 +138,7 @@ export default function InvitationList() {
             />
           )
         })}
-      </Invitation>
+      </ReceivedInvitiation>
     </>
   )
 }

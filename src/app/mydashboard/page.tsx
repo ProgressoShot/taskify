@@ -4,7 +4,7 @@ import DashboardCard from '@/components/DashboardCard'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import RootHeader from '@/layouts/RootHeader'
 
-import InvitationList from './components/InvitationList'
+import ReceivedInvitiationList from './components/ReceivedInvitiationList'
 
 /**
  * @JuhyeokC
@@ -83,7 +83,7 @@ export default function MyDashboard() {
             <div className='px-7 pb-6 pt-8'>
               <h2 className='text-2xl font-semibold'>초대받은 대시보드</h2>
             </div>
-            <InvitationList />
+            <ReceivedInvitiationList />
           </section>
         </DashboardLayout.Content>
       </DashboardLayout.Container>

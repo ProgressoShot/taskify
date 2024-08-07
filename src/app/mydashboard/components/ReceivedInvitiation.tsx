@@ -80,16 +80,10 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
           'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
         )}
       >
-        <Button
-          className={cn(classNames.button.default)}
-          color={inviteAccepted ? 'primary' : 'secondary'}
-        >
+        <Button className={cn(classNames.button.default)} color='primary'>
           수락
         </Button>
-        <Button
-          className={cn(classNames.button.default)}
-          color={!inviteAccepted ? 'primary' : 'secondary'}
-        >
+        <Button className={cn(classNames.button.default)} color='secondary'>
           거절
         </Button>
       </div>
@@ -97,7 +91,7 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
   )
 }
 
-function Invitation({ children }: PropsWithChildren) {
+function ReceivedInvitiation({ children }: PropsWithChildren) {
   return (
     <div className='pb-8'>
       <div className={cn(classNames.inner.default, 'hidden')}>
@@ -110,6 +104,6 @@ function Invitation({ children }: PropsWithChildren) {
   )
 }
 
-Invitation.Item = Item
+ReceivedInvitiation.Item = Item
 
-export default Invitation
+export default ReceivedInvitiation
