@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { createContext, ReactNode, useContext } from 'react'
+import React, { createContext, ReactNode, useContext } from 'react'
 
 import useToggle from '@/hooks/useToggle'
 
@@ -11,7 +11,9 @@ interface Props {
 }
 
 interface DropdownProps extends Props {}
-interface TriggerProps extends Props {}
+interface TriggerProps extends Props {
+  as?: (props: { toggle: () => void; className?: string }) => ReactNode
+}
 interface MenuProps extends Props {}
 interface ItemProps extends Props {
   onClick: () => void
@@ -20,12 +22,9 @@ interface ItemProps extends Props {
 
 const DropdownContext = createContext({ isOpen: false, toggle: () => {} })
 
-function Dropdown({ children = '', className = '' }: DropdownProps) {
+function Dropdown({ children, className }: DropdownProps) {
   const [isOpen, toggle] = useToggle(false)
-  const containerStyle = cn(
-    'relative w-[42px] md:w-[130px] text-base font-normal text-gray-800',
-    className
-  )
+  const containerStyle = cn('relative', className)
 
   return (
     <DropdownContext.Provider value={{ isOpen, toggle }}>
@@ -34,12 +33,13 @@ function Dropdown({ children = '', className = '' }: DropdownProps) {
   )
 }
 
-const Trigger = ({ children = '', className = '' }: TriggerProps) => {
+const Trigger = ({ children, className, as }: TriggerProps) => {
   const { toggle } = useContext(DropdownContext)
-  const triggerStyle = cn(
-    'flex justify-center md:justify-between items-center md:w-full w-[42px] h-[42px] md:py-3 md:px-5 rounded-xl border border-solid border-gray-200 shadow-sm bg-white hover:bg-gray-50',
-    className
-  )
+  const triggerStyle = cn('flex items-center', className)
+
+  if (as) {
+    return as({ toggle, className: triggerStyle })
+  }
 
   return (
     <button className={triggerStyle} onClick={toggle} type='button'>
@@ -48,10 +48,10 @@ const Trigger = ({ children = '', className = '' }: TriggerProps) => {
   )
 }
 
-const Menu = ({ children = '', className = '' }: MenuProps) => {
+const Menu = ({ children, className }: MenuProps) => {
   const { isOpen } = useContext(DropdownContext)
   const menuStyle = cn(
-    'absolute right-0 mt-2 w-[130px] rounded-xl border border-solid border-gray-200 shadow-lg bg-white z-10',
+    'absolute right-0 mt-2 rounded-xl border border-solid border-gray-200 shadow-lg bg-white z-10',
     className
   )
 
@@ -59,8 +59,8 @@ const Menu = ({ children = '', className = '' }: MenuProps) => {
 }
 
 const Item = ({
-  children = '',
-  className = '',
+  children,
+  className,
   onClick,
   position = 'middle',
 }: ItemProps) => {
@@ -72,6 +72,7 @@ const Item = ({
     itemPositionStyle,
     className
   )
+
   return (
     <div
       className={itemStyle}
