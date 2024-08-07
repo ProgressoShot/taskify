@@ -1,11 +1,19 @@
+import { ReactNode } from 'react'
 import AddBoxIcon from '/public/icons/add-box2.svg'
 import BulletIcon from '/public/icons/bullet.svg'
 import CaretRightIcon from '/public/icons/caret-right.svg'
 import CrownIcon from '/public/icons/crown.svg'
 
-type Colors = 'violet' | 'red' | 'green' | 'purple' | 'orange' | 'blue' | 'pink'
+export type Color =
+  | 'violet'
+  | 'red'
+  | 'green'
+  | 'purple'
+  | 'orange'
+  | 'blue'
+  | 'pink'
 
-const COLOR_PRESET: Record<Colors, string> = {
+const COLOR_PRESET: Record<Color, string> = {
   violet: 'text-custom-violet',
   red: 'text-custom-red',
   green: 'text-custom-green',
@@ -15,21 +23,21 @@ const COLOR_PRESET: Record<Colors, string> = {
   pink: 'text-custom-pink',
 }
 
-type DashboardCardType = 'card' | 'side' | 'add'
+export type DashboardCardType = 'card' | 'side' | 'add'
 
-export interface DashboardCardTypeProp {
+export interface DashboarNameProp {
+  children: ReactNode
   type: DashboardCardType
+  color?: Color
+  createdByMe?: boolean
 }
 
 export default function DashboardName({
   children,
   type,
-}: React.PropsWithChildren & DashboardCardTypeProp) {
-  /**
-   * @todo
-   * 1. BulletIcon fill 색상 color 받아오기
-   * 2. CrownIcon 출력조건 createByMe 받아오기
-   */
+  color = 'green',
+  createdByMe = false,
+}: DashboarNameProp) {
   const classNames: Record<string, string> = {
     wrap:
       type === 'add'
@@ -46,8 +54,6 @@ export default function DashboardName({
     crown: type === 'side' ? 'scale-90 hidden md:block' : 'scale-100',
   }
 
-  const color: Colors = 'blue'
-
   return (
     <article className={`flex items-center ${classNames.wrap}`}>
       <section className={`flex items-center ${classNames.gap}`}>
@@ -56,7 +62,7 @@ export default function DashboardName({
         )}
         <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
         {type === 'add' && <AddBoxIcon />}
-        {type !== 'add' && /* createdByMe */ true && (
+        {type !== 'add' && createdByMe && (
           <CrownIcon fill='#FDD446' className={`${classNames.crown}`} />
         )}
       </section>
