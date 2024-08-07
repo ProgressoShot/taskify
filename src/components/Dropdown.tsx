@@ -36,7 +36,6 @@ const Trigger = ({ children, className, as }: TriggerProps) => {
   if (as) {
     return as({ toggle, className })
   }
-
   return (
     <button className={className} onClick={toggle} type='button'>
       {children}

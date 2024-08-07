@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
@@ -27,7 +28,9 @@ export default function SignupForm() {
     formState: { errors, isLoading },
   } = useForm<SignupFormValue>()
 
+  const router = useRouter()
   const { openModal } = useModalStore()
+
   const [pwdVisible, togglePwd] = useToggle(false)
   const [pwdConfirmVisible, togglePwdConfirm] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
@@ -39,6 +42,7 @@ export default function SignupForm() {
       .then(function (response) {
         const message = `가입이 완료되었습니다!`
         openModal(<ConfirmModalContent message={message} />)
+        router.push('/login')
       })
       .catch(function (error) {
         openModal(<ConfirmModalContent message={error.response.data.message} />)
@@ -75,6 +79,7 @@ export default function SignupForm() {
           type='email'
           placeholder='이메일을 입력해주세요'
           required
+          autoComplete='email'
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
@@ -88,6 +93,7 @@ export default function SignupForm() {
           type='text'
           placeholder='닉네임을 입력해주세요'
           required
+          autoComplete='username'
         />
         {errors.nickname && <Form.Error>{errors.nickname.message}</Form.Error>}
       </Form.Label>
@@ -106,6 +112,7 @@ export default function SignupForm() {
             type={passwordType}
             placeholder='비밀번호를 입력해주세요.'
             required
+            autoComplete='new-password'
           />
           <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
         </div>
@@ -127,6 +134,7 @@ export default function SignupForm() {
             type={passwordConfirmType}
             placeholder='비밀번호를 한번 더 입력해 주세요'
             required
+            autoComplete='new-password'
           />
           <Form.EyeButton
             isOpen={pwdConfirmVisible}

@@ -1,6 +1,6 @@
-import create from 'zustand'
+import { create } from 'zustand'
 
-import { type Dashboards } from '@/types/types'
+import type { Dashboards } from '@/types/types'
 
 interface DashboardStore {
   dashboards: Dashboards

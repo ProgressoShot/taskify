@@ -26,6 +26,7 @@ interface InputProps {
   placeholder?: string
   register?: ReturnType<UseFormRegister<FieldValues>>
   hasError?: boolean
+  autoComplete?: string
 }
 
 interface TextAreaProps {
@@ -75,6 +76,7 @@ function Input({
   placeholder,
   register,
   hasError,
+  autoComplete,
 }: InputProps) {
   const inputClass = cn(
     'rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
@@ -90,6 +92,7 @@ function Input({
       type={type}
       required={required}
       placeholder={placeholder}
+      autoComplete={autoComplete}
     />
   )
 }

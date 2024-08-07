@@ -13,7 +13,9 @@ import useDashboardStore from '@/store/useDashboardsStore'
 import useModalStore from '@/store/useModalStore'
 import useUserStore from '@/store/useUserStore'
 
-interface LoginFormValue {
+import { fetchDashboards, login } from '../utils/utils'
+
+export interface LoginFormValue {
   email: string
   password: string
 }
@@ -39,21 +41,12 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormValue) => {
     try {
-      const response = await api.post('auth/login', data)
-      const { accessToken } = response.data
+      const { accessToken, user } = await login(data)
       sessionStorage.setItem('accessToken', accessToken)
-      setUser(response.data.user)
-      try {
-        const dashboardsResponse = await api.get(
-          'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
-        )
-        const { dashboards } = dashboardsResponse.data
-        setDashboards(dashboards)
-        const dashboardid = dashboards[0].id
-        router.push(`/dashboard/${dashboardid}`)
-      } catch (error) {
-        console.log(error)
-      }
+      setUser(user)
+      const dashboards = await fetchDashboards()
+      setDashboards(dashboards)
+      router.push('/mydashboard')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         openModal(
@@ -89,6 +82,7 @@ export default function LoginForm() {
           type='email'
           placeholder='이메일을 입력해주세요'
           required
+          autoComplete='email'
         />
         {errors.email && <Form.Error>{errors.email.message}</Form.Error>}
       </Form.Label>
@@ -107,6 +101,7 @@ export default function LoginForm() {
             type={passwordType}
             placeholder='비밀번호를 입력해주세요.'
             required
+            autoComplete='current-password'
           ></Form.Input>
           <Form.EyeButton isOpen={pwdVisible} onClick={togglePwd} />
         </div>
