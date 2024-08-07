@@ -1,10 +1,10 @@
 import cn from 'classnames'
+import Link from 'next/link'
 
 import DashboardName, {
   Color,
   DashboardCardType,
 } from '@/components/DashboardName'
-import Link from 'next/link'
 
 interface DashboardCardProps {
   id?: number

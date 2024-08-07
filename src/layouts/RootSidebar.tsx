@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
 import DashboardCard from '@/components/DashboardCard'
+import { Color } from '@/components/DashboardName'
 
 import { HEADER_HEIGHT } from './RootHeader'
-import { Color } from '@/components/DashboardName'
 
 type Dashboard = {
   id: number

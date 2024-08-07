@@ -1,9 +1,9 @@
 'use client'
 
 import DashboardCard from '@/components/DashboardCard'
+import { DUMMY_DATA_DASHBOARD_LIST } from '@/layouts/RootSidebar'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
-import { DUMMY_DATA_DASHBOARD_LIST } from '@/layouts/RootSidebar'
 
 const 임시리스트 = DUMMY_DATA_DASHBOARD_LIST.slice(0, 5)
 
