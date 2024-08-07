@@ -1,29 +1,35 @@
 import cn from 'classnames'
 
 import DashboardName, {
-  DashboardCardTypeProp,
+  Color,
+  DashboardCardType,
 } from '@/components/DashboardName'
+import Link from 'next/link'
 
-interface DashboardCardProps extends DashboardCardTypeProp {
+interface DashboardCardProps {
   id?: number
   title?: string
-  color?: string
+  color?: Color
   createdAt?: Date
   updatedAt?: Date
-  createdByMe?: Boolean
+  createdByMe?: boolean
   userId?: number
   onClick?: () => void
+  href?: string
+  type: DashboardCardType
 }
 
 export default function DashboardCard({
   children,
+  color = 'green',
   type,
-  onClick,
+  href = '',
+  createdByMe = false,
 }: React.PropsWithChildren & DashboardCardProps) {
   const selected: boolean = false // 선택된 대시보드
 
   const classNames: string = cn(
-    'rounded-lg transition',
+    'block rounded-lg transition',
     type === 'side' && selected
       ? 'bg-custom-light-violet'
       : 'hover:bg-custom-gray-100',
@@ -33,8 +39,10 @@ export default function DashboardCard({
   )
 
   return (
-    <button onClick={onClick} className={classNames}>
-      <DashboardName type={type}>{children}</DashboardName>
-    </button>
+    <Link href={href} className={classNames}>
+      <DashboardName type={type} color={color} createdByMe={createdByMe}>
+        {children}
+      </DashboardName>
+    </Link>
   )
 }

@@ -1,53 +1,59 @@
 import cn from 'classnames'
+import { ReactNode } from 'react'
 
-import TaskCard from '../components/TaskCard'
-import DashboardCol from './DashboardCol'
+import DashboardFeature from '@/components/DashboardFeature'
+
 import styles from './ResponsiveLayout.module.css'
-import { HEADER_HEIGHT } from './RootHeader'
+import RootHeader, { HEADER_HEIGHT } from './RootHeader'
 import RootSidebar from './RootSidebar'
 
-interface ClassNameProp {
+interface DashboardLayoutProp {
+  title: string
+  children: ReactNode
   className?: string
 }
 
-function DashboardLayout({ children }: React.PropsWithChildren) {
-  return <main className='h-screen w-screen'>{children}</main>
-}
-
-function Container({ children }: React.PropsWithChildren) {
-  const classNames: string = cn(
-    'grid h-full w-full bg-white',
-    styles['ResponsiveLayoutLeft']
-  )
-
-  return (
-    <section
-      className={classNames}
-      style={{
-        maxHeight: `calc(100% - ${HEADER_HEIGHT}px)`,
-      }}
-    >
-      {children}
-    </section>
-  )
-}
-
-function Content({
+/**
+ * @todo
+ * 유저 기능 컴포넌트 구현
+ * 대시보드에 참여한 사용자 목록 컴포넌트 구현
+ */
+export default function DashboardLayout({
+  title,
   children,
   className,
-}: React.PropsWithChildren & ClassNameProp) {
-  const classNames: string = cn(className)
+}: DashboardLayoutProp) {
   return (
-    <div className='h-full w-full overflow-hidden bg-custom-gray-100 text-custom-black-200'>
-      <div className='h-full w-full overflow-auto'>
-        <article className={className}>{children}</article>
-      </div>
-    </div>
+    <main className='h-screen w-screen'>
+      <RootHeader border>
+        <RootHeader.Title>{title}</RootHeader.Title>
+        <RootHeader.Features>
+          <DashboardFeature />
+          {/* 대시보드에 참여한 사용자 목록 컴포넌트 위치 */}
+          {/* 유저 기능 컴포넌트 위치 */}
+          <div className='flex gap-2 px-6'>
+            <p>아바타</p>
+            <span>이름</span>
+          </div>
+        </RootHeader.Features>
+      </RootHeader>
+
+      <section
+        className={cn(
+          'grid h-full w-full bg-white',
+          styles['ResponsiveLayoutLeft']
+        )}
+        style={{
+          maxHeight: `calc(100% - ${HEADER_HEIGHT}px)`,
+        }}
+      >
+        <RootSidebar />
+        <div className='h-full w-full overflow-hidden bg-custom-gray-100 text-custom-black-200'>
+          <div className='h-full w-full overflow-auto'>
+            <article className={className}>{children}</article>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
-
-DashboardLayout.Container = Container
-DashboardLayout.Sidebar = RootSidebar
-DashboardLayout.Content = Content
-
-export default DashboardLayout
