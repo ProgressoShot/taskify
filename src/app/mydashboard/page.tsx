@@ -80,7 +80,7 @@ export default function MyDashboard() {
           </section>
 
           <section className='rounded-lg bg-white'>
-            <div className='px-7 pb-6 pt-8'>
+            <div className='p-6 md:p-8'>
               <h2 className='text-2xl font-semibold'>초대받은 대시보드</h2>
             </div>
             <ReceivedInvitiationList />

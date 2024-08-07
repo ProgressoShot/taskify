@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import IconSearch from '/public/icons/search.svg'
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
 
 import ReceivedInvitiation from './ReceivedInvitiation'
@@ -107,6 +110,8 @@ function EmptyInvitationList() {
 }
 
 export default function ReceivedInvitiationList() {
+  const [value, setValue] = useState('')
+
   const INVITE_DASHBOARD_LIST = TEMP_INVITE_DASHBOARD_LIST
   const length: number = INVITE_DASHBOARD_LIST.length
 
@@ -114,18 +119,25 @@ export default function ReceivedInvitiationList() {
 
   return (
     <>
-      <article className='mt-8 rounded-md border border-custom-gray-300 p-2'>
-        <label>
-          <span>검색 폼 컴포넌트</span>
-        </label>
-        <input
-          type='text'
-          name='dashboardSearch'
-          value='value'
-          placeholder='검색'
-          onChange={() => console.log('test')}
-        />
-      </article>
+      <div className='px-6 md:px-8'>
+        <article className='relative'>
+          <label
+            htmlFor='dashboardSearchInput'
+            className='flex h-10 w-full items-center justify-start gap-1 rounded-md border border-custom-gray-300 px-4 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'
+          >
+            <IconSearch className='flex-none' />
+            <input
+              type='text'
+              name='dashboardSearch'
+              id='dashboardSearchInput'
+              value={value}
+              placeholder='검색'
+              onChange={e => setValue(e.target.value)}
+              className='h-full flex-1'
+            />
+          </label>
+        </article>
+      </div>
       <ReceivedInvitiation>
         {TEMP_INVITE_DASHBOARD_LIST.map((item: Invited) => {
           const { id, inviter, dashboard, invitee, inviteAccepted } = item
