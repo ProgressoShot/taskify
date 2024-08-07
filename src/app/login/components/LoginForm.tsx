@@ -8,6 +8,7 @@ import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
+import useDashboardStore from '@/store/useDashboardsStore'
 import useModalStore from '@/store/useModalStore'
 
 interface LoginFormValue {
@@ -27,6 +28,8 @@ export default function LoginForm() {
   } = useForm<LoginFormValue>()
 
   const { openModal } = useModalStore()
+  const { dashboards, setDashboards } = useDashboardStore()
+
   const [pwdVisible, togglePwd] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
 
@@ -35,7 +38,15 @@ export default function LoginForm() {
       const response = await api.post('auth/login', data)
       const { accessToken } = response.data
       sessionStorage.setItem('accessToken', accessToken)
-      console.log(accessToken)
+      try {
+        const dashboardsResponse = await api.get(
+          'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
+        )
+        const { dashboards } = dashboardsResponse.data
+        setDashboards(dashboards)
+      } catch (error) {
+        console.log(error)
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         openModal(
