@@ -1,6 +1,7 @@
 'use client'
 
 import axios, { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
@@ -10,6 +11,7 @@ import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
 import useDashboardStore from '@/store/useDashboardsStore'
 import useModalStore from '@/store/useModalStore'
+import useUserStore from '@/store/useUserStore'
 
 interface LoginFormValue {
   email: string
@@ -28,7 +30,8 @@ export default function LoginForm() {
   } = useForm<LoginFormValue>()
 
   const { openModal } = useModalStore()
-  const { dashboards, setDashboards } = useDashboardStore()
+  const { setDashboards } = useDashboardStore()
+  const { setUser } = useUserStore()
 
   const [pwdVisible, togglePwd] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
@@ -38,11 +41,13 @@ export default function LoginForm() {
       const response = await api.post('auth/login', data)
       const { accessToken } = response.data
       sessionStorage.setItem('accessToken', accessToken)
+      setUser(response.data.user)
       try {
         const dashboardsResponse = await api.get(
           'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
         )
         const { dashboards } = dashboardsResponse.data
+        console.log(dashboards[0].id)
         setDashboards(dashboards)
       } catch (error) {
         console.log(error)
