@@ -1,7 +1,7 @@
 'use client'
 
 import axios, { AxiosError } from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
@@ -29,6 +29,7 @@ export default function LoginForm() {
     formState: { errors, isLoading },
   } = useForm<LoginFormValue>()
 
+  const router = useRouter()
   const { openModal } = useModalStore()
   const { setDashboards } = useDashboardStore()
   const { setUser } = useUserStore()
@@ -47,8 +48,9 @@ export default function LoginForm() {
           'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
         )
         const { dashboards } = dashboardsResponse.data
-        console.log(dashboards[0].id)
         setDashboards(dashboards)
+        const dashboardid = dashboards[0].id
+        router.push(`/dashboard/${dashboardid}`)
       } catch (error) {
         console.log(error)
       }
