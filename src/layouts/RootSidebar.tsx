@@ -1,48 +1,31 @@
 'use client'
 
+import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
+import { getDashboardList } from '@/app/utils/dashboardsApi'
 import DashboardCard from '@/components/DashboardCard'
-import { Color } from '@/components/DashboardName'
+import useDashboardStore from '@/store/useDashboardsStore'
 
 import { HEADER_HEIGHT } from './RootHeader'
 
-type Dashboard = {
-  id: number
-  title: string
-  color: Color
-  createdAt: string
-  updatedAt: string
-  createdByMe: boolean
-  userId?: number
-}
-
-const Colors: Array<Color> = ['green', 'purple', 'orange', 'blue', 'pink']
-
-const TEMP_createdByMe = [false, false, true, false, false]
-
-export const DUMMY_DATA_DASHBOARD_LIST: Array<Dashboard> = Array.from(
-  { length: 32 },
-  (_, index) => {
-    return {
-      id: index,
-      title: `대시보드-${index}`,
-      color: Colors[index % 5],
-      createdAt: '2024-08-07T08:23:37.509Z',
-      updatedAt: '2024-08-07T08:23:37.509Z',
-      createdByMe: TEMP_createdByMe[index % 5],
-    }
-  }
-)
-
-/**
- * @todo
- * 주스탠드에서 대시보드 목록 불러오기
- * 선택된 대시보드 ON 효과 적용하기
- */
 export default function RootSidebar() {
   const ListElement = useRef<HTMLElement>(null)
+
+  const { dashboards, setDashboards } = useDashboardStore()
+  const { dashboardid } = useParams()
+
+  const getDashboard = async () => {
+    const data = await getDashboardList().then(res =>
+      res.sort((a: { id: number }, b: { id: number }) => a.id - b.id)
+    )
+    setDashboards(data)
+  }
+
+  useEffect(() => {
+    if (dashboards === null) getDashboard()
+  })
 
   useEffect(() => {
     // 무한스크롤 구현을 위한 대시보드 목록 높이 확인용
@@ -58,30 +41,32 @@ export default function RootSidebar() {
         <p className='hidden whitespace-nowrap text-xs font-semibold text-custom-gray-500 md:block'>
           Dash Boards
         </p>
-        <button className='p-0.5'>
+        <button className='p-0.5' onClick={() => alert('대시보드 생성 모달')}>
           <AddIcon className='text-custom-gray-500' />
         </button>
       </section>
       <section
         ref={ListElement}
-        className='flex flex-col gap-2 overflow-auto p-2 pb-6 text-slate-800'
+        className='flex flex-col gap-2 overflow-auto px-2 pb-6 text-slate-800'
         style={{
           height: 'calc(100% - 4rem)',
         }}
       >
-        {DUMMY_DATA_DASHBOARD_LIST.map((item, index) => {
-          return (
-            <DashboardCard
-              key={`dashboard-side-${index}`}
-              href={`/dashboard/${item.id}`}
-              type='side'
-              color={item.color}
-              createdByMe={item.createdByMe}
-            >
-              {item.title}
-            </DashboardCard>
-          )
-        })}
+        {dashboards &&
+          dashboards.map((item, index) => {
+            return (
+              <DashboardCard
+                key={`dashboard-side-${index}`}
+                href={`/dashboard/${item.id}`}
+                type='side'
+                color={item.color}
+                createdByMe={item.createdByMe}
+                active={item.id === Number(dashboardid)}
+              >
+                {item.title}
+              </DashboardCard>
+            )
+          })}
       </section>
     </div>
   )

@@ -4,40 +4,18 @@ import AddBoxIcon from '/public/icons/add-box2.svg'
 import BulletIcon from '/public/icons/bullet.svg'
 import CaretRightIcon from '/public/icons/caret-right.svg'
 import CrownIcon from '/public/icons/crown.svg'
+import { Dashboard, DashboardCardType } from '@/types/types'
 
-export type Color =
-  | 'violet'
-  | 'red'
-  | 'green'
-  | 'purple'
-  | 'orange'
-  | 'blue'
-  | 'pink'
-
-const COLOR_PRESET: Record<Color, string> = {
-  violet: 'text-custom-violet',
-  red: 'text-custom-red',
-  green: 'text-custom-green',
-  purple: 'text-custom-purple',
-  orange: 'text-custom-orange',
-  blue: 'text-custom-blue',
-  pink: 'text-custom-pink',
-}
-
-export type DashboardCardType = 'card' | 'side' | 'add'
-
-export interface DashboarNameProp {
+interface DashboarNameProp extends Dashboard {
   children: ReactNode
   type: DashboardCardType
-  color?: Color
-  createdByMe?: boolean
 }
 
 export default function DashboardName({
-  children,
-  type,
   color = 'green',
   createdByMe = false,
+  children,
+  type,
 }: DashboarNameProp) {
   const classNames: Record<string, string> = {
     wrap:
@@ -59,12 +37,15 @@ export default function DashboardName({
     <article className={`flex items-center ${classNames.wrap}`}>
       <section className={`flex items-center ${classNames.gap}`}>
         {type !== 'add' && (
-          <BulletIcon className={`${COLOR_PRESET[color]} ${classNames.mr}`} />
+          <BulletIcon className={classNames.mr} style={{ color: color }} />
         )}
         <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
         {type === 'add' && <AddBoxIcon />}
         {type !== 'add' && createdByMe && (
-          <CrownIcon fill='#FDD446' className={`${classNames.crown}`} />
+          <CrownIcon
+            style={{ color: '#FDD446' }}
+            className={classNames.crown}
+          />
         )}
       </section>
       {type === 'card' && <CaretRightIcon />}

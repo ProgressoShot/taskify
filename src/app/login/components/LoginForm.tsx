@@ -23,6 +23,13 @@ export interface LoginFormValue {
 const EMAIL_PATTERN = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 const PASSWORD_LENGTH = 8
 
+/**
+ * to @KingNono1030
+ * 윤호님!
+ * 대시보드 호출하는 부분 사이드바로 옮겼습니다.
+ * 기존 호출하던 코드를 주석해두었으니 추후에 필요없다면 삭제해도 될 것 같습니다!
+ * from @JuhyeokC
+ */
 export default function LoginForm() {
   const {
     register,
@@ -33,7 +40,7 @@ export default function LoginForm() {
 
   const router = useRouter()
   const { openModal } = useModalStore()
-  const { setDashboards } = useDashboardStore()
+  // const { setDashboards } = useDashboardStore()
   const { setUser } = useUserStore()
 
   const [pwdVisible, togglePwd] = useToggle(false)
@@ -44,8 +51,8 @@ export default function LoginForm() {
       const { accessToken, user } = await login(data)
       sessionStorage.setItem('accessToken', accessToken)
       setUser(user)
-      const dashboards = await fetchDashboards()
-      setDashboards(dashboards)
+      // const dashboards = await fetchDashboards()
+      // setDashboards(dashboards)
       router.push('/mydashboard')
     } catch (error) {
       if (axios.isAxiosError(error)) {
