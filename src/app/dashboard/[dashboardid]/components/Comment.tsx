@@ -15,27 +15,30 @@ interface CommentProps {
 export default function Comment({ comment }: CommentProps) {
   const { id, profileURL, nickName, createdAt, content } = comment
   return (
-    <div className='flex gap-2'>
+    <div className='flex gap-2 md:gap-3'>
       <div className='flex h-[26px] w-[26px] items-center justify-center'>
-        <div className='relative h-[22px] w-[22px] rounded-full'>
-          <img src={profileURL} fill alt='프로필' objectFit='cover' />
-        </div>
+        <img
+          className='h-[22px] w-[22px] rounded-full object-cover'
+          src={profileURL}
+          fill
+          alt='프로필'
+          objectFit='cover'
+        />
       </div>
       <div className='flex flex-col'>
-        <div className='mb-2 flex justify-center'>
-          <h3 className='mr-2 text-xs font-semibold text-custom-black-200'>
+        <div className='mb-2 flex items-center'>
+          <h3 className='mr-2 text-xs font-semibold text-custom-black-200 md:text-sm'>
             {nickName}
           </h3>
-          <span className='text-[10px] font-normal text-custom-gray-400'>
+          <span className='text-[10px] font-normal text-custom-gray-400 md:text-xs'>
             {createdAt}
           </span>
         </div>
-        <p className='mb-2 text-xs font-normal text-custom-black-200'>
+        <p className='mb-2 text-xs font-normal text-custom-black-200 md:text-sm'>
           {content}
         </p>
-        <div className='flex gap-2'>
+        <div className='flex gap-2 text-[10px] font-normal text-custom-gray-400 underline md:gap-3 md:text-xs'>
           <button
-            className='border-none text-[10px] font-normal text-custom-gray-400 underline'
             onClick={() => {
               console.log('수정')
             }}
@@ -43,7 +46,6 @@ export default function Comment({ comment }: CommentProps) {
             수정
           </button>
           <button
-            className='border-none text-[10px] font-normal text-custom-gray-400 underline'
             onClick={() => {
               console.log('삭제')
             }}
