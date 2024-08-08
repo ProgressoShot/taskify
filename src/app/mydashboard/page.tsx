@@ -1,32 +1,33 @@
 'use client'
 
 import DashboardCard from '@/components/DashboardCard'
-import { DUMMY_DATA_DASHBOARD_LIST } from '@/layouts/RootSidebar'
+import useDashboardStore from '@/store/useDashboardsStore'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
 
-const 임시리스트 = DUMMY_DATA_DASHBOARD_LIST.slice(0, 5)
-
 export default function MyDashboard() {
+  const { dashboards } = useDashboardStore()
+
   return (
     <>
       <section className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        <DashboardCard type='add'>새로운 대시보드</DashboardCard>
-
-        {임시리스트.map((item, index) => {
-          return (
-            <DashboardCard
-              href={`/dashboard/${item.id}`}
-              type='card'
-              key={`dashboard-card-${index}`}
-              color={item.color}
-              createdByMe={item.createdByMe}
-            >
-              {item.title}
-            </DashboardCard>
-          )
-        })}
-
+        <DashboardCard type='add' onClick={() => alert('대시보드 생성 모달')}>
+          새로운 대시보드
+        </DashboardCard>
+        {dashboards &&
+          dashboards.map((item, index) => {
+            return (
+              <DashboardCard
+                href={`/dashboard/${item.id}`}
+                type='card'
+                key={`dashboard-card-${index}`}
+                color={item.color}
+                createdByMe={item.createdByMe}
+              >
+                {item.title}
+              </DashboardCard>
+            )
+          })}
         <div
           style={{
             gridColumn: '1/-1',
