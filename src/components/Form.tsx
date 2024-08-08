@@ -17,7 +17,7 @@ interface FormProps extends BasicProps {
 
 interface LabelProps extends BasicProps {}
 
-type InputType = 'email' | 'password' | 'text'
+type InputType = 'email' | 'password' | 'text' | 'radio'
 
 interface InputProps {
   className?: string
@@ -69,6 +69,7 @@ function LabelHeader({ children, className }: LabelProps) {
   )
   return <h3 className={headerClass}> {children} </h3>
 }
+
 function Input({
   className,
   type,
