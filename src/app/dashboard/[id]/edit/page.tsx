@@ -45,7 +45,7 @@ export default function DashboardIdEditPage() {
     <>
       <Link href='#'>돌아가기</Link>
       <div className='rounded-lg bg-white'>
-        <h1> 대시보드 정보</h1>
+        <h1>대시보드 정보</h1>
         <p>{createdAt}</p>
         <Form onSubmit={onSubmit} formId='dashboardInfoForm'>
           <Form.Label>
