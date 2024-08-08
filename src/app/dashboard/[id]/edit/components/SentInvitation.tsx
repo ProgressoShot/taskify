@@ -1,15 +1,10 @@
-export function SentInvitation() {
-  return <></>
-}
-
 import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
 import Button from '@/components/Button'
 
-interface ReceivedInvitationProps {
-  dashboardTitle: string
-  inviter: string
+interface SentInvitationProps {
+  inviteeEmail: string
   inviteAccepted: boolean
 }
 
@@ -39,7 +34,7 @@ const classNames = {
   },
 }
 
-function Item({ dashboardTitle, inviter, inviteAccepted }: ReceivedInvitationProps) {
+function Item({ inviteeEmail }: SentInvitationProps) {
   return (
     <div
       className={cn(
@@ -59,61 +54,36 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: ReceivedInvitationPro
             'text-sm'
           )}
         >
-          이름
+          이메일
         </p>
-        <p className={cn(classNames.value.default)}>{dashboardTitle}</p>
+        <p className={cn(classNames.value.default)}>{inviteeEmail}</p>
       </div>
       <div
         className={cn(classNames.cols.default)}
         style={classNames.cols.style}
       >
-        <p
-          className={cn(
-            classNames.label.default,
-            classNames.label.mobile,
-            'text-sm'
-          )}
-        >
-          초대자
-        </p>
-        <p className={cn(classNames.value.default)}>{inviter}</p>
-      </div>
-      <div
-        className={cn(
-          classNames.value.default,
-          'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
-        )}
-      >
         <Button
           className={cn(classNames.button.default)}
-          color={inviteAccepted ? 'primary' : 'secondary'}
+          color={'secondary'}
         >
-          수락
-        </Button>
-        <Button
-          className={cn(classNames.button.default)}
-          color={!inviteAccepted ? 'primary' : 'secondary'}
-        >
-          거절
+          취소
         </Button>
       </div>
     </div>
   )
 }
 
-function ReceivedInvitation({ children }: PropsWithChildren) {
+function SentInvitation({ children }: PropsWithChildren) {
   return (
     <div className='pb-8'>
       <div className={cn(classNames.inner.default, 'hidden')}>
-        <p className={cn(classNames.label.default, 'text-base')}>이름</p>
-        <p className={cn(classNames.label.default, 'text-base')}>초대자</p>
-        <p className={cn(classNames.label.default, 'text-base')}>수락여부</p>
+        <p className={cn(classNames.label.default, 'text-base')}>이메일</p>
       </div>
       {children}
     </div>
   )
 }
 
-ReceivedInvitation.Item = Item
+SentInvitation.Item = Item
 
-export default ReceivedInvitation
+export default SentInvitation
