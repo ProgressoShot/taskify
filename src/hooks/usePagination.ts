@@ -3,7 +3,7 @@ import { useState } from 'react'
 interface UsePaginationProps {
   totalItems: number
   itemsPerPage: number
-  initialPage: number
+  initialPage?: number
 }
 
 const usePagination = ({
