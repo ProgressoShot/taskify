@@ -112,7 +112,7 @@ export default function TaskCardContent() {
         <button type='button'>
           <Kebab className='h-5 w-5 md:h-7 md:w-7' />
         </button>
-        <button type='button'>
+        <button type='button' onClick={closeModal}>
           <Close className='h-6 w-6 md:h-8 md:w-8' />
         </button>
       </div>
