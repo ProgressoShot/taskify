@@ -22,17 +22,14 @@ export default function DashboardCard({
   href = '',
   onClick,
 }: React.PropsWithChildren & DashboardCardProps) {
-  const selected: boolean = false // 선택된 대시보드
-
   const classNames: string = cn(
     'block rounded-lg transition',
-    type === 'side' && selected
+    type === 'side' && active
       ? 'bg-custom-light-violet'
       : 'hover:bg-custom-gray-100',
     type === 'side'
       ? 'py-3 px-4'
-      : 'round-container h-full w-full border border-custom-gray-300 bg-white p-5',
-    active && 'bg-custom-light-violet'
+      : 'round-container h-full w-full border border-custom-gray-300 bg-white p-5'
   )
 
   const Element = type === 'add' ? Button : Link
