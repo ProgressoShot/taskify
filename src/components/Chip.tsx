@@ -18,16 +18,17 @@ function getRandomColor() {
 
 export default function Chip({ children }: ChipProps) {
   const { bgColor, textColor } = getRandomColor()
-
+  console.log(bgColor)
+  console.log(textColor)
+  const chipClass = cn(
+    'mr-[6px] flex rounded-[4px] px-[6px] py-[2px] text-sm font-normal',
+    bgColor,
+    textColor
+  )
   return (
-    <div
-      className={cn(
-        'mr-[6px] flex rounded-md px-[6px] py-[2px] text-[14px] font-normal',
-        bgColor,
-        textColor
-      )}
-    >
-      <span className=''>{children}</span>
+    <div className={chipClass}>
+      {children}
+      <span className='hidden bg-custom-tag-blue-100 bg-custom-tag-green-100 bg-custom-tag-orange-100 bg-custom-tag-pink-100 text-custom-tag-blue-200 text-custom-tag-green-200 text-custom-tag-orange-200 text-custom-tag-pink-200'></span>
     </div>
   )
 }

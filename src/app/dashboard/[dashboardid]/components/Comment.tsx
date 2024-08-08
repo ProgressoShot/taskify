@@ -20,9 +20,7 @@ export default function Comment({ comment }: CommentProps) {
         <img
           className='h-[22px] w-[22px] rounded-full object-cover'
           src={profileURL}
-          fill
           alt='프로필'
-          objectFit='cover'
         />
       </div>
       <div className='flex flex-col'>

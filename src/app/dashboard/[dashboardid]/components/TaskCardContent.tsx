@@ -90,7 +90,7 @@ export default function TaskCardContent() {
               <Form.LabelHeader>댓글</Form.LabelHeader>
               <Form.TextArea
                 placeholder='댓글 작성하기'
-                className='h-[70px] w-full p-3 text-xs placeholder:text-custom-gray-400 md:h-[110px] md:p-4 md:text-sm'
+                className='h-[70px] w-full p-3 pr-24 text-xs placeholder:text-custom-gray-400 md:h-[110px] md:p-4 md:pr-24 md:text-sm'
               />
               <Button
                 color='secondary'
