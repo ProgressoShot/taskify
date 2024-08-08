@@ -64,6 +64,9 @@ const config: Config = {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
       },
+      gridTemplateColumns: {
+        card: 'minmax(420px, 1fr) minmax(180px, 200px)',
+      },
     },
   },
   plugins: [],
