@@ -1,5 +1,5 @@
-import Image from 'next/image'
-
+import Kebab from '/public/icons/kebab-menu.svg'
+import Close from '/public/icons/close.svg'
 import Bullet from '/public/icons/bullet.svg'
 import Comment from '@/app/dashboard/[dashboardid]/components/Comment'
 import Button from '@/components/Button'
@@ -31,7 +31,7 @@ export default function TaskCardContent() {
   const { closeModal } = useModalStore()
 
   return (
-    <section className='max-w-[730px] p-4 md:px-6 md:py-8'>
+    <section className='relative max-w-[730px] p-4 md:px-6 md:py-8'>
       <h2 className='md:text:xl mb-2 mt-10 text-xl font-bold text-custom-black-200 md:mb-6 md:mt-0 md:text-2xl'>
         새로운 일정 관리 Taskify
       </h2>
@@ -107,6 +107,14 @@ export default function TaskCardContent() {
             </li>
           ))}
         </div>
+      </div>
+      <div className='absolute right-4 top-4 flex items-center gap-4 text-custom-black-200 md:gap-6'>
+        <button type='button'>
+          <Kebab className='h-5 w-5 md:h-7 md:w-7' />
+        </button>
+        <button type='button'>
+          <Close className='h-6 w-6 md:h-8 md:w-8' />
+        </button>
       </div>
     </section>
   )
