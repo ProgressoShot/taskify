@@ -31,7 +31,7 @@ export default function DashboardLayout({
           <DashboardFeature />
           {/* 대시보드에 참여한 사용자 목록 컴포넌트 위치 */}
           {/* 유저 기능 컴포넌트 위치 */}
-          <div className='flex gap-2 px-6'>
+          <div className='flex gap-2 px-9'>
             <p>아바타</p>
             <span>이름</span>
           </div>
