@@ -8,6 +8,8 @@ import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
+import ColumnChip from './ColumnChip'
+
 interface TaskCardContentProps {}
 
 const tags = ['프로젝트', '일반', '백엔드', '상']
@@ -59,10 +61,7 @@ export default function TaskCardContent() {
         <div className='md:order-1'>
           <div className='mb-4 flex w-full flex-col'>
             <div className='flex gap-3'>
-              <div className='flex h-[26px] w-[60px] items-center justify-center gap-[6px] rounded-2xl bg-custom-light-violet text-xs font-normal text-custom-violet'>
-                <Bullet />
-                {column}
-              </div>
+              <ColumnChip>{column}</ColumnChip>
               <div className='mt-[3px] h-5 w-[1px] bg-custom-gray-300'></div>
               <div className='flex flex-wrap'>
                 {tags.map(tag => (
