@@ -3,7 +3,7 @@
 import {useParams} from 'next/navigation'
 import {PropsWithChildren} from 'react'
 
-import {getDashboardInfoById} from '@/app/utils/api'
+import {getDashboardInfo} from '@/app/utils/api'
 import DashboardLayout from '@/layouts/DashboardLayout'
 
 /**
@@ -13,7 +13,7 @@ import DashboardLayout from '@/layouts/DashboardLayout'
  */
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
   const { id } = useParams()
-  const { title } = getDashboardInfoById(id)
+  const { title } = getDashboardInfo(id)
 
   return (
     <DashboardLayout

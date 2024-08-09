@@ -1,19 +1,37 @@
 import api from '@/app/utils/axiosInstance'
 
-export async function getDashboardInfoById(id: number) {
+export async function getDashboardInfo(dashboardId: number) {
   try {
-    const response = await api.get(`/dashboards/${id}`)
+    const response = await api.get(`/dashboards/${dashboardId}`)
     return response.data
   } catch (error) {
     return error.message
   }
 }
 
-export async function updateDashboardInfo(id: number, body: any) {
+export async function updateDashboardTitle(id: number, title: string) {
   try {
-    const response = await api.put(`/dashboards/${id}`, body)
+    const response = await api.put(`/dashboards/${id}`, {
+      title,
+    })
     return response.data
   } catch (error) {
+    return error.message
+  }
+}
+
+export async function updateDashboardInfo(
+  id: number,
+  title: string,
+  color: string
+) {
+  try {
+    const response = await api.put(`/dashboards/${id}`, {
+      title,
+      color,
+    })
+    return response.data
+  } catch (error: any) {
     return error.message
   }
 }
