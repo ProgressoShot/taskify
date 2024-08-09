@@ -28,9 +28,9 @@ export default function Modal({ className }: ModalProps) {
 
   if (!isOpen) return null
 
-  const modalClass = cn('rounded-lg bg-white', className)
+  const modalClass = cn('rounded-lg bg-white ', className)
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 px-6'>
+    <div className='scrollbar-hide fixed inset-0 flex items-center justify-center overflow-y-scroll bg-black bg-opacity-70 p-6'>
       <div className={modalClass}>{content}</div>
     </div>
   )

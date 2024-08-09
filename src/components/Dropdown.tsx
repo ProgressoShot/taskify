@@ -21,7 +21,7 @@ const DropdownContext = createContext({ isOpen: false, toggle: () => {} })
 
 function Dropdown({ children, className }: DropdownProps) {
   const [isOpen, toggle] = useToggle(false)
-  const containerStyle = cn('relative', className)
+  const containerStyle = cn('', className)
 
   return (
     <DropdownContext.Provider value={{ isOpen, toggle }}>
@@ -45,7 +45,10 @@ const Trigger = ({ children, className, as }: TriggerProps) => {
 
 const Menu = ({ children, className }: MenuProps) => {
   const { isOpen } = useContext(DropdownContext)
-  const menuStyle = cn('absolute rounded-container z-10', className)
+  const menuStyle = cn(
+    'rounded-container absolute right-0 z-10 mt-[2px] flex h-20 w-[92px] flex-col justify-between gap-1 p-[6px]',
+    className
+  )
 
   return isOpen ? <div className={menuStyle}>{children}</div> : null
 }
@@ -53,18 +56,23 @@ const Menu = ({ children, className }: MenuProps) => {
 const Item = ({ children, className, onClick }: ItemProps) => {
   const { toggle } = useContext(DropdownContext)
 
-  const itemStyle = cn('', className)
+  const itemStyle = cn(
+    'flex h-8 w-20 items-center justify-center rounded-[4px] text-sm text-custom-black-200',
+    className
+  )
 
   return (
-    <div
+    <button
       className={itemStyle}
+      type='button'
       onClick={() => {
         onClick()
         toggle()
       }}
     >
+      <div className=''></div>
       {children}
-    </div>
+    </button>
   )
 }
 

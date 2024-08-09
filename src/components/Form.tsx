@@ -99,7 +99,7 @@ function Input({
 
 function TextArea({ className, required, placeholder }: TextAreaProps) {
   const textAreaClass = cn(
-    'rounded-container block h-[126px] w-full resize-none px-4 py-3 text-custom-black-200 outline-custom-violet placeholder:text-custom-gray-400',
+    'rounded-container block h-[126px] w-full resize-none px-4 py-3 text-custom-black-200 placeholder:text-custom-gray-400',
     className
   )
   return (
