@@ -4,22 +4,26 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
-import {getDashboardInfoById, updateDashboardInfo} from '@/app/utils/api'
+import {getDashboardInfo, updateDashboardInfo, updateDashboardTitle} from '@/app/utils/api'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
 import Modal from '@/components/Modal'
-import { useState } from 'react'
+import {useState, useEffect, useCallback} from 'react'
+import {useStore} from "zustand";
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()
-  const [dashboardInfo, setDashboardInfo] = useState({ title: '', color: '' })
-  const { register, handleSubmit, setValue } = useForm({
-    defaultValues: { title: '', color: '' },
+  const dashboardId = Number(id)
+  const { title, color, createdAt } = useStore(state => state.dashboard)
+  const setDashboard = useStore(state => state.setDashboard)
+
+  const { register, handleSubmit} = useForm({
+    defaultValues: { title: title , color: color },
   })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const colors = {
+  const COLORS = {
     green: '#7AC555',
     purple: '#760DDE',
     orange: '#FFA500',
@@ -29,39 +33,32 @@ export default function DashboardIdEditPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getDashboardInfoById(id)
-      setDashboardInfo(data)
-      setValue('title', data.title)
-      setValue('color', data.color)
+      const data = await getDashboardInfo(dashboardId)
+      setDashboard(data)
     }
     fetchData()
-  }, [id, setValue])
-
-  const onSubmit = () => {
-    updateDashboardInfo(id, dashboardInfo).then()
-  }
+  }, [dashboardId, setValue])
 
   return (
     <>
       <Link href='#'>돌아가기</Link>
       <div className='rounded-lg bg-white'>
         <h1>대시보드 정보</h1>
-        <p>{createdAt}</p>
-        <Form onSubmit={onSubmit} formId='dashboardInfoForm'>
+        <Form onSubmit={handleSubmit} formId='dashboardInfoForm'>
           <Form.Label>
             <Form.LabelHeader>대시보드 이름</Form.LabelHeader>
-            <Form.Input
-              register={register('title', {
+            {title && <Form.Input
+              register={register("title", {
                 required: {
                   value: true,
-                  message: '대시보드 이름을 입력해주세요',
+                  message: "대시보드 이름을 입력해주세요",
                 },
-                defaultValues: title,
+                value: title,
               })}
-              type='text'
-              required
-              placeholder='대시보드 이름을 입력해주세요'
-            ></Form.Input>
+              type="text"
+              required={true}
+              placeholder="대시보드 이름을 입력해주세요"
+            />}
           </Form.Label>
           <Form.Label>
             <Form.LabelHeader>대시보드 색상</Form.LabelHeader>
@@ -69,46 +66,46 @@ export default function DashboardIdEditPage() {
               register={register('green', {
                 name: 'color',
                 id: 'green',
-                value: colors.green,
+                value: COLORS.green,
               })}
               type='radio'
-              checked={color === colors.green}
+              checked={color === COLORS.green}
             />
             <Form.Input
               register={register('purple', {
                 name: 'color',
                 id: 'purple',
-                value: colors.purple,
+                value: COLORS.purple,
               })}
               type='radio'
-              checked={color === colors.purple}
+              checked={color === COLORS.purple}
             />
             <Form.Input
               register={register('orange', {
                 name: 'color',
                 id: 'orange',
-                value: colors.orange,
+                value: COLORS.orange,
               })}
               type='radio'
-              checked={color === colors.orange}
+              checked={color === COLORS.orange}
             />
             <Form.Input
               register={register('blue', {
                 name: 'color',
                 id: 'blue',
-                value: colors.blue,
+                value: COLORS.blue,
               })}
               type='radio'
-              checked={color === colors.blue}
+              checked={color === COLORS.blue}
             />
             <Form.Input
               register={register('pink', {
                 name: 'color',
                 id: 'pink',
-                value: colors.pink,
+                value: COLORS.pink,
               })}
               type='radio'
-              checked={color === colors.pink}
+              checked={color === COLORS.pink}
             />
           </Form.Label>
           <Button type='submit'>변경</Button>
