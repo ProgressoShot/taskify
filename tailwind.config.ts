@@ -1,6 +1,16 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  safelist: [
+    'bg-custom-tag-orange-100',
+    'bg-custom-tag-green-100',
+    'bg-custom-tag-pink-100',
+    'bg-custom-tag-blue-100',
+    'text-custom-tag-orange-200',
+    'text-custom-tag-green-200',
+    'text-custom-tag-pink-200',
+    'text-custom-tag-blue-200',
+  ],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
