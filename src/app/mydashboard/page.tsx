@@ -1,7 +1,7 @@
 'use client'
 
 import DashboardCard from '@/components/DashboardCard'
-import useDashboardStore from '@/store/useDashboardsStore'
+import useDashboardStore from '@/store/useDashboardStore'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
 
