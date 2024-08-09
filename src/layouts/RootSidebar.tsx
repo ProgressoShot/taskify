@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react'
 import AddIcon from '/public/icons/add-box.svg'
 import { getDashboardList } from '@/app/utils/dashboardsApi'
 import DashboardCard from '@/components/DashboardCard'
-import useDashboardStore from '@/store/useDashboardStore'
+import useDashboardStore from '@/store/useDashboardsStore'
 
 import { HEADER_HEIGHT } from './RootHeader'
 

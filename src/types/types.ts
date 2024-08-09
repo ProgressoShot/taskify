@@ -28,7 +28,6 @@ export interface Dashboard {
   createdByMe?: boolean
   userId?: string
 }
-
 export interface User {
   createdAt: Date
   email: string
@@ -37,3 +36,5 @@ export interface User {
   profileImageUrl: string | null
   updatedAt: Date
 }
+
+export type Dashboards = Dashboard[] | null

@@ -9,7 +9,7 @@ import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
-import useDashboardStore from '@/store/useDashboardStore'
+import useDashboardStore from '@/store/useDashboardsStore'
 import useModalStore from '@/store/useModalStore'
 import useUserStore from '@/store/useUserStore'
 
