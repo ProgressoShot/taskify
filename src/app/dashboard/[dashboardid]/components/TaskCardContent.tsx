@@ -1,9 +1,10 @@
-import Kebab from '/public/icons/kebab-menu.svg'
-import Close from '/public/icons/close.svg'
 import Bullet from '/public/icons/bullet.svg'
+import Close from '/public/icons/close.svg'
+import Kebab from '/public/icons/kebab-menu.svg'
 import Comment from '@/app/dashboard/[dashboardid]/components/Comment'
 import Button from '@/components/Button'
 import Chip from '@/components/Chip'
+import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
@@ -35,7 +36,7 @@ export default function TaskCardContent() {
       <h2 className='md:text:xl mb-2 mt-10 text-xl font-bold text-custom-black-200 md:mb-6 md:mt-0 md:text-2xl'>
         새로운 일정 관리 Taskify
       </h2>
-      <div className='md:grid-cols-card grid grid-cols-1 gap-4 md:gap-3 xl:gap-6'>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-card md:gap-3 xl:gap-6'>
         <div className='rounded-container grid h-16 grid-cols-2 px-4 py-[9px] md:order-2 md:h-[155px] md:w-[180px] md:grid-cols-1'>
           <div className='flex flex-col'>
             <h2 className='mb-1 text-xs font-semibold text-black'>담당자</h2>
@@ -108,14 +109,36 @@ export default function TaskCardContent() {
           ))}
         </div>
       </div>
-      <div className='absolute right-4 top-4 flex items-center gap-4 text-custom-black-200 md:gap-6'>
-        <button type='button'>
-          <Kebab className='h-5 w-5 md:h-7 md:w-7' />
-        </button>
-        <button type='button' onClick={closeModal}>
-          <Close className='h-6 w-6 md:h-8 md:w-8' />
-        </button>
-      </div>
+      <Dropdown className='absolute right-14 top-4 md:right-[86px] md:top-6'>
+        <Dropdown.Trigger className='flex items-center justify-center'>
+          <Kebab className='h-6 w-6 text-custom-black-200 md:h-8 md:w-8' />
+        </Dropdown.Trigger>
+        <Dropdown.Menu>
+          <Dropdown.Item
+            className='hover:bg-custom-light-violet hover:text-custom-violet'
+            onClick={() => {
+              console.log('수정')
+            }}
+          >
+            수정하기
+          </Dropdown.Item>
+          <Dropdown.Item
+            className='hover:bg-custom-light-violet hover:text-custom-violet'
+            onClick={() => {
+              console.log('삭제')
+            }}
+          >
+            삭제하기
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <button
+        type='button'
+        onClick={closeModal}
+        className='absolute right-4 top-4 md:right-8 md:top-6'
+      >
+        <Close className='h-6 w-6 text-custom-black-200 md:h-8 md:w-8' />
+      </button>
     </section>
   )
 }
