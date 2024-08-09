@@ -12,7 +12,7 @@ interface CardProps {
 
 export default function Card({ children, imageSrc }: CardProps) {
   return (
-    <div className='mb-4 w-80 rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4'>
+    <div className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4'>
       {imageSrc && (
         <div className='w-[274px] pb-4'>
           <img src={imageSrc} alt='TaskCard 이미지' className='size-full' />
