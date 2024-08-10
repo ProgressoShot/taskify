@@ -7,15 +7,9 @@ import Chip from '@/components/Chip'
 import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
+import type { TaskCard } from '@/types/types'
 
-interface TaskCardContentProps {}
-
-const tags = ['프로젝트', '일반', '백엔드', '상']
 const column = 'To Do'
-const content =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus nibh arcu, quis consequat ante cursus eget. Cras mattis, nulla non laoreet porttitor, diam justo laoreet eros, vel aliquet diam elit at leo.'
-const imgSrc =
-  'https://i.namu.wiki/i/DIWQPMFg_xE7JxIv0-4M5PbXco2d-BynsivSWqt6enqDgXOKw0nuZznBUGV-7FtJilQEY7zxodg1kZcYlQXDJw.webp'
 
 const comments = [
   {
@@ -27,14 +21,31 @@ const comments = [
     content: '오늘 안에 만들 수 있을까요?',
   },
 ]
-
-export default function TaskCardContent() {
+interface TaskCardContentProps {
+  card: TaskCard
+}
+export default function TaskCardContent({ card }: TaskCardContentProps) {
   const { closeModal } = useModalStore()
 
+  const {
+    id: taskCardId,
+    title,
+    description,
+    tags,
+    dueDate,
+    assignee,
+    imageUrl,
+    createdAt,
+  } = card
+  const {
+    id: assigneeId,
+    nickname: assigneeNickname,
+    profileImageUrl: assigneeProfileUrl,
+  } = assignee
   return (
     <section className='relative max-w-[730px] p-4 md:px-6 md:py-8'>
       <h2 className='md:text:xl mb-2 mt-10 text-xl font-bold text-custom-black-200 md:mb-6 md:mt-0 md:text-2xl'>
-        새로운 일정 관리 Taskify
+        {title}
       </h2>
       <div className='grid grid-cols-1 gap-4 md:grid-cols-card md:gap-3 xl:gap-6'>
         <div className='rounded-container grid h-16 grid-cols-2 px-4 py-[9px] md:order-2 md:h-[155px] md:w-[180px] md:grid-cols-1'>
@@ -44,7 +55,7 @@ export default function TaskCardContent() {
               <div className='m-[2px] flex h-[22px] w-[22px] items-center justify-center rounded-full bg-custom-green text-white md:mb-[6px] md:h-8 md:w-8'>
                 B
               </div>
-              배유철
+              {assigneeNickname}
             </div>
           </div>
           <div className='flex flex-col'>
@@ -52,7 +63,7 @@ export default function TaskCardContent() {
               마감일
             </h2>
             <span className='text-xs font-normal text-custom-black-200 md:text-sm'>
-              2024.09.11 19:00
+              {dueDate}
             </span>
           </div>
         </div>
@@ -74,10 +85,10 @@ export default function TaskCardContent() {
             </div>
           </div>
           <p className='mb-8 text-xs font-normal text-black md:mb-4 md:text-sm'>
-            {content}
+            {description}
           </p>
           <div className='relative mb-6 rounded-md'>
-            <img className='rounded-md' src={imgSrc} alt='이미지' />
+            <img className='rounded-md' src={imageUrl} alt='이미지' />
           </div>
           <Form
             formId='commentForm'

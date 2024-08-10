@@ -2,7 +2,9 @@ import cn from 'classnames'
 import { ReactNode } from 'react'
 
 import Calendar from '/public/icons/calendar.svg'
+import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
+import useModalStore from '@/store/useModalStore'
 import type { TaskCard } from '@/types/types'
 
 interface CardProps {
@@ -20,11 +22,22 @@ export default function TaskCard({ card }: CardProps) {
     imageUrl,
     createdAt,
   } = card
+  const { openModal } = useModalStore()
   return (
-    <div className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4'>
+    <button
+      type='button'
+      onClick={() => {
+        openModal(<TaskCardContent card={card} />)
+      }}
+      className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4 text-left'
+    >
       {imageUrl && (
-        <div className='w-[274px] pb-4'>
-          <img src={imageUrl} alt='TaskCard 이미지' className='size-full' />
+        <div className='h-40 w-[274px] pb-4'>
+          <img
+            src={imageUrl}
+            alt='TaskCard 이미지'
+            className='size-full rounded-md object-cover object-top'
+          />
         </div>
       )}
       <div className='pb-2.5 text-base font-medium'>hi</div>
@@ -44,6 +57,6 @@ export default function TaskCard({ card }: CardProps) {
         <Profile profile={assignee} />
         */}
       </div>
-    </div>
+    </button>
   )
 }
