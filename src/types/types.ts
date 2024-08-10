@@ -65,3 +65,16 @@ export interface TaskCard {
   createdAt: string
   updatedAt: string
 }
+
+export interface Comment {
+  id: string
+  content: string
+  createdAt: string
+  updatedAt: string
+  cardId: string
+  author: {
+    profileImageUrl: string
+    nickname: string
+    id: string
+  }
+}

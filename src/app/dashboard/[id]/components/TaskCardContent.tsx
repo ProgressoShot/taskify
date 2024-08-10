@@ -6,19 +6,10 @@ import Button from '@/components/Button'
 import Chip from '@/components/Chip'
 import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
+import { useComments } from '@/hooks/useComments'
 import useModalStore from '@/store/useModalStore'
 import type { TaskCard } from '@/types/types'
 
-const comments = [
-  {
-    id: '1',
-    profileURL:
-      'https://i.namu.wiki/i/DIWQPMFg_xE7JxIv0-4M5PbXco2d-BynsivSWqt6enqDgXOKw0nuZznBUGV-7FtJilQEY7zxodg1kZcYlQXDJw.webp',
-    nickName: '정만철',
-    createdAt: '2022.12.27 14:00',
-    content: '오늘 안에 만들 수 있을까요?',
-  },
-]
 interface TaskCardContentProps {
   card: TaskCard
   columnTitle: string
@@ -44,6 +35,9 @@ export default function TaskCardContent({
     nickname: assigneeNickname,
     profileImageUrl: assigneeProfileUrl,
   } = assignee
+
+  const { comments, loading, error } = useComments(taskCardId)
+
   return (
     <section className='relative max-w-[730px] p-4 md:px-6 md:py-8'>
       <h2 className='md:text:xl mb-2 mt-10 text-xl font-bold text-custom-black-200 md:mb-6 md:mt-0 md:text-2xl'>
