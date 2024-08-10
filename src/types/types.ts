@@ -48,6 +48,20 @@ export interface Column {
   updatedAt: Date
 }
 
-export interface Params {
+export interface TaskCard {
   id: string
+  title: string
+  description: string
+  tags: string[]
+  dueDate: string
+  assignee: {
+    profileImageUrl: string
+    nickname: string
+    id: string
+  }
+  imageUrl: string
+  teamId: string
+  columnId: string
+  createdAt: string
+  updatedAt: string
 }

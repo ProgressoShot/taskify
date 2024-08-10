@@ -22,13 +22,12 @@ export default function DashboardPage() {
   if (error) return <div>에러...</div>
   return (
     <>
-      <ul>
-        {columns.map(column => (
-          <li key={column.id}>
-            <DashboardCol title={column.title} />
-          </li>
-        ))}
-      </ul>
+      {columns.map(column => (
+        <li key={column.id}>
+          <DashboardCol column={column} />
+        </li>
+      ))}
+
       <section className='h-auto w-full flex-none overflow-hidden border-r border-custom-gray-200 lg:h-full lg:w-[354px]'>
         <div className='p-5 lg:py-16'>
           <p>대시보드 ID: {dashboardId}</p>

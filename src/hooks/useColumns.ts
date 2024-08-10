@@ -13,7 +13,7 @@ export const useColumns = (dashboardId: string) => {
       try {
         const res = await api.get(`columns?dashboardId=${dashboardId}`)
         const { data } = res.data
-        setColumns(data)
+        setColumns(() => data)
       } catch (err) {
         setError(err as Error)
       } finally {
