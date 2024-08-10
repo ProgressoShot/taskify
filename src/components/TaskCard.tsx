@@ -9,9 +9,10 @@ import type { TaskCard } from '@/types/types'
 
 interface CardProps {
   card: TaskCard
+  columnTitle: string
 }
 
-export default function TaskCard({ card }: CardProps) {
+export default function TaskCard({ card, columnTitle }: CardProps) {
   const {
     id: taskCardId,
     title,
@@ -27,7 +28,7 @@ export default function TaskCard({ card }: CardProps) {
     <button
       type='button'
       onClick={() => {
-        openModal(<TaskCardContent card={card} />)
+        openModal(<TaskCardContent card={card} columnTitle={columnTitle} />)
       }}
       className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4 text-left'
     >

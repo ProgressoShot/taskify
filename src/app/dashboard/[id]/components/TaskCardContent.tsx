@@ -9,8 +9,6 @@ import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 import type { TaskCard } from '@/types/types'
 
-const column = 'To Do'
-
 const comments = [
   {
     id: '1',
@@ -23,8 +21,12 @@ const comments = [
 ]
 interface TaskCardContentProps {
   card: TaskCard
+  columnTitle: string
 }
-export default function TaskCardContent({ card }: TaskCardContentProps) {
+export default function TaskCardContent({
+  card,
+  columnTitle,
+}: TaskCardContentProps) {
   const { closeModal } = useModalStore()
 
   const {
@@ -70,9 +72,9 @@ export default function TaskCardContent({ card }: TaskCardContentProps) {
         <div className='md:order-1'>
           <div className='mb-4 flex w-full flex-col'>
             <div className='flex gap-3'>
-              <div className='flex h-[26px] w-[60px] items-center justify-center gap-[6px] rounded-2xl bg-custom-light-violet text-xs font-normal text-custom-violet'>
+              <div className='flex h-[26px] items-center justify-center gap-[6px] rounded-2xl bg-custom-light-violet px-2 text-xs font-normal text-custom-violet md:px-[10px]'>
                 <Bullet />
-                {column}
+                {columnTitle}
               </div>
               <div className='mt-[3px] h-5 w-[1px] bg-custom-gray-300'></div>
               <div className='flex flex-wrap'>

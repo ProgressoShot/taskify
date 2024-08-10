@@ -57,10 +57,10 @@ export default function DashboardCol({ column }: DashboardColProps) {
           }}
         />
 
-        <TaskCard card={taskCard} />
+        <TaskCard card={taskCard} columnTitle={title} />
         {taskCards.map(card => (
           <li key={card.id}>
-            <TaskCard card={card} />
+            <TaskCard card={card} columnTitle={title} />
           </li>
         ))}
       </div>
