@@ -83,7 +83,7 @@ export default function Home() {
           </h1>
 
           <Link
-            href=''
+            href={'/login'}
             className='mb-44 flex h-[54px] w-auto items-center justify-center gap-[6px] rounded-lg bg-custom-violet px-[101px] py-[9px] text-center text-lg font-medium text-white disabled:bg-custom-gray-200 disabled:text-white md:gap-2'
           >
             로그인하기

@@ -36,17 +36,25 @@ export default function LandingFooter() {
           </Link>
         </div>
         <div className={'mb-20 mt-12 flex items-center gap-4 sm:mb-0 sm:mt-0'}>
-          <Link href='mailto:' className='p-2' aria-label='이메일 링크'>
+          <Link
+            href='mailto:support@codeit.kr'
+            className='p-2'
+            aria-label='이메일 링크'
+          >
             <IconMail fill={theme === 'dark' ? '#fff' : '#333'} />
           </Link>
           <Link
-            href=''
+            href='https://www.facebook.com/codeit.kr/'
             className='p-2 text-custom-light-violet'
             aria-label='페이스북 링크'
           >
             <IconFacebook fill={theme === 'dark' ? '#fff' : '#333'} />
           </Link>
-          <Link href='' className='p-2' aria-label='인스타그램 링크'>
+          <Link
+            href='https://www.instagram.com/codeit_kr/'
+            className='p-2'
+            aria-label='인스타그램 링크'
+          >
             <IconInsta fill={theme === 'dark' ? '#fff' : '#333'} />
           </Link>
         </div>
