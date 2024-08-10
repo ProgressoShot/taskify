@@ -22,6 +22,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        blink: {
+          '0%, 100%': { backgroud: 'transparent' },
+          '50%': { background: 'black' },
+        },
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

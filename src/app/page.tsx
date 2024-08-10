@@ -1,12 +1,16 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
-import LandingFooter from '@/LandingFooter'
+import LandingFooter from '@/components/LandingFooter'
+import useAutotyping from '@/hooks/useAutotyping'
 import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
 
 export default function Home() {
+  const { currentText } = useAutotyping('Taskify')
   return (
     <>
       <Providers>
@@ -30,9 +34,14 @@ export default function Home() {
 
           <h1 className='mt-10 text-center text-[40px] font-bold sm:text-[70px] xl:text-[76px] xl:leading-[100px]'>
             새로운 일정 관리{' '}
-            <span className='font-montserrat text-[42px] font-bold text-indigo-600 sm:text-[70px] xl:text-[90px] xl:leading-[65px]'>
-              Taskify
-            </span>
+            <div className='relative inline-block pr-2 font-montserrat text-[42px] font-bold text-indigo-600 sm:text-[70px] xl:text-[90px] xl:leading-[65px]'>
+              <span className='absolute inline after:inline-block after:h-16 after:w-1 after:animate-[blink_1s_ease-in-out_infinite]'>
+                {currentText}
+              </span>
+              <span className='relative left-0 top-0 text-transparent'>
+                Taskify
+              </span>
+            </div>
           </h1>
 
           <Link
