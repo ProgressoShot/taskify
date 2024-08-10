@@ -38,7 +38,7 @@ export default function ColumnSelect({
         <ColumnChip>{slectedColumnTitle}</ColumnChip>
         <MenuDown />
       </Dropdown.Trigger>
-      <Dropdown.Menu className='w-full gap-0 p-0'>
+      <Dropdown.Menu className='mt-1 w-full gap-0 p-0'>
         {columns.map(column => {
           const isSelected = column.id === selectedColumnId
           return (
