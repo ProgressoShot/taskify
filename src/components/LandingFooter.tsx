@@ -22,16 +22,16 @@ export default function LandingFooter() {
   return (
     <footer
       className={
-        'flex flex-col items-center justify-center overflow-hidden dark:bg-black dark:text-custom-black-100 sm:flex-row xl:px-10'
+        'flex flex-col items-center justify-center overflow-hidden px-6 dark:bg-black dark:text-custom-black-100 sm:flex-row xl:px-10'
       }
     >
       <div className='mt-16 flex h-auto w-full flex-col items-center sm:mt-28 sm:h-[100px] sm:max-w-screen-xl sm:flex-row sm:justify-between'>
         <div className='items-center'>©codeit - 2023</div>
         <div className='flex h-auto items-center sm:gap-4'>
-          <Link href='' className='p-2'>
+          <Link href='' className='p-2 hover:text-custom-violet'>
             Privacy Policy
           </Link>
-          <Link href='' className='p-2'>
+          <Link href='' className='p-2 hover:text-custom-violet'>
             FAQ
           </Link>
         </div>
@@ -40,22 +40,34 @@ export default function LandingFooter() {
             href='mailto:support@codeit.kr'
             className='p-2'
             aria-label='이메일 링크'
+            target='_blank'
           >
-            <IconMail fill={theme === 'dark' ? '#fff' : '#333'} />
+            <IconMail
+              className='hover:fill-custom-violet'
+              fill={theme === 'dark' ? '#fff' : '#333'}
+            />
           </Link>
           <Link
             href='https://www.facebook.com/codeit.kr/'
-            className='p-2 text-custom-light-violet'
+            className='p-2'
             aria-label='페이스북 링크'
+            target='_blank'
           >
-            <IconFacebook fill={theme === 'dark' ? '#fff' : '#333'} />
+            <IconFacebook
+              className='hover:fill-custom-violet'
+              fill={theme === 'dark' ? '#fff' : '#333'}
+            />
           </Link>
           <Link
             href='https://www.instagram.com/codeit_kr/'
             className='p-2'
             aria-label='인스타그램 링크'
+            target='_blank'
           >
-            <IconInsta fill={theme === 'dark' ? '#fff' : '#333'} />
+            <IconInsta
+              className='hover:fill-custom-violet'
+              fill={theme === 'dark' ? '#fff' : '#333'}
+            />
           </Link>
         </div>
       </div>
