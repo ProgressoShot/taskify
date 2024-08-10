@@ -37,8 +37,10 @@ const BREAK_POINTS: {
  *   return <p>현재 모드: {mode}</p>;
  * };
  */
+
+type Mode = 'mobile' | 'tablet' | 'desktop'
 function useMediaQuery() {
-  const [mode, setMode] = useState('desktop')
+  const [mode, setMode] = useState<Mode>('desktop')
 
   useEffect(() => {
     const handleResize = () => {
