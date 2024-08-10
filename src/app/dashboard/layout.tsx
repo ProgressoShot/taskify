@@ -11,11 +11,11 @@ import DashboardLayout from '@/layouts/DashboardLayout'
  * 주스탠드에 저장된 대시보드 목록에서 dashboardid 로 title 가져올 수 잇을 듯
  */
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
-  const { dashboardid } = useParams()
+  const { id: dashboardId } = useParams()
 
   return (
     <DashboardLayout
-      title={`대시보드 타이틀: ${dashboardid}`}
+      title={`대시보드 타이틀: ${dashboardId}`}
       className='flex h-full w-full flex-col flex-nowrap lg:flex-row'
     >
       {children}

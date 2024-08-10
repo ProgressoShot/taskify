@@ -1,7 +1,7 @@
 import Bullet from '/public/icons/bullet.svg'
 import Close from '/public/icons/close.svg'
 import Kebab from '/public/icons/kebab-menu.svg'
-import Comment from '@/app/dashboard/[dashboardid]/components/Comment'
+import Comment from '@/app/dashboard/[id]/components/Comment'
 import Button from '@/components/Button'
 import Chip from '@/components/Chip'
 import Dropdown from '@/components/Dropdown'
@@ -91,7 +91,7 @@ export default function TaskCardContent() {
               <Form.LabelHeader>댓글</Form.LabelHeader>
               <Form.TextArea
                 placeholder='댓글 작성하기'
-                className='scrollbar-hide h-[70px] w-full overflow-y-scroll p-3 pr-24 text-xs placeholder:text-custom-gray-400 md:h-[110px] md:p-4 md:pr-24 md:text-sm'
+                className='h-[70px] w-full overflow-y-scroll p-3 pr-24 text-xs scrollbar-hide placeholder:text-custom-gray-400 md:h-[110px] md:p-4 md:pr-24 md:text-sm'
               />
               <Button
                 color='secondary'
