@@ -10,7 +10,7 @@ interface Props {
 
 interface DropdownProps extends Props {}
 interface TriggerProps extends Props {
-  as?: (props: { toggle: () => void; className?: string }) => ReactNode
+  onClick?: () => void
 }
 interface MenuProps extends Props {}
 interface ItemProps extends Props {
@@ -21,7 +21,7 @@ const DropdownContext = createContext({ isOpen: false, toggle: () => {} })
 
 function Dropdown({ children, className }: DropdownProps) {
   const [isOpen, toggle] = useToggle(false)
-  const containerStyle = cn('', className)
+  const containerStyle = cn('relative', className)
 
   return (
     <DropdownContext.Provider value={{ isOpen, toggle }}>
@@ -30,14 +30,20 @@ function Dropdown({ children, className }: DropdownProps) {
   )
 }
 
-const Trigger = ({ children, className, as }: TriggerProps) => {
+const Trigger = ({ children, className, onClick }: TriggerProps) => {
   const { toggle } = useContext(DropdownContext)
 
-  if (as) {
-    return as({ toggle, className })
-  }
   return (
-    <button className={className} onClick={toggle} type='button'>
+    <button
+      className={className}
+      onClick={() => {
+        if (onClick) {
+          onClick()
+        }
+        toggle()
+      }}
+      type='button'
+    >
       {children}
     </button>
   )
@@ -46,7 +52,7 @@ const Trigger = ({ children, className, as }: TriggerProps) => {
 const Menu = ({ children, className }: MenuProps) => {
   const { isOpen } = useContext(DropdownContext)
   const menuStyle = cn(
-    'rounded-container absolute right-0 z-10 mt-[2px] flex h-20 w-[92px] flex-col justify-between gap-1 p-[6px]',
+    'rounded-container absolute right-0 z-10 mt-[2px] flex flex-col justify-between gap-1 p-[6px]',
     className
   )
 
@@ -57,7 +63,7 @@ const Item = ({ children, className, onClick }: ItemProps) => {
   const { toggle } = useContext(DropdownContext)
 
   const itemStyle = cn(
-    'flex h-8 w-20 items-center justify-center rounded-[4px] text-sm text-custom-black-200',
+    'flex w-full items-center rounded-[4px] text-sm text-custom-black-200',
     className
   )
 
@@ -70,7 +76,6 @@ const Item = ({ children, className, onClick }: ItemProps) => {
         toggle()
       }}
     >
-      <div className=''></div>
       {children}
     </button>
   )

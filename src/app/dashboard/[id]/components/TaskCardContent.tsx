@@ -1,6 +1,6 @@
-import Bullet from '/public/icons/bullet.svg'
 import Close from '/public/icons/close.svg'
 import Kebab from '/public/icons/kebab-menu.svg'
+import ColumnChip from '@/app/dashboard/[id]/components/ColumnChip'
 import Comment from '@/app/dashboard/[id]/components/Comment'
 import Button from '@/components/Button'
 import Chip from '@/components/Chip'
@@ -66,10 +66,7 @@ export default function TaskCardContent({
         <div className='md:order-1'>
           <div className='mb-4 flex w-full flex-col'>
             <div className='flex gap-3'>
-              <div className='flex h-[26px] items-center justify-center gap-[6px] rounded-2xl bg-custom-light-violet px-2 text-xs font-normal text-custom-violet md:px-[10px]'>
-                <Bullet />
-                {columnTitle}
-              </div>
+              <ColumnChip>{columnTitle}</ColumnChip>
               <div className='mt-[3px] h-5 w-[1px] bg-custom-gray-300'></div>
               <div className='flex flex-wrap'>
                 {tags.map(tag => (
