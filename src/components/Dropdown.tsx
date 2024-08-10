@@ -10,7 +10,6 @@ interface Props {
 
 interface DropdownProps extends Props {}
 interface TriggerProps extends Props {
-  as?: (props: { toggle: () => void; className?: string }) => ReactNode
   onClick?: () => void
 }
 interface MenuProps extends Props {}
@@ -31,18 +30,17 @@ function Dropdown({ children, className }: DropdownProps) {
   )
 }
 
-const Trigger = ({ children, className, as, onClick }: TriggerProps) => {
+const Trigger = ({ children, className, onClick }: TriggerProps) => {
   const { toggle } = useContext(DropdownContext)
 
-  if (as) {
-    return as({ toggle, className })
-  }
   return (
     <button
       className={className}
       onClick={() => {
+        if (onClick) {
+          onClick()
+        }
         toggle()
-        onClick()
       }}
       type='button'
     >

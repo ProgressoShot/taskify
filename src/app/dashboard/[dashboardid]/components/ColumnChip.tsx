@@ -1,7 +1,9 @@
+import { ReactNode } from 'react'
+
 import Bullet from '/public/icons/bullet.svg'
 
 interface ColumnChipProps {
-  children: string
+  children: ReactNode
 }
 export default function ColumnChip({ children }: ColumnChipProps) {
   return (

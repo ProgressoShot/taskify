@@ -45,7 +45,7 @@ export default function AsigneeSelect({
   const selectedMember = members.find(item => item.userId === selectedUserId)
   const selectedColumnTitle = selectedMember
     ? selectedMember.nickname
-    : 'Select a member'
+    : '이름을 입력해주세요'
 
   return (
     <Dropdown>
@@ -59,7 +59,6 @@ export default function AsigneeSelect({
             onChange={e => setSearchTerm(e.target.value)}
             placeholder='이름을 입력해주세요'
             className='w-full'
-            autoFocus
           />
         ) : (
           <>{selectedColumnTitle}</>

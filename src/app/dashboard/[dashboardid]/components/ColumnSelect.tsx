@@ -28,9 +28,9 @@ export default function ColumnSelect({
   const handleSelect = (value: string) => {
     setValue('columnId', value)
   }
-  const slectedColumnTitle = columns.filter(
+  const slectedColumnTitle = columns.find(
     item => item.id === selectedColumnId
-  )[0].title
+  )?.title
 
   return (
     <Dropdown>
