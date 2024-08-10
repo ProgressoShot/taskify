@@ -22,10 +22,10 @@ export default function LandingFooter() {
   return (
     <footer
       className={
-        'flex flex-col items-center justify-center overflow-hidden dark:bg-black dark:text-custom-black-100 sm:flex-row'
+        'flex flex-col items-center justify-center overflow-hidden dark:bg-black dark:text-custom-black-100 sm:flex-row xl:px-10'
       }
     >
-      <div className='mt-16 flex h-auto w-full flex-col items-center sm:mx-10 sm:mt-28 sm:h-[100px] sm:flex-row sm:justify-between lg:mx-36'>
+      <div className='mt-16 flex h-auto w-full flex-col items-center sm:mt-28 sm:h-[100px] sm:max-w-screen-xl sm:flex-row sm:justify-between'>
         <div className='items-center'>©codeit - 2023</div>
         <div className='flex h-auto items-center sm:gap-4'>
           <Link href='' className='p-2'>
