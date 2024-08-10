@@ -38,3 +38,16 @@ export interface User {
 }
 
 export type Dashboards = Dashboard[] | null
+
+export interface Column {
+  id: number
+  title: string
+  teamId: string
+  dashboardId: number
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface Params {
+  id: string
+}
