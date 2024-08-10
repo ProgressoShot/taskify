@@ -14,7 +14,7 @@ export default function RootSidebar() {
   const ListElement = useRef<HTMLElement>(null)
 
   const { dashboards, setDashboards } = useDashboardStore()
-  const { dashboardid } = useParams()
+  const { id: dashboardId } = useParams()
 
   const getDashboard = async () => {
     const data = await getDashboardList().then(res =>
@@ -61,7 +61,7 @@ export default function RootSidebar() {
                 type='side'
                 color={item.color}
                 createdByMe={item.createdByMe}
-                active={item.id === Number(dashboardid)}
+                active={item.id === Number(dashboardId)}
               >
                 {item.title}
               </DashboardCard>

@@ -1,32 +1,29 @@
-import Image from 'next/image'
-
-interface Comment {
-  id: string
-  profileURL: string
-  nickName: string
-  createdAt: string
-  content: string
-}
+import type { Comment } from '@/types/types'
 
 interface CommentProps {
   comment: Comment
 }
 
 export default function Comment({ comment }: CommentProps) {
-  const { id, profileURL, nickName, createdAt, content } = comment
+  const {
+    id: commentId,
+    author: { profileImageUrl, nickname },
+    createdAt,
+    content,
+  } = comment
   return (
     <div className='flex gap-2 md:gap-3'>
       <div className='flex h-[26px] w-[26px] items-center justify-center'>
         <img
           className='h-[22px] w-[22px] rounded-full object-cover'
-          src={profileURL}
+          src={profileImageUrl}
           alt='프로필'
         />
       </div>
       <div className='flex flex-col'>
         <div className='mb-2 flex items-center'>
           <h3 className='mr-2 text-xs font-semibold text-custom-black-200 md:text-sm'>
-            {nickName}
+            {nickname}
           </h3>
           <span className='text-[10px] font-normal text-custom-gray-400 md:text-xs'>
             {createdAt}

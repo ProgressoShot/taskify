@@ -38,3 +38,43 @@ export interface User {
 }
 
 export type Dashboards = Dashboard[] | null
+
+export interface Column {
+  id: number
+  title: string
+  teamId: string
+  dashboardId: number
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface TaskCard {
+  id: string
+  title: string
+  description: string
+  tags: string[]
+  dueDate: string
+  assignee: {
+    profileImageUrl: string
+    nickname: string
+    id: string
+  }
+  imageUrl: string
+  teamId: string
+  columnId: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Comment {
+  id: string
+  content: string
+  createdAt: string
+  updatedAt: string
+  cardId: string
+  author: {
+    profileImageUrl: string
+    nickname: string
+    id: string
+  }
+}
