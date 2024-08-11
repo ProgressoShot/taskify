@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 type ButtonType = 'submit' | 'button'
-type ButtonColor = 'primary' | 'secondary'
+type ButtonColor = 'primary' | 'secondary' | 'tertiary'
 
 export default function Button({
   children,
@@ -45,4 +45,5 @@ const styleByColor: Record<ButtonColor, string> = {
   primary: 'bg-custom-violet text-white',
   secondary:
     'bg-white text-custom-violet border border-solid border-custom-gray-300',
+  tertiary: 'bg-red text-custom-white',
 }
