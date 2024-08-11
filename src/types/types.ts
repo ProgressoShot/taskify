@@ -28,6 +28,7 @@ export interface Dashboard {
   createdByMe?: boolean
   userId?: string
 }
+
 export interface User {
   createdAt: Date
   email: string
