@@ -11,7 +11,7 @@ export default function ConfirmModalContent({
   const { closeModal } = useModalStore()
 
   return (
-    <div className='flex flex-col items-center justify-center gap-8 px-10 py-8 md:px-16 md:py-10'>
+    <div className='modal-container flex flex-col items-center justify-center gap-8 px-10 py-8 md:px-16 md:py-10'>
       <h2 className='text-base font-medium text-custom-black-200 md:text-xl'>
         {message}
       </h2>

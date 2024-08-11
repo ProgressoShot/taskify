@@ -39,7 +39,7 @@ export default function TaskCardContent({
   const { comments, loading, error } = useComments(taskCardId)
 
   return (
-    <section className='relative max-w-[730px] p-4 md:px-6 md:py-8'>
+    <section className='modal-container relative max-w-[730px] p-4 md:px-6 md:py-8'>
       <h2 className='md:text:xl mb-2 mt-10 text-xl font-bold text-custom-black-200 md:mb-6 md:mt-0 md:text-2xl'>
         {title}
       </h2>
@@ -64,7 +64,7 @@ export default function TaskCardContent({
           </div>
         </div>
         <div className='md:order-1'>
-          <div className='mb-4 flex w-full flex-col'>
+          <div className='mb-4 flex flex-col'>
             <div className='flex gap-3'>
               <ColumnChip>{columnTitle}</ColumnChip>
               <div className='mt-[3px] h-5 w-[1px] bg-custom-gray-300'></div>

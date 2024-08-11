@@ -89,7 +89,7 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
   }
 
   return (
-    <div className='w-80 px-4 py-6 text-custom-black-200 md:w-[520px]'>
+    <div className='modal-container max-w-[568px] px-4 py-6 text-custom-black-200'>
       <div className='flex items-center justify-between'>
         <h4 className='text-xl font-bold'>초대하기</h4>
         <button onClick={closeModal}>
