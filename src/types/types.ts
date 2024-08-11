@@ -51,6 +51,11 @@ export interface ListCursorIDInvitationsResponse {
   invitations: Invitations
 }
 
+export interface DashboardFormValue {
+  title: string
+  color: string
+}
+
 export interface Dashboard {
   id?: number
   title?: string

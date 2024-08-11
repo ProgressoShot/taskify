@@ -10,17 +10,13 @@ import { getDashboard, updateDashboard } from '@/app/utils/api'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
 import useDashboardStore from '@/store/useDashboardStore'
+import { DashboardFormValue } from '@/types/types'
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()
   const dashboardId = Number(id)
   const { dashboard, setDashboard } = useDashboardStore()
   const { title, color, createdAt } = dashboard
-
-  interface DashboardFormValue {
-    title: string
-    color: string
-  }
 
   const dashBoardInfoForm = useForm<DashboardFormValue>({
     defaultValues: { title: title, color: color },
