@@ -7,6 +7,8 @@ import NewTaskButton from '@/components/NewTaskButton'
 import TaskCard from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
 import type { Column } from '@/types/types'
+import useModalStore from '@/store/useModalStore'
+import AddTaskModal from '@/components/AddTaskModal'
 
 interface DashboardColProps {
   column: Column
@@ -15,6 +17,7 @@ interface DashboardColProps {
 export default function DashboardCol({ column }: DashboardColProps) {
   const { id: columnId, title, dashboardId } = column
   const { taskCards, totalCount, loading, error } = useTaskCards(columnId)
+  const { openModal } = useModalStore()
 
   const taskCard = {
     id: '0',
@@ -51,11 +54,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
             <Setting className='h-[19px] w-[19px] text-custom-gray-500' />
           </button>
         </div>
-        <NewTaskButton
-          onClick={() => {
-            console.log('hi')
-          }}
-        />
+        <NewTaskButton onClick={() => openModal(<AddTaskModal />)} />
 
         <TaskCard card={taskCard} columnTitle={title} />
         {taskCards.map(card => (
