@@ -1,29 +1,9 @@
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { getDashboardInvitationById } from '@/app/utils/api'
+import { listDashboardInvitations } from '@/app/utils/api'
+import { useDashboardInvitationStore } from '@/store/useInvitationStore'
+import { Invitation } from '@/types/types'
 
 import SentInvitation from './SentInvitation'
-
-type Dashboard = {
-  id: number
-  title: string
-}
-
-type User = {
-  id: number
-  email: string
-  nickname: string
-}
-
-type Invited = {
-  id: number
-  dashboard: Dashboard
-  teamId: string
-  inviter: User
-  invitee: User
-  inviteAccepted: boolean
-  createdAt: string
-  updatedAt: string
-}
 
 function EmptyInvitationList() {
   return (
@@ -39,22 +19,26 @@ function EmptyInvitationList() {
 export default function SentInvitationList({
   dashboardId,
 }: {
-  dashboardId: string
+  dashboardId: number
 }) {
-  const { invitaions } = getDashboardInvitationById(dashboardId).then
+  const { invitations, setInvitations } = useDashboardInvitationStore()
 
-  if (invitaions) {
+  // useEffect
+  // listDashboardInvitations(dashboardId).then()
+  // setInvitations()
+
+  if (invitations) {
     const notAcceptedInvitations = invitations.filter(
-      (item: Invited) => !item.inviteAccepted
+      (item: Invitation) => !item.inviteAccepted
     )
     const count = notAcceptedInvitations.length
-
+    
     if (count === 0) return <EmptyInvitationList />
 
     return (
       <>
         <SentInvitation>
-          {notAcceptedInvitations.map((item: Invited) => {
+          {notAcceptedInvitations.map((item: Invitation) => {
             const { id, invitee } = item
             return (
               <SentInvitation.Item
