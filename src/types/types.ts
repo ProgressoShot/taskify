@@ -28,12 +28,12 @@ export interface Dashboard {
   createdAt?: Date
   updatedAt?: Date
   createdByMe?: boolean
-  userId?: string
+  userId?: number
 }
 export interface User {
   createdAt: Date
   email: string
-  id: string
+  id: number
   nickname: string
   profileImageUrl: string | null
   updatedAt: Date
@@ -51,7 +51,7 @@ export interface Column {
 }
 
 export interface TaskCard {
-  id: string
+  id: number
   title: string
   description: string
   tags: string[]
@@ -59,25 +59,25 @@ export interface TaskCard {
   assignee: {
     profileImageUrl: string
     nickname: string
-    id: string
+    id: number
   }
   imageUrl: string
   teamId: string
-  columnId: string
+  columnId: number
   createdAt: string
   updatedAt: string
 }
 
 export interface Comment {
-  id: string
+  id: number
   content: string
   createdAt: string
   updatedAt: string
-  cardId: string
+  cardId: number
   author: {
     profileImageUrl: string
     nickname: string
-    id: string
+    id: number
   }
 }
 

@@ -1,22 +1,67 @@
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
+
+import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import ModalFormLayout from '@/layouts/ModalFormLayout'
 import useModalStore from '@/store/useModalStore'
+import type { Column } from '@/types/types'
 
-export default function ColumnCreateForm({}) {
-  const { closeModal } = useModalStore()
+type ColumnTitleAndDashboard = Pick<Column, 'title' | 'dashboardId'>
+
+interface ColumnCreateFormProps {
+  dashboardId: Column['dashboardId']
+  columnTitles: Column['title'][]
+}
+export default function ColumnCreateForm({
+  dashboardId,
+  columnTitles,
+}: ColumnCreateFormProps) {
+  const { openModal, closeModal } = useModalStore()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isLoading },
+  } = useForm<ColumnTitleAndDashboard>()
+  setValue('dashboardId', dashboardId)
+
+  const isDisabled = !!(errors.title || isLoading)
+
+  const onSubmit = async (data: ColumnTitleAndDashboard) => {
+    try {
+      await api.post('columns').then(function (response) {
+        const message = `가입이 완료되었습니다!`
+        openModal(<ConfirmModalContent message={message} />)
+      })
+    } catch (error) {
+      if (axios.isAxiosError(error))
+        openModal(
+          <ConfirmModalContent message={error.response?.data.message} />
+        )
+    }
+  }
 
   return (
     <ModalFormLayout headerTitle='새 칼럼 생성'>
-      <Form
-        onSubmit={() => {
-          console.log('칼럼 생성')
-        }}
-        formId='columnCreateForm'
-      >
+      <Form onSubmit={handleSubmit(onSubmit)} formId='columnCreateForm'>
         <Form.Label className='mb-6'>
-          <Form.LabelHeader>이름</Form.LabelHeader>
-          <Form.Input type='text' placeholder='칼럼 이름을 입력해주세요' />
+          <Form.LabelHeader className='mb-2'>제목</Form.LabelHeader>
+
+          <Form.Input
+            register={register('title', {
+              required: { value: true, message: '칼럼 제목을 입력해주세요.' },
+              validate: value =>
+                !columnTitles.includes(value) || '중복된 컬럼 이름입니다.',
+            })}
+            hasError={!!errors.title}
+            type='text'
+            placeholder='칼럼 제목을 입력해주세요.'
+            required
+          />
+          {errors.title && <Form.Error>{errors.title.message}</Form.Error>}
         </Form.Label>
       </Form>
       <div className='grid grid-cols-2 gap-2'>
@@ -31,6 +76,7 @@ export default function ColumnCreateForm({}) {
           className='h-[54px] w-full text-base font-semibold'
           type='submit'
           form='columnCreateForm'
+          isDisabled={isDisabled}
         >
           생성
         </Button>

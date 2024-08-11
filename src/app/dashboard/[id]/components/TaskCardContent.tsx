@@ -30,6 +30,7 @@ export default function TaskCardContent({
     imageUrl,
     createdAt,
   } = card
+
   const {
     id: assigneeId,
     nickname: assigneeNickname,
