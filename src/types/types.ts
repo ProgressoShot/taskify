@@ -17,7 +17,37 @@ export const COLOR_CLASSNAME: Record<Color, string> = {
   pink: 'text-custom-pink',
 }
 
-export type DashboardCardType = 'card' | 'side' | 'add'
+export interface User {
+  createdAt?: Date
+  email: string
+  id: number
+  nickname: string
+  profileImageUrl?: string
+  updatedAt?: Date
+}
+
+export interface Invitation {
+  id: number
+  dashboard: Dashboard
+  teamId: string
+  inviter: User
+  invitee: User
+  inviteAccepted: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export type Invitations = Invitation[] | null
+
+export interface ListDashboardInvitationsResponse {
+  totalCount: number
+  invitations: Invitations
+}
+
+export interface ListCursorIDInvitationsResponse {
+  cursorID: number
+  invitations: Invitations
+}
 
 export interface Dashboard {
   id?: number
@@ -27,15 +57,6 @@ export interface Dashboard {
   updatedAt?: Date
   createdByMe?: boolean
   userId?: string
-}
-
-export interface User {
-  createdAt: Date
-  email: string
-  id: string
-  nickname: string
-  profileImageUrl: string | null
-  updatedAt: Date
 }
 
 export type Dashboards = Dashboard[] | null
@@ -48,6 +69,8 @@ export interface Column {
   createdAt: Date
   updatedAt: Date
 }
+
+export type DashboardCardType = 'card' | 'side' | 'add'
 
 export interface TaskCard {
   id: string
