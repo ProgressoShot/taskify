@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
+import { PropsWithChildren } from 'react'
 
 import { Dashboard, DashboardCardType } from '@/types/types'
 
@@ -14,6 +15,7 @@ interface DashboardCardProps extends Dashboard {
 }
 
 export default function DashboardCard({
+  id,
   children,
   color = 'green',
   createdByMe = false,
@@ -21,7 +23,7 @@ export default function DashboardCard({
   type,
   href = '',
   onClick,
-}: React.PropsWithChildren & DashboardCardProps) {
+}: PropsWithChildren & DashboardCardProps) {
   const classNames: string = cn(
     'block rounded-lg transition',
     type === 'side' && active
@@ -36,7 +38,12 @@ export default function DashboardCard({
 
   return (
     <Element href={href} onClick={onClick} className={classNames}>
-      <DashboardName type={type} color={color} createdByMe={createdByMe}>
+      <DashboardName
+        id={id}
+        type={type}
+        color={color}
+        createdByMe={createdByMe}
+      >
         {children}
       </DashboardName>
     </Element>
