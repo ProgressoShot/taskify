@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
@@ -9,7 +8,10 @@ import ModalFormLayout from '@/layouts/ModalFormLayout'
 import useModalStore from '@/store/useModalStore'
 import type { Column } from '@/types/types'
 
-type ColumnTitleAndDashboard = Pick<Column, 'title' | 'dashboardId'>
+interface CreateColumnForm {
+  title: string
+  dashboardId: number
+}
 
 interface ColumnCreateFormProps {
   dashboardId: Column['dashboardId']
@@ -25,23 +27,18 @@ export default function ColumnCreateForm({
     handleSubmit,
     setValue,
     formState: { errors, isLoading },
-  } = useForm<ColumnTitleAndDashboard>()
+  } = useForm<CreateColumnForm>()
   setValue('dashboardId', dashboardId)
 
   const isDisabled = !!(errors.title || isLoading)
 
-  const onSubmit = async (data: ColumnTitleAndDashboard) => {
-    try {
-      await api.post('columns').then(function (response) {
-        const message = `가입이 완료되었습니다!`
-        openModal(<ConfirmModalContent message={message} />)
+  const onSubmit = async (data: CreateColumnForm) => {
+    await api
+      .post('columns', data)
+      .finally(() => closeModal())
+      .catch(error => {
+        openModal(<ConfirmModalContent message={error.response.data.message} />)
       })
-    } catch (error) {
-      if (axios.isAxiosError(error))
-        openModal(
-          <ConfirmModalContent message={error.response?.data.message} />
-        )
-    }
   }
 
   return (
