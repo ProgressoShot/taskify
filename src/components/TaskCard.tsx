@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import Image from "next/image";
 import { ReactNode } from 'react'
 
 import Calendar from '/public/icons/calendar.svg'
@@ -34,7 +35,7 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
     >
       {imageUrl && (
         <div className='h-40 w-[274px] pb-4'>
-          <img
+          <Image
             src={imageUrl}
             alt='TaskCard 이미지'
             className='size-full rounded-md object-cover object-top'
