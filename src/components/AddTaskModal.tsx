@@ -1,14 +1,30 @@
 import React, { useRef } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import DatePicker from 'react-datepicker'
 
 import AddBox from '/public/icons/add-box2.svg'
+import api from '@/app/utils/axiosInstance'
 import Button from './Button'
-// import Calendar from 'react-calendar';
 import Dropdown from './Dropdown'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
+interface taskFormValue {
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl?: string
+}
+
 export default function AddTaskModal() {
-  function temp() {} // TODO: onSubmit 함수 작업하기
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors, isLoading },
+  } = useForm<taskFormValue>()
   const labelHeader = 'h-[26px] text-[18px] font-medium'
 
   // 파일 입력을 위한 ref 생성
@@ -21,10 +37,22 @@ export default function AddTaskModal() {
     }
   }
   const { closeModal } = useModalStore()
+  const [date, setDate] = React.useState(new Date(Date.now()))
+
+  const onSubmit = async (data: taskFormValue) => {
+    try {
+      const response = await api.post('/cards', data) // POST 요청으로 데이터를 전송합니다.
+      console.log('post성공: ', response.data)
+      closeModal()
+    } catch (error) {
+      console.error('post실패: ', error)
+      console.log('이렇게: ', data)
+    }
+  }
 
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
-      <Form formId='AddTaskForm' onSubmit={temp}>
+      <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-8 h-8 text-2xl font-bold'>할 일 생성</div>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>담당자</Form.LabelHeader>
@@ -37,7 +65,11 @@ export default function AddTaskModal() {
               *
             </span>
           </Form.LabelHeader>
-          <Form.Input type='text' placeholder='제목을 입력해 주세요' />
+          <Form.Input
+            register={register('title')}
+            type='text'
+            placeholder='제목을 입력해 주세요'
+          />
           {/* 텍스트 인풋 */}
         </Form.Label>
         <Form.Label className='mb-5'>
@@ -48,6 +80,7 @@ export default function AddTaskModal() {
             </span>
           </Form.LabelHeader>
           <Form.TextArea
+            register={register('description')}
             placeholder='설명을 입력해 주세요'
             className='h-[126px]'
           />
@@ -56,11 +89,19 @@ export default function AddTaskModal() {
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>마감일</Form.LabelHeader>
           {/* 캘린더 선택 라이브러리 */}
-          <Form.Input type='text' placeholder='마감일을 입력해 주세요' />
+          <Form.Input
+            register={register('dueDate')}
+            type='text'
+            placeholder='마감일을 입력해 주세요'
+          />
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>태그</Form.LabelHeader>
-          <Form.Input type='text' placeholder='태그를 입력해 주세요' />
+          <Form.Input
+            register={register('tags')}
+            type='text'
+            placeholder='태그를 입력해 주세요'
+          />
           {/* 입력 후 Enter */}
         </Form.Label>
         <Form.Label className='mb-5'>
