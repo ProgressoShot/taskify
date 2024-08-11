@@ -6,7 +6,7 @@ import CaretRightIcon from '/public/icons/caret-right.svg'
 import CrownIcon from '/public/icons/crown.svg'
 import { Dashboard, DashboardCardType } from '@/types/types'
 
-interface DashboarNameProp extends Dashboard {
+interface DashboardNameProp extends Dashboard {
   children: ReactNode
   type: DashboardCardType
 }
@@ -16,7 +16,7 @@ export default function DashboardName({
   createdByMe = false,
   children,
   type,
-}: DashboarNameProp) {
+}: DashboardNameProp) {
   const classNames: Record<string, string> = {
     wrap:
       type === 'add'

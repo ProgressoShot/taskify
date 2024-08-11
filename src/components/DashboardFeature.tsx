@@ -8,7 +8,7 @@ import IconAddBox from '/public/icons/add-box.svg'
 import IconClose from '/public/icons/close.svg'
 import IconSettings from '/public/icons/settings.svg'
 import api from '@/app/utils/axiosInstance'
-import useDashboardStore from '@/store/useDashboardsStore'
+import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
 
