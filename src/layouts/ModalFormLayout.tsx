@@ -1,0 +1,19 @@
+import { StrictPropsWithChildren } from '@/types/types'
+
+interface ModalFormLayoutProps {
+  headerTitle: string
+}
+
+export default function ModalFormLayout({
+  headerTitle,
+  children,
+}: StrictPropsWithChildren<ModalFormLayoutProps>) {
+  return (
+    <div className='px-4 py-6 md:px-6'>
+      <h2 className='text-xl font-bold text-custom-black-200 md:text-2xl'>
+        {headerTitle}
+      </h2>
+      {children}
+    </div>
+  )
+}
