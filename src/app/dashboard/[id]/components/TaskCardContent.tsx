@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import Close from '/public/icons/close.svg'
 import Kebab from '/public/icons/kebab-menu.svg'
 import ColumnChip from '@/app/dashboard/[id]/components/ColumnChip'
@@ -81,7 +83,7 @@ export default function TaskCardContent({
             {description}
           </p>
           <div className='relative mb-6 rounded-md'>
-            <img className='rounded-md' src={imageUrl} alt='이미지' />
+            <Image className='rounded-md' src={imageUrl} alt='이미지' />
           </div>
           <Form
             formId='commentForm'
