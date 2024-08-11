@@ -1,3 +1,5 @@
+import { PropsWithChildren, ReactNode } from 'react'
+
 export type Color =
   | 'violet'
   | 'red'
@@ -77,4 +79,8 @@ export interface Comment {
     nickname: string
     id: string
   }
+}
+
+export type StrictPropsWithChildren<P = unknown> = P & {
+  children: ReactNode
 }
