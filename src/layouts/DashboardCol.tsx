@@ -1,14 +1,15 @@
-import cn from 'classnames'
 import { ReactNode, useState } from 'react'
+import cn from 'classnames'
 
 import Bullet from '/public/icons/bullet.svg'
 import Setting from '/public/icons/settings.svg'
+
+import AddTaskModal from '@/components/AddTaskModal'
 import NewTaskButton from '@/components/NewTaskButton'
 import TaskCard from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
-import type { Column } from '@/types/types'
 import useModalStore from '@/store/useModalStore'
-import AddTaskModal from '@/components/AddTaskModal'
+import type { Column } from '@/types/types'
 
 interface DashboardColProps {
   column: Column

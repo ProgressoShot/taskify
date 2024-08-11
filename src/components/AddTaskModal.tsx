@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css' //datepicker 스타일 import
 
 import AddBox from '/public/icons/add-box2.svg'
 import api from '@/app/utils/axiosInstance'
@@ -37,7 +38,6 @@ export default function AddTaskModal() {
     }
   }
   const { closeModal } = useModalStore()
-  const [date, setDate] = React.useState(new Date(Date.now()))
 
   const onSubmit = async (data: taskFormValue) => {
     try {
@@ -49,6 +49,7 @@ export default function AddTaskModal() {
       console.log('이렇게: ', data)
     }
   }
+  const [date, setDate] = React.useState<Date>(new Date(Date.now()))
 
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
@@ -88,11 +89,21 @@ export default function AddTaskModal() {
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>마감일</Form.LabelHeader>
-          {/* 캘린더 선택 라이브러리 */}
-          <Form.Input
-            register={register('dueDate')}
-            type='text'
-            placeholder='마감일을 입력해 주세요'
+          <Controller
+            control={control}
+            name='dueDate'
+            render={({ field }) => (
+              <DatePicker
+                placeholderText='마감일을 입력해 주세요'
+                selected={field.value ? new Date(field.value) : null}
+                onChange={date => {
+                  setDate(date as Date)
+                  field.onChange(date)
+                }}
+                dateFormat='yyyy/MM/dd hh:mm'
+                className='rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'
+              />
+            )}
           />
         </Form.Label>
         <Form.Label className='mb-5'>
