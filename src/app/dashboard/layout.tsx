@@ -1,10 +1,10 @@
 'use client'
 
 import {useParams} from 'next/navigation'
-import {PropsWithChildren} from 'react'
+import {PropsWithChildren, useEffect} from 'react'
 
-import {getDashboardInfo} from '@/app/utils/api'
 import DashboardLayout from '@/layouts/DashboardLayout'
+import useDashboardStore from '@/store/useDashboardStore'
 
 /**
  * @todo
@@ -13,11 +13,19 @@ import DashboardLayout from '@/layouts/DashboardLayout'
  */
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
   const { id } = useParams()
-  const { title } = getDashboardInfo(id)
+  const { dashboards, dashboard, setDashboard } = useDashboardStore()
+
+  useEffect(() => {
+    dashboards?.find(dashboard => {
+      if (dashboard.id === Number(id)) {
+        setDashboard(dashboard)
+      }
+    })
+  }, [id, setDashboard, dashboards])
 
   return (
     <DashboardLayout
-      title={title}
+      title={dashboard.title ? dashboard.title : ''}
       className='flex h-full w-full flex-col flex-nowrap lg:flex-row'
     >
       {children}
