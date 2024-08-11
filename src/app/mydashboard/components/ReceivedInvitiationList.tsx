@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import IconSearch from '/public/icons/search.svg'
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
+import { Invitation } from '@/types/types'
 
 import ReceivedInvitiation from './ReceivedInvitiation'
 
@@ -16,22 +17,11 @@ type User = {
   nickname: string
 }
 
-type Invited = {
-  id: number
-  dashboard: Dashboard
-  teamId: string
-  inviter: User
-  invitee: User
-  inviteAccepted: boolean
-  createdAt: string
-  updatedAt: string
-}
-
 /**
  * @JuhyeokC
  * TEST용 더미 배열 생성
  */
-const TEMP_INVITE_DASHBOARD_LIST: Array<Invited> = [
+const TEMP_INVITE_DASHBOARD_LIST: Array<Invitation> = [
   {
     id: 0,
     inviter: {
@@ -139,12 +129,12 @@ export default function ReceivedInvitiationList() {
         </article>
       </div>
       <ReceivedInvitiation>
-        {TEMP_INVITE_DASHBOARD_LIST.map((item: Invited) => {
+        {TEMP_INVITE_DASHBOARD_LIST.map((item: Invitation) => {
           const { id, inviter, dashboard, invitee, inviteAccepted } = item
           return (
             <ReceivedInvitiation.Item
               key={`invite-dashboard-${id}`}
-              dashboardTitle={dashboard.title}
+              dashboardTitle={dashboard.title ? dashboard.title : ''}
               inviter={inviter.nickname}
               inviteAccepted={inviteAccepted}
             />

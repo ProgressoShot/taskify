@@ -3,11 +3,6 @@ import { PropsWithChildren } from 'react'
 
 import Button from '@/components/Button'
 
-interface SentInvitationProps {
-  inviteeEmail: string
-  inviteAccepted: boolean
-}
-
 const classNames = {
   inner: {
     default: 'px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3',
@@ -34,7 +29,7 @@ const classNames = {
   },
 }
 
-function Item({ inviteeEmail }: SentInvitationProps) {
+function Item({ inviteeEmail }: {inviteeEmail: string}) {
   return (
     <div
       className={cn(
@@ -62,10 +57,7 @@ function Item({ inviteeEmail }: SentInvitationProps) {
         className={cn(classNames.cols.default)}
         style={classNames.cols.style}
       >
-        <Button
-          className={cn(classNames.button.default)}
-          color={'secondary'}
-        >
+        <Button className={cn(classNames.button.default)} color={'secondary'}>
           취소
         </Button>
       </div>
