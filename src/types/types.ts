@@ -91,6 +91,11 @@ export interface TaskCard {
   createdAt: string
   updatedAt: string
 }
+export interface CardsResponse {
+  cards: TaskCard[]
+  totalCount: number
+  cursorId: string | null
+}
 
 export interface Comment {
   id: number

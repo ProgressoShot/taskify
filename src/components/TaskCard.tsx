@@ -1,7 +1,3 @@
-import cn from 'classnames'
-import Image from 'next/image'
-import { ReactNode } from 'react'
-
 import Calendar from '/public/icons/calendar.svg'
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
@@ -11,6 +7,8 @@ import type { TaskCard } from '@/types/types'
 interface CardProps {
   card: TaskCard
   columnTitle: string
+  description: string
+  createdAt?: string
 }
 
 export default function TaskCard({ card, columnTitle }: CardProps) {
@@ -42,7 +40,7 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
           />
         </div>
       )}
-      <div className='pb-2.5 text-base font-medium'>hi</div>
+      <div className='pb-2.5 text-base font-medium'>{title}</div>
       <div className='flex pb-3'>
         {tags.map(tag => (
           <li key={tag}>
