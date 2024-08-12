@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import IconSearch from '/public/icons/search.svg'
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { Invitation } from '@/types/types'
+import { getReceivedInvitiationList } from '@/app/utils/dashboardsApi'
+import Button from '@/components/Button'
 
 import ReceivedInvitiation from './ReceivedInvitiation'
 
@@ -17,81 +18,21 @@ type User = {
   nickname: string
 }
 
-/**
- * @JuhyeokC
- * TEST용 더미 배열 생성
- */
-const TEMP_INVITE_DASHBOARD_LIST: Array<Invitation> = [
-  {
-    id: 0,
-    inviter: {
-      nickname: 'inviter-1inviter-1inviter-1inviter-1inviter-1inviter-1',
-      email: 'inviter-1@이메일',
-      id: 0,
-    },
-    teamId: '팀이름-1',
-    dashboard: {
-      title: '대시보드명-1',
-      id: 0,
-    },
-    invitee: {
-      nickname: 'invitee-1',
-      email: 'invitee-1@이메일',
-      id: 0,
-    },
-    inviteAccepted: true,
-    createdAt: '2024-08-05T07:14:21.086Z',
-    updatedAt: '2024-08-05T07:14:21.086Z',
-  },
-  {
-    id: 1,
-    inviter: {
-      nickname: 'inviter-2',
-      email: 'inviter-2@이메일',
-      id: 1,
-    },
-    teamId: '팀이름-2',
-    dashboard: {
-      title:
-        '대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2대시보드명-2',
-      id: 1,
-    },
-    invitee: {
-      nickname: 'invitee-2',
-      email: 'invitee-2@이메일',
-      id: 1,
-    },
-    inviteAccepted: false,
-    createdAt: '2024-08-05T07:14:21.086Z',
-    updatedAt: '2024-08-05T07:14:21.086Z',
-  },
-  {
-    id: 2,
-    inviter: {
-      nickname: 'inviter-3',
-      email: 'inviter-3@이메일',
-      id: 2,
-    },
-    teamId: '팀이름-3',
-    dashboard: {
-      title: '대시보드명-3',
-      id: 2,
-    },
-    invitee: {
-      nickname: 'invitee-3',
-      email: 'invitee-3@이메일',
-      id: 2,
-    },
-    inviteAccepted: false,
-    createdAt: '2024-08-05T07:14:21.086Z',
-    updatedAt: '2024-08-05T07:14:21.086Z',
-  },
-]
+export type ReceivedInvitiationType = {
+  id: number
+  dashboard: Dashboard
+  teamId: string
+  inviter: User
+  invitee: User
+  inviteAccepted: boolean
+  createdAt: string
+  updatedAt: string
+}
 
 function EmptyInvitationList() {
   return (
     <div className='flex h-80 flex-col items-center justify-center p-6'>
-      <ImageEmptyInvitation className='' />
+      <ImageEmptyInvitation />
       <p className='mb-10 p-6 text-center text-lg font-normal text-custom-gray-400'>
         아직 초대받은 대시보드가 없어요
       </p>
@@ -99,13 +40,44 @@ function EmptyInvitationList() {
   )
 }
 
+const ITEM_PER_PAGE: number = 10
+
 export default function ReceivedInvitiationList() {
-  const [value, setValue] = useState('')
+  const searchInput = useRef<HTMLInputElement | null>(null)
+  const [value, setValue] = useState<string>('')
+  const [list, setList] = useState<ReceivedInvitiationType[] | null>(null)
+  const [cursor, setCursor] = useState<number | null>(null)
 
-  const INVITE_DASHBOARD_LIST = TEMP_INVITE_DASHBOARD_LIST
-  const length: number = INVITE_DASHBOARD_LIST.length
+  type ParametersType = Parameters<typeof getReceivedInvitiationList>
 
-  if (length === 0) return <EmptyInvitationList />
+  const getReceivedInvitiation = async ([
+    size = ITEM_PER_PAGE,
+    cursorId = cursor,
+    title = value,
+  ]: ParametersType) => {
+    const data = await getReceivedInvitiationList(size, cursorId, title)
+    setList(prev =>
+      Boolean(cursorId) && prev !== null
+        ? [...prev, ...data.invitations]
+        : data.invitations
+    )
+    setCursor(data.cursorId)
+  }
+
+  const handleClick = async () => {
+    getReceivedInvitiation([ITEM_PER_PAGE, cursor, value])
+  }
+
+  useEffect(() => {
+    if (list === null) getReceivedInvitiation([ITEM_PER_PAGE])
+    if (searchInput.current) searchInput.current.focus()
+  })
+
+  useEffect(() => {
+    getReceivedInvitiation([ITEM_PER_PAGE, cursor, value])
+  }, [value])
+
+  if (list === null || list.length === 0) return <EmptyInvitationList />
 
   return (
     <>
@@ -117,29 +89,39 @@ export default function ReceivedInvitiationList() {
           >
             <IconSearch className='flex-none' />
             <input
+              ref={searchInput}
               type='text'
               name='dashboardSearch'
               id='dashboardSearchInput'
               value={value}
               placeholder='검색'
-              onChange={e => setValue(e.target.value)}
+              onChange={e => {
+                e.preventDefault()
+                setValue(e.target.value)
+              }}
               className='h-full flex-1'
             />
           </label>
         </article>
       </div>
       <ReceivedInvitiation>
-        {TEMP_INVITE_DASHBOARD_LIST.map((item: Invitation) => {
-          const { id, inviter, dashboard, invitee, inviteAccepted } = item
-          return (
-            <ReceivedInvitiation.Item
-              key={`invite-dashboard-${id}`}
-              dashboardTitle={dashboard.title ? dashboard.title : ''}
-              inviter={inviter.nickname}
-              inviteAccepted={inviteAccepted}
-            />
-          )
-        })}
+        {list &&
+          list.map((item: ReceivedInvitiationType) => {
+            return (
+              <ReceivedInvitiation.Item
+                key={`invite-dashboard-${item.id}`}
+                invitation={item}
+                callBackFunction={getReceivedInvitiation}
+              />
+            )
+          })}
+        {cursor !== null && (
+          <ReceivedInvitiation.Foot>
+            <Button color='secondary' onClick={handleClick}>
+              더보기
+            </Button>
+          </ReceivedInvitiation.Foot>
+        )}
       </ReceivedInvitiation>
     </>
   )

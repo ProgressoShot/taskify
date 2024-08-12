@@ -1,13 +1,14 @@
 import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
+import {
+  getDashboardList,
+  putResponseInvitiation,
+} from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
+import useDashboardStore from '@/store/useDashboardStore'
 
-interface InvitationProps {
-  dashboardTitle: string
-  inviter: string
-  inviteAccepted: boolean
-}
+import { ReceivedInvitiationType } from './ReceivedInvitiationList'
 
 const classNames = {
   inner: {
@@ -35,7 +36,27 @@ const classNames = {
   },
 }
 
-function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
+function Item({
+  invitation,
+  callBackFunction,
+}: {
+  invitation: ReceivedInvitiationType
+  callBackFunction: Function
+}) {
+  const { setDashboards } = useDashboardStore()
+
+  const getDashboard = async () => {
+    const data = await getDashboardList()
+    setDashboards(data)
+  }
+
+  const handleClick = async (id: number, value: boolean) => {
+    await putResponseInvitiation(id, value).then(() => {
+      getDashboard()
+      callBackFunction([])
+    })
+  }
+
   return (
     <div
       className={cn(
@@ -57,7 +78,9 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
         >
           이름
         </p>
-        <p className={cn(classNames.value.default)}>{dashboardTitle}</p>
+        <p className={cn(classNames.value.default)}>
+          {invitation.dashboard.title}
+        </p>
       </div>
       <div
         className={cn(classNames.cols.default)}
@@ -72,7 +95,9 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
         >
           초대자
         </p>
-        <p className={cn(classNames.value.default)}>{inviter}</p>
+        <p className={cn(classNames.value.default)}>
+          {invitation.inviter.nickname}
+        </p>
       </div>
       <div
         className={cn(
@@ -80,13 +105,29 @@ function Item({ dashboardTitle, inviter, inviteAccepted }: InvitationProps) {
           'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
         )}
       >
-        <Button className={cn(classNames.button.default)} color='primary'>
+        <Button
+          className={cn(classNames.button.default)}
+          color='primary'
+          onClick={() => handleClick(invitation.id, true)}
+        >
           수락
         </Button>
-        <Button className={cn(classNames.button.default)} color='secondary'>
+        <Button
+          className={cn(classNames.button.default)}
+          color='secondary'
+          onClick={() => handleClick(invitation.id, false)}
+        >
           거절
         </Button>
       </div>
+    </div>
+  )
+}
+
+function Foot({ children }: PropsWithChildren) {
+  return (
+    <div className='flex items-center justify-end px-4 pt-3.5 md:px-8'>
+      {children}
     </div>
   )
 }
@@ -105,5 +146,6 @@ function ReceivedInvitiation({ children }: PropsWithChildren) {
 }
 
 ReceivedInvitiation.Item = Item
+ReceivedInvitiation.Foot = Foot
 
 export default ReceivedInvitiation
