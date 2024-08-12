@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 
 interface ChipProps {
   children: ReactNode
+  onDelete?: () => void
 }
 
 type Colors = 'orange' | 'green' | 'pink' | 'blue'
@@ -16,12 +17,26 @@ function getRandomColor() {
   return { bgColor, textColor }
 }
 
-export default function Chip({ children }: ChipProps) {
+export default function Chip({ children, onDelete }: ChipProps) {
   const { bgColor, textColor } = getRandomColor()
   const chipClass = cn(
     'mr-[6px] flex rounded-[4px] px-[6px] py-[2px] text-sm font-normal',
     bgColor,
     textColor
   )
-  return <div className={chipClass}>{children}</div>
+
+  return (
+    <div className={chipClass}>
+      {children}
+      {onDelete && (
+        <button
+          type='button'
+          className='hover:text-custom-gray-600 ml-2 text-sm text-custom-gray-400'
+          onClick={onDelete}
+        >
+          &times;
+        </button>
+      )}
+    </div>
+  )
 }

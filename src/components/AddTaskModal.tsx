@@ -72,7 +72,7 @@ export default function AddTaskModal() {
 
     const newData = {
       ...data,
-      tags: tags, // Use the state to submit the tags array
+      tags: tags,
       dueDate: formattedDueDate,
       assigneeUserId: 4444,
       dashboardId: 11482,
@@ -183,7 +183,9 @@ export default function AddTaskModal() {
           />
           <div className='mt-2 flex flex-wrap'>
             {tags.map(tag => (
-              <Chip key={tag}>{tag}</Chip>
+              <Chip key={tag} onDelete={() => removeTag(tag)}>
+                {tag}
+              </Chip>
             ))}
           </div>
         </Form.Label>
