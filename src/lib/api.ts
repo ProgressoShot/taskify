@@ -1,5 +1,5 @@
 import taskifyApi from '@/lib/axiosInstance'
-import {Dashboard, ListDashboardInvitationsResponse} from '@/lib/types'
+import {Dashboard, ListDashboardInvitationsResponse} from '@/types/types'
 
 /**
  * @function convertURL

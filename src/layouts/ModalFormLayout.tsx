@@ -1,4 +1,4 @@
-import { StrictPropsWithChildren } from '@/lib/types'
+import { StrictPropsWithChildren } from '@/types/types'
 
 interface ModalFormLayoutProps {
   headerTitle: string

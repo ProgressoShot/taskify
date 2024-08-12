@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import taskifyApi from '@/lib/axiosInstance'
-import type { Comment } from '@/lib/types'
+import type { Comment } from '@/types/types'
 
 export const useComments = (cardId: number) => {
   const [comments, setComments] = useState<Comment[]>([])
