@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
+import { format } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css' //datepicker 스타일 import
 
 import AddBox from '/public/icons/add-box2.svg'
@@ -11,6 +12,7 @@ import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
 interface taskFormValue {
+  assigneeUserId: string
   title: string
   description: string
   dueDate: string
@@ -25,23 +27,56 @@ export default function AddTaskModal() {
     watch,
     control,
     formState: { errors, isLoading },
-  } = useForm<taskFormValue>()
-  const labelHeader = 'h-[26px] text-[18px] font-medium'
+  } = useForm<taskFormValue>({
+    defaultValues: {
+      title: '',
+      description: '',
+      tags: [],
+      assigneeUserId: undefined,
+      dueDate: undefined,
+      imageUrl: undefined,
+    },
+  })
 
+  const labelHeader = 'h-[26px] text-[18px] font-medium'
+  const { closeModal } = useModalStore()
   // 파일 입력을 위한 ref 생성
   const fileInputRef = useRef<HTMLInputElement>(null)
-
   // AddBox 클릭 시 파일 선택 창을 여는 함수
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
   }
-  const { closeModal } = useModalStore()
 
   const onSubmit = async (data: taskFormValue) => {
+    //1 - 마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
+    const formattedDueDate = data.dueDate
+      ? format(data.dueDate, 'yyyy-MM-dd HH:mm')
+      : undefined
+    const newData = {
+      ...data,
+      dueDate: formattedDueDate,
+
+      //   dashboardId: boardId,
+      //   columnId: columnId,
+      imageUrl: watch('imageUrl'),
+    }
+
+    //2 - 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
+    const filteredData = Object.fromEntries(
+      Object.entries(newData).filter(([key, value]) => {
+        if (key === 'imageUrl' && value instanceof FileList) {
+          return value.length > 0
+        }
+        return value !== undefined
+      }) as any
+    )
     try {
-      const response = await api.post('/cards', data) // POST 요청으로 데이터를 전송합니다.
+      const response = await api.post('/cards', {
+        ...data,
+        dueDate: date.toISOString(),
+      })
       console.log('post성공: ', response.data)
       closeModal()
     } catch (error) {
@@ -100,6 +135,7 @@ export default function AddTaskModal() {
                   setDate(date as Date)
                   field.onChange(date)
                 }}
+                showTimeInput
                 dateFormat='yyyy/MM/dd hh:mm'
                 className='rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'
               />
@@ -113,7 +149,6 @@ export default function AddTaskModal() {
             type='text'
             placeholder='태그를 입력해 주세요'
           />
-          {/* 입력 후 Enter */}
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
