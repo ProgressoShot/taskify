@@ -17,7 +17,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
   const { taskCards, totalCount, loading, error } = useTaskCards(columnId)
 
   const taskCard = {
-    id: '0',
+    id: 0,
     title: '새로운 일정 관리 Taskify',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus nibh arcu, quis consequat ante cursus eget. Cras mattis, nulla non laoreet porttitor, diam justo laoreet eros, vel aliquet diam elit at leo.',
@@ -26,12 +26,12 @@ export default function DashboardCol({ column }: DashboardColProps) {
     assignee: {
       profileImageUrl: 'string',
       nickname: '배유철',
-      id: '0',
+      id: 0,
     },
     imageUrl:
       'https://i.namu.wiki/i/DIWQPMFg_xE7JxIv0-4M5PbXco2d-BynsivSWqt6enqDgXOKw0nuZznBUGV-7FtJilQEY7zxodg1kZcYlQXDJw.webp',
-    teamId: 'string',
-    columnId: '0',
+    teamId: '7-2',
+    columnId: 0,
     createdAt: '2024-08-10T16:55:52.421Z',
     updatedAt: '2024-08-10T16:55:52.421Z',
   }

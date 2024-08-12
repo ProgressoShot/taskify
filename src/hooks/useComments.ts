@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import api from '@/app/utils/axiosInstance'
 import type { Comment } from '@/types/types'
 
-export const useComments = (cardId: string) => {
+export const useComments = (cardId: number) => {
   const [comments, setComments] = useState<Comment[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
