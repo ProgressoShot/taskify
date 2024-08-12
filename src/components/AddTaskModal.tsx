@@ -2,6 +2,10 @@ import React, { useRef, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
+
+import AddBox from '/public/icons/add-box2.svg'
+import Calendar from '/public/icons/calendar.svg'
+
 import 'react-datepicker/dist/react-datepicker.css'
 
 import api from '@/app/utils/axiosInstance'
@@ -11,9 +15,6 @@ import Button from './Button'
 import Chip from './Chip'
 import Dropdown from './Dropdown'
 import Form from '@/components/Form'
-
-import AddBox from '/public/icons/add-box2.svg'
-import Calendar from '/public/icons/calendar.svg'
 
 interface taskFormValue {
   title: string
@@ -78,7 +79,7 @@ export default function AddTaskModal() {
       dueDate: formattedDueDate,
       assigneeUserId: 4444,
       dashboardId: 11482,
-      columnId: 38778,
+      columnId: 38779,
       imageUrl:
         'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
       //   imageUrl: watch('imageUrl'),

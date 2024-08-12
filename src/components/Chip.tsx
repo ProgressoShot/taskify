@@ -1,5 +1,5 @@
-import cn from 'classnames'
 import { ReactNode } from 'react'
+import cn from 'classnames'
 
 interface ChipProps {
   children: ReactNode
