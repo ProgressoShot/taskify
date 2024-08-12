@@ -5,8 +5,8 @@ import { useState } from 'react'
 import DashboardCard from '@/components/DashboardCard'
 import Pagination from '@/components/Pagination'
 import usePagination from '@/hooks/usePagination'
-import useDashboardStore from '@/store/useDashboardStore'
 import { Dashboards } from '@/lib/types'
+import useDashboardStore from '@/store/useDashboardStore'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
 

@@ -5,8 +5,8 @@ import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import ModalFormLayout from '@/layouts/ModalFormLayout'
 import taskifyApi from '@/lib/axiosInstance'
-import useModalStore from '@/store/useModalStore'
 import type { Column } from '@/lib/types'
+import useModalStore from '@/store/useModalStore'
 
 interface CreateColumnForm {
   title: string

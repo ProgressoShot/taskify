@@ -9,8 +9,8 @@ import Chip from '@/components/Chip'
 import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import { useComments } from '@/hooks/useComments'
-import useModalStore from '@/store/useModalStore'
 import type { TaskCard } from '@/lib/types'
+import useModalStore from '@/store/useModalStore'
 
 interface TaskCardContentProps {
   card: TaskCard
