@@ -1,20 +1,17 @@
 'use client'
-import {useParams} from 'next/navigation'
+import { useParams } from 'next/navigation'
 
+import ColumnCreateForm from '@/app/dashboard/[id]/components/ColumnCreateForm'
 import DashboardCard from '@/components/DashboardCard'
-import {useColumns} from '@/hooks/useColumns'
+import { useColumns } from '@/hooks/useColumns'
 import DashboardCol from '@/layouts/DashboardCol'
 import useModalStore from '@/store/useModalStore'
-
-import ColumnCreateForm from './components/ColumnCreateForm'
 
 export default function DashboardPage() {
   const { openModal } = useModalStore()
   const { id } = useParams()
   const dashboardId = Number(id)
   const { columns, loading, error } = useColumns(dashboardId)
-
-  const { dashboard } = useDashboardStore()
 
   if (loading) {
     return <div>로딩중...</div>

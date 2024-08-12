@@ -32,7 +32,7 @@ export default function SentInvitationList({
       (item: Invitation) => !item.inviteAccepted
     )
     const count = notAcceptedInvitations.length
-    
+
     if (count === 0) return <EmptyInvitationList />
 
     return (
