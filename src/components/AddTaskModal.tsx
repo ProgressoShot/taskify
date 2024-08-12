@@ -185,17 +185,13 @@ export default function AddTaskModal() {
         </Form.Label>
         <div className='flex'>
           <Button
-            className='h-[54px] w-[256px] gap-[8px]'
+            className='mr-2 h-[54px] w-64'
             color='secondary'
             onClick={closeModal}
           >
             취소
           </Button>
-          <Button
-            className='h-[54px] w-[256px] gap-[8px]'
-            type='submit'
-            color='primary'
-          >
+          <Button className='h-[54px] w-64' type='submit' color='primary'>
             생성
           </Button>
         </div>
