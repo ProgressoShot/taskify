@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import AddBox from '/public/icons/add-box2.svg'
+import Calendar from '/public/icons/calendar.svg'
 import api from '@/app/utils/axiosInstance'
 import Button from './Button'
 import Chip from './Chip'
@@ -41,7 +42,7 @@ export default function AddTaskModal() {
   const { closeModal } = useModalStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const [tags, setTags] = useState<string[]>([]) // State to store tags
+  const [tags, setTags] = useState<string[]>([])
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -52,11 +53,11 @@ export default function AddTaskModal() {
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault()
-      const tagValue = event.currentTarget.value.trim()
-      if (tagValue && !tags.includes(tagValue)) {
-        setTags([...tags, tagValue])
-        event.currentTarget.value = '' // Clear the input field after adding tag
+      const input = event.currentTarget.value.trim()
+      if (input && !tags.includes(input)) {
+        setTags(prevTags => [...prevTags, input])
       }
+      event.currentTarget.value = ''
     }
   }
 
@@ -115,11 +116,11 @@ export default function AddTaskModal() {
               담당자 토글 클릭하세요
             </Dropdown.Trigger>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => alert('첫 번째 아이템 선택됨')}>
-                첫 번째 아이템
+              <Dropdown.Item onClick={() => alert('첫 번째 담당자 선택됨')}>
+                첫 번째 담당자
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => alert('두 번째 아이템 선택됨')}>
-                두 번째 아이템
+              <Dropdown.Item onClick={() => alert('두 번째 담당자 선택됨')}>
+                두 번째 담당자
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -156,17 +157,19 @@ export default function AddTaskModal() {
             control={control}
             name='dueDate'
             render={({ field }) => (
-              <DatePicker
-                placeholderText='마감일을 입력해 주세요'
-                selected={field.value ? new Date(field.value) : null}
-                onChange={date => {
-                  setDate(date as Date)
-                  field.onChange(date)
-                }}
-                showTimeInput
-                dateFormat='yyyy/MM/dd hh:mm'
-                className='rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'
-              />
+              <div className='rounded-container block flex w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'>
+                <Calendar className='mr-1 mt-[1px] h-5 w-5 text-custom-gray-500' />
+                <DatePicker
+                  placeholderText='마감일을 입력해 주세요'
+                  selected={field.value ? new Date(field.value) : null}
+                  onChange={date => {
+                    setDate(date as Date)
+                    field.onChange(date)
+                  }}
+                  showTimeInput
+                  dateFormat='yyyy/MM/dd hh:mm'
+                />
+              </div>
             )}
           />
         </Form.Label>
