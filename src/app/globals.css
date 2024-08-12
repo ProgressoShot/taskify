@@ -94,3 +94,6 @@ li {
     text-wrap: balance;
   }
 }
+.keep-all {
+  word-break: keep-all;
+}
