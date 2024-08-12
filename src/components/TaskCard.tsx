@@ -1,8 +1,3 @@
-import Image from 'next/image'
-import { ReactNode } from 'react'
-
-import cn from 'classnames'
-
 import Calendar from '/public/icons/calendar.svg'
 
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'

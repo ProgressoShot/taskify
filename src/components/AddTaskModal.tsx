@@ -3,10 +3,10 @@ import { Controller, useForm } from 'react-hook-form'
 import { format } from 'date-fns'
 import DatePicker from 'react-datepicker'
 
+import 'react-datepicker/dist/react-datepicker.css'
+
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
-
-import 'react-datepicker/dist/react-datepicker.css'
 
 import api from '@/app/utils/axiosInstance'
 import useModalStore from '@/store/useModalStore'
