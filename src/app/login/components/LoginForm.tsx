@@ -4,7 +4,7 @@ import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-import api from '@/app/utils/axiosInstance'
+import { getDashboardList } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
@@ -13,7 +13,7 @@ import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import useUserStore from '@/store/useUserStore'
 
-import { fetchDashboards, login } from '../utils/utils'
+import { login } from '../utils/utils'
 
 export interface LoginFormValue {
   email: string
@@ -40,7 +40,7 @@ export default function LoginForm() {
 
   const router = useRouter()
   const { openModal } = useModalStore()
-  // const { setDashboards } = useDashboardStore()
+  const { setDashboards } = useDashboardStore()
   const { setUser } = useUserStore()
 
   const [pwdVisible, togglePwd] = useToggle(false)
@@ -51,14 +51,12 @@ export default function LoginForm() {
       const { accessToken, user } = await login(data)
       sessionStorage.setItem('accessToken', accessToken)
       setUser(user)
-      // const dashboards = await fetchDashboards()
-      // setDashboards(dashboards)
+      const dashboards = await getDashboardList()
+      setDashboards(dashboards)
       router.push('/mydashboard')
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        openModal(
-          <ConfirmModalContent message={error.response?.data.message} />
-        )
+        openModal(<ConfirmModalContent message={error.message} />)
       } else {
         openModal(
           <ConfirmModalContent message='서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?' />
