@@ -1,10 +1,13 @@
 'use client'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
 import Form from '@/components/Form'
+import api from '@/app/utils/axiosInstance'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
+import useModalStore from '@/store/useModalStore'
+import axios from 'axios'
 
 interface PasswordEditValue {
   password: string
@@ -19,9 +22,10 @@ export default function PasswordEditForm() {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isLoading },
   } = useForm<PasswordEditValue>()
-
+  const { openModal } = useModalStore()
   const newPassword = watch('newPassword')
   const isDisabled = !!(
     errors.password ||
@@ -31,7 +35,21 @@ export default function PasswordEditForm() {
   const onSubmit = async (data: PasswordEditValue) => {
     const { password, newPassword } = data
     const formData = { password, newPassword }
-    console.log(formData)
+    let modalMessage = ''
+    try {
+      await api.put('auth/password', formData)
+      modalMessage = '비밀번호 변경에 성공하였습니다.'
+      reset()
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        modalMessage = error.response?.data.message
+      } else {
+        modalMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+      }
+    } finally {
+      openModal(<ConfirmModalContent message={modalMessage} />)
+    }
   }
 
   return (
