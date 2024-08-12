@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import type { Comment } from '@/types/types'
+import type { Comment } from '@/lib/types'
 
 interface CommentProps {
   comment: Comment

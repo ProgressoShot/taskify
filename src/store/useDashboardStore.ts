@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import type { Dashboard } from '@/types/types'
+import type { Dashboard } from '@/lib/types'
 
 interface DashboardStore {
   title: string

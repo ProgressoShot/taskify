@@ -4,7 +4,7 @@ import AddBoxIcon from '/public/icons/add-box2.svg'
 import BulletIcon from '/public/icons/bullet.svg'
 import CaretRightIcon from '/public/icons/caret-right.svg'
 import CrownIcon from '/public/icons/crown.svg'
-import { Dashboard, DashboardCardType } from '@/types/types'
+import { Dashboard, DashboardCardType } from '@/lib/types'
 
 interface DashboardNameProp extends Dashboard {
   children: ReactNode

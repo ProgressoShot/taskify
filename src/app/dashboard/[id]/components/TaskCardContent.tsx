@@ -10,7 +10,7 @@ import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import { useComments } from '@/hooks/useComments'
 import useModalStore from '@/store/useModalStore'
-import type { TaskCard } from '@/types/types'
+import type { TaskCard } from '@/lib/types'
 
 interface TaskCardContentProps {
   card: TaskCard

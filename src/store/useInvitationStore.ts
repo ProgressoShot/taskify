@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { Invitation, Invitations } from '@/types/types'
+import { Invitation, Invitations } from '@/lib/types'
 
 interface DashboardInvitaionStore {
   invitation: Invitation
