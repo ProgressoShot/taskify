@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import api from '@/app/utils/axiosInstance'
 import type { Column } from '@/types/types'
 
-export const useColumns = (dashboardId: string) => {
+export const useColumns = (dashboardId: number) => {
   const [columns, setColumns] = useState<Column[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)

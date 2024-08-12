@@ -1,3 +1,5 @@
+import { PropsWithChildren, ReactNode } from 'react'
+
 export type Color =
   | 'violet'
   | 'red'
@@ -56,7 +58,7 @@ export interface Dashboard {
   createdAt?: Date
   updatedAt?: Date
   createdByMe?: boolean
-  userId?: string
+  userId?: number
 }
 
 export type Dashboards = Dashboard[] | null
@@ -73,7 +75,7 @@ export interface Column {
 export type DashboardCardType = 'card' | 'side' | 'add'
 
 export interface TaskCard {
-  id: string
+  id: number
   title: string
   description: string
   tags: string[]
@@ -81,24 +83,28 @@ export interface TaskCard {
   assignee: {
     profileImageUrl: string
     nickname: string
-    id: string
+    id: number
   }
   imageUrl: string
   teamId: string
-  columnId: string
+  columnId: number
   createdAt: string
   updatedAt: string
 }
 
 export interface Comment {
-  id: string
+  id: number
   content: string
   createdAt: string
   updatedAt: string
-  cardId: string
+  cardId: number
   author: {
     profileImageUrl: string
     nickname: string
-    id: string
+    id: number
   }
+}
+
+export type StrictPropsWithChildren<P = unknown> = P & {
+  children: ReactNode
 }

@@ -85,6 +85,9 @@ li {
 .rounded-container {
   @apply rounded-lg border border-custom-gray-300 bg-white;
 }
+.modal-container {
+  @apply w-full rounded-lg bg-white;
+}
 
 @layer utilities {
   .text-balance {
