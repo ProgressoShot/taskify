@@ -6,16 +6,16 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
+import { getDashboard, updateDashboard } from '@/app/utils/api'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
-import { getDashboard, updateDashboard } from '@/lib/api'
 import useDashboardStore from '@/store/useDashboardStore'
 import { DashboardColor, DashboardFormValue } from '@/types/types'
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()
   const dashboardId = Number(id)
-  const { dashboard, setDashboard} = useDashboardStore()
+  const { dashboard, setDashboard, dashboards } = useDashboardStore()
 
   const { title, color } = dashboard
 

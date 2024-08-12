@@ -3,11 +3,11 @@
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
+import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
-import taskifyApi from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 
 interface SignupFormValue {
@@ -37,7 +37,7 @@ export default function SignupForm() {
   const passwordConfirmType = pwdConfirmVisible ? 'text' : 'password'
 
   const onSubmit = async (data: SignupFormValue) => {
-    await taskifyApi
+    await api
       .post('users', data)
       .then(function (response) {
         const message = `가입이 완료되었습니다!`

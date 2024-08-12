@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import taskifyApi from '@/lib/axiosInstance'
+import api from '@/app/utils/axiosInstance'
 import type { Comment } from '@/types/types'
 
 export const useComments = (cardId: number) => {
@@ -11,7 +11,7 @@ export const useComments = (cardId: number) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await taskifyApi.get(`comments?size=10&cardId=${cardId}`)
+        const res = await api.get(`comments?size=10&cardId=${cardId}`)
         const { comments } = res.data
         setComments(() => comments)
       } catch (err) {
