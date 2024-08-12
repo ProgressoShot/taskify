@@ -17,6 +17,7 @@ export default function UserDashboardLayout({ children }: PropsWithChildren) {
 
   useEffect(() => {
     dashboards?.find(dashboard => {
+      console.log(dashboard.id, Number(id))
       if (dashboard.id === Number(id)) {
         setDashboard(dashboard)
       }
