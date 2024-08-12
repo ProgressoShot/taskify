@@ -1,5 +1,4 @@
 import Calendar from '/public/icons/calendar.svg'
-
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
 import useModalStore from '@/store/useModalStore'

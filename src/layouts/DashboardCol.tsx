@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-
 import cn from 'classnames'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 import Bullet from '/public/icons/bullet.svg'
 import Setting from '/public/icons/settings.svg'
-
 import api from '@/app/utils/axiosInstance'
 import AddTaskModal from '@/components/AddTaskModal'
 import NewTaskButton from '@/components/NewTaskButton'
 import TaskCards from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
 import useModalStore from '@/store/useModalStore'
-
 import type { Column, TaskCard as CardType } from '@/types/types'
 
 interface DashboardColProps {
