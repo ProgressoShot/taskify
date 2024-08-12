@@ -4,14 +4,16 @@ import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import AddBox from '/public/icons/add-box2.svg'
-import Calendar from '/public/icons/calendar.svg'
 import api from '@/app/utils/axiosInstance'
+import useModalStore from '@/store/useModalStore'
+
 import Button from './Button'
 import Chip from './Chip'
 import Dropdown from './Dropdown'
 import Form from '@/components/Form'
-import useModalStore from '@/store/useModalStore'
+
+import AddBox from '/public/icons/add-box2.svg'
+import Calendar from '/public/icons/calendar.svg'
 
 interface taskFormValue {
   title: string

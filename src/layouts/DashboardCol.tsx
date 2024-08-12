@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import cn from 'classnames'
 
 import Bullet from '/public/icons/bullet.svg'
@@ -6,10 +6,11 @@ import Setting from '/public/icons/settings.svg'
 
 import AddTaskModal from '@/components/AddTaskModal'
 import NewTaskButton from '@/components/NewTaskButton'
-import TaskCard from '@/components/TaskCard'
+import TaskCards from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
 import useModalStore from '@/store/useModalStore'
-import type { Column } from '@/types/types'
+import type { Column, TaskCard as CardType } from '@/types/types'
+import api from '@/app/utils/axiosInstance'
 
 interface DashboardColProps {
   column: Column
@@ -39,6 +40,18 @@ export default function DashboardCol({ column }: DashboardColProps) {
     createdAt: '2024-08-10T16:55:52.421Z',
     updatedAt: '2024-08-10T16:55:52.421Z',
   }
+  const [cards, setCards] = useState<CardType[]>([])
+  useEffect(() => {
+    const TaskData = async () => {
+      try {
+        const response = await api.get(`cards?size=10&columnId=${columnId}`)
+        setCards(response.data.cards)
+      } catch {
+        console.log('error발생', error?.message)
+      }
+    }
+    TaskData()
+  }, [totalCount])
 
   return (
     <div className='h-auto w-full flex-none overflow-hidden border-b border-custom-gray-200 lg:h-full lg:w-[354px] lg:border-r'>
@@ -57,11 +70,15 @@ export default function DashboardCol({ column }: DashboardColProps) {
         </div>
         <NewTaskButton onClick={() => openModal(<AddTaskModal />)} />
 
-        <TaskCard card={taskCard} columnTitle={title} />
-        {taskCards.map(card => (
-          <li key={card.id}>
-            <TaskCard card={card} columnTitle={title} />
-          </li>
+        {/* <TaskCards card={taskCard} columnTitle={title} /> */}
+        {cards.map(card => (
+          <TaskCards
+            key={card.id}
+            card={card}
+            columnTitle={card.title}
+            description={card.description}
+            createdAt={card.createdAt}
+          />
         ))}
       </div>
     </div>

@@ -11,6 +11,8 @@ import type { TaskCard } from '@/types/types'
 interface CardProps {
   card: TaskCard
   columnTitle: string
+  description: string
+  createdAt?: string
 }
 
 export default function TaskCard({ card, columnTitle }: CardProps) {
@@ -42,7 +44,7 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
           />
         </div>
       )}
-      <div className='pb-2.5 text-base font-medium'>hi</div>
+      <div className='pb-2.5 text-base font-medium'>{title}</div>
       <div className='flex pb-3'>
         {tags.map(tag => (
           <li key={tag}>
