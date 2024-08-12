@@ -10,7 +10,7 @@ import Button from '@/components/Button'
 import Form from '@/components/Form'
 import { getDashboard, updateDashboard } from '@/lib/api'
 import useDashboardStore from '@/store/useDashboardStore'
-import { DashboardColor, DashboardFormValue } from '@/types/types'
+import { DashboardColor, DashboardFormValue } from '@/lib/types'
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()

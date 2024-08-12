@@ -6,7 +6,7 @@ import DashboardCard from '@/components/DashboardCard'
 import Pagination from '@/components/Pagination'
 import usePagination from '@/hooks/usePagination'
 import useDashboardStore from '@/store/useDashboardStore'
-import { Dashboards } from '@/types/types'
+import { Dashboards } from '@/lib/types'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
 

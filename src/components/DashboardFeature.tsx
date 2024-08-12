@@ -10,7 +10,7 @@ import IconSettings from '/public/icons/settings.svg'
 import taskifyApi from '@/lib/axiosInstance'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import { Dashboard } from '@/types/types'
+import { Dashboard } from '@/lib/types'
 
 import Button from './Button'
 import ConfirmModalContent from './ConfirmModalContent'
