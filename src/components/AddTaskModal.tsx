@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
-import 'react-datepicker/dist/react-datepicker.css' //datepicker 스타일 import
+import 'react-datepicker/dist/react-datepicker.css'
 
 import AddBox from '/public/icons/add-box2.svg'
 import api from '@/app/utils/axiosInstance'
@@ -12,7 +12,6 @@ import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
 interface taskFormValue {
-  assigneeUserId: string
   title: string
   description: string
   dueDate: string
@@ -32,7 +31,6 @@ export default function AddTaskModal() {
       title: '',
       description: '',
       tags: [],
-      assigneeUserId: undefined,
       dueDate: undefined,
       imageUrl: undefined,
     },
@@ -40,9 +38,8 @@ export default function AddTaskModal() {
 
   const labelHeader = 'h-[26px] text-[18px] font-medium'
   const { closeModal } = useModalStore()
-  // 파일 입력을 위한 ref 생성
   const fileInputRef = useRef<HTMLInputElement>(null)
-  // AddBox 클릭 시 파일 선택 창을 여는 함수
+
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
@@ -50,40 +47,40 @@ export default function AddTaskModal() {
   }
 
   const onSubmit = async (data: taskFormValue) => {
-    //1 - 마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
     const formattedDueDate = data.dueDate
-      ? format(data.dueDate, 'yyyy-MM-dd HH:mm')
+      ? format(new Date(data.dueDate), 'yyyy-MM-dd HH:mm')
       : undefined
+
     const newData = {
       ...data,
       dueDate: formattedDueDate,
-
-      //   dashboardId: boardId,
-      //   columnId: columnId,
+      assigneeUserId: '4444',
+      dashboardId: '11482',
+      columnId: '38782',
       imageUrl: watch('imageUrl'),
     }
 
-    //2 - 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
     const filteredData = Object.fromEntries(
       Object.entries(newData).filter(([key, value]) => {
         if (key === 'imageUrl' && value instanceof FileList) {
           return value.length > 0
         }
         return value !== undefined
-      }) as any
-    )
-    try {
-      const response = await api.post('/cards', {
-        ...data,
-        dueDate: date.toISOString(),
       })
-      console.log('post성공: ', response.data)
+    )
+
+    console.log('Final data being sent:', filteredData)
+
+    try {
+      const response = await api.post('/cards', filteredData)
+      console.log('Post 성공:', response.data)
       closeModal()
     } catch (error) {
-      console.error('post실패: ', error)
-      console.log('이렇게: ', data)
+      console.error('Post 실패:', error)
+      console.log('데이터:', filteredData)
     }
   }
+
   const [date, setDate] = React.useState<Date>(new Date(Date.now()))
 
   return (
@@ -91,8 +88,7 @@ export default function AddTaskModal() {
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-8 h-8 text-2xl font-bold'>할 일 생성</div>
         <Form.Label className='mb-5'>
-          <Form.LabelHeader className='labelHeader'>담당자</Form.LabelHeader>
-          {/* 드롭다운 영역 */}
+          <Form.LabelHeader className={labelHeader}>담당자</Form.LabelHeader>
           <Dropdown>
             <Dropdown.Trigger className='border'>
               담당자 토글 클릭하세요
@@ -119,7 +115,6 @@ export default function AddTaskModal() {
             type='text'
             placeholder='제목을 입력해 주세요'
           />
-          {/* 텍스트 인풋 */}
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader flex'>
@@ -133,7 +128,6 @@ export default function AddTaskModal() {
             placeholder='설명을 입력해 주세요'
             className='h-[126px]'
           />
-          {/* 텍스트 인풋 */}
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>마감일</Form.LabelHeader>
@@ -165,13 +159,11 @@ export default function AddTaskModal() {
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
-          {/* 숨겨진 파일 입력 */}
           <input
             type='file'
             ref={fileInputRef}
             style={{ display: 'none' }}
             onChange={e => {
-              // 파일이 선택되었을 때의 로직
               console.log(e.target.files)
             }}
             className='h-[76px] w-[76px]'
