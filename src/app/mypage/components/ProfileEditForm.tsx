@@ -8,6 +8,10 @@ import Button from '@/components/Button'
 import Form from '@/components/Form'
 import type { User } from '@/types/types'
 import Image from 'next/image'
+import api from '@/app/utils/axiosInstance'
+import axios from 'axios'
+import useModalStore from '@/store/useModalStore'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
 
 interface ProfileEditValue {
   nickname: User['nickname']
@@ -17,7 +21,6 @@ interface ProfileEditValue {
 
 export default function ProfileEditForm() {
   const [mount, setMount] = useState(false)
-
   const {
     register,
     handleSubmit,
@@ -25,6 +28,7 @@ export default function ProfileEditForm() {
     formState: { errors, isLoading },
     setValue,
   } = useForm<ProfileEditValue>()
+  const { openModal } = useModalStore()
 
   useEffect(() => {
     setMount(true)
@@ -44,13 +48,34 @@ export default function ProfileEditForm() {
 
   const isDisabled = !!(errors.nickname || errors.profileImageUrl)
 
+  const onSubmit = async (data: ProfileEditValue) => {
+    const { nickname, profileImageUrl } = data
+    const formData = { nickname, profileImageUrl }
+    let modalMessage = ''
+    try {
+      await api.put('users/me', formData)
+      const updatedUser = { ...user, nickname, profileImageUrl }
+      sessionStorage.setItem('user', JSON.stringify(updatedUser))
+      setValue('nickname', updatedUser.nickname)
+      setValue('profileImageUrl', updatedUser.profileImageUrl)
+      modalMessage = '프로필 변경에 성공하였습니다.'
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        modalMessage = error.response?.data.message
+      } else {
+        modalMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+      }
+    } finally {
+      openModal(<ConfirmModalContent message={modalMessage} />)
+    }
+  }
+
   return (
     <Form
       formId='profileEditForm'
       className='mx-auto flex max-w-full flex-col gap-10 md:flex-row'
-      onSubmit={handleSubmit((data: ProfileEditValue) => {
-        console.log(data)
-      })}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className='h-[100px] w-[100px] md:h-[182px] md:w-[182px]'>
         {fileURL ? (
