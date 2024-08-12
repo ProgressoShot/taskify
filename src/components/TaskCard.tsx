@@ -1,6 +1,7 @@
-import { ReactNode } from 'react'
-import cn from 'classnames'
 import Image from 'next/image'
+import { ReactNode } from 'react'
+
+import cn from 'classnames'
 
 import Calendar from '/public/icons/calendar.svg'
 
