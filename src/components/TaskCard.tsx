@@ -3,8 +3,8 @@ import Image from "next/image";
 import Calendar from '/public/icons/calendar.svg'
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
-import type { TaskCard } from '@/lib/types'
 import useModalStore from '@/store/useModalStore'
+import type { TaskCard } from '@/lib/types'
 
 interface CardProps {
   card: TaskCard
