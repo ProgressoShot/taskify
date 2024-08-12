@@ -17,9 +17,7 @@ export default function RootSidebar() {
   const { id: dashboardId } = useParams()
 
   const getDashboard = async () => {
-    const data = await getDashboardList().then(res =>
-      res.sort((a: { id: number }, b: { id: number }) => a.id - b.id)
-    )
+    const data = await getDashboardList()
     setDashboards(data)
   }
 
