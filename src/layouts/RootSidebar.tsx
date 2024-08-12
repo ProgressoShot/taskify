@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
+import { getDashboardList } from '@/app/utils/dashboardsApi'
 import DashboardCard from '@/components/DashboardCard'
-import { listDashboards } from '@/lib/api'
 import useDashboardStore from '@/store/useDashboardStore'
 
 import { HEADER_HEIGHT } from './RootHeader'
@@ -17,7 +17,7 @@ export default function RootSidebar() {
   const { id: dashboardId } = useParams()
 
   const getDashboard = async () => {
-    const data = await listDashboards()
+    const data = await getDashboardList()
     setDashboards(data)
   }
 

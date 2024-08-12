@@ -1,14 +1,14 @@
 'use client'
 
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
+import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
-import taskifyApi from '@/lib/axiosInstance'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import useUserStore from '@/store/useUserStore'
