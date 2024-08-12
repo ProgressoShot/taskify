@@ -17,7 +17,7 @@ interface FormProps extends BasicProps {
 
 interface LabelProps extends BasicProps {}
 
-type InputType = 'email' | 'password' | 'text' | 'radio'
+type InputType = 'email' | 'password' | 'text' | 'radio' | 'file'
 
 interface InputProps {
   className?: string
