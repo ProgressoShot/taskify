@@ -1,9 +1,10 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import { PropsWithChildren } from 'react'
+import {useParams} from 'next/navigation'
+import {PropsWithChildren, useEffect} from 'react'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
+import useDashboardStore from '@/store/useDashboardStore'
 
 /**
  * @todo
@@ -11,11 +12,20 @@ import DashboardLayout from '@/layouts/DashboardLayout'
  * 주스탠드에 저장된 대시보드 목록에서 dashboardid 로 title 가져올 수 잇을 듯
  */
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
-  const { id: dashboardId } = useParams()
+  const { id } = useParams()
+  const { dashboards, dashboard, setDashboard } = useDashboardStore()
+
+  useEffect(() => {
+    dashboards?.find(dashboard => {
+      if (dashboard.id === Number(id)) {
+        setDashboard(dashboard)
+      }
+    })
+  }, [id, setDashboard, dashboards])
 
   return (
     <DashboardLayout
-      title={`대시보드 타이틀: ${dashboardId}`}
+      title={dashboard.title ? dashboard.title : ''}
       className='flex h-full w-full flex-col flex-nowrap lg:flex-row'
     >
       {children}

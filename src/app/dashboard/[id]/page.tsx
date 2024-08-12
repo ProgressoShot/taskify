@@ -1,8 +1,8 @@
 'use client'
-import { useParams } from 'next/navigation'
+import {useParams} from 'next/navigation'
 
 import DashboardCard from '@/components/DashboardCard'
-import { useColumns } from '@/hooks/useColumns'
+import {useColumns} from '@/hooks/useColumns'
 import DashboardCol from '@/layouts/DashboardCol'
 import useModalStore from '@/store/useModalStore'
 
@@ -14,9 +14,12 @@ export default function DashboardPage() {
   const dashboardId = Number(id)
   const { columns, loading, error } = useColumns(dashboardId)
 
+  const { dashboard } = useDashboardStore()
+
   if (loading) {
     return <div>로딩중...</div>
   }
+
   if (error) return <div>에러...</div>
   const columnTitles = columns.map(column => column.title)
   return (

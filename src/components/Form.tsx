@@ -17,7 +17,7 @@ interface FormProps extends BasicProps {
 
 interface LabelProps extends BasicProps {}
 
-type InputType = 'email' | 'password' | 'text'
+type InputType = 'email' | 'password' | 'text' | 'radio'
 
 interface InputProps {
   className?: string
@@ -27,6 +27,7 @@ interface InputProps {
   register?: ReturnType<UseFormRegister<FieldValues>>
   hasError?: boolean
   autoComplete?: string
+  checked?: boolean
 }
 
 interface TextAreaProps {
@@ -69,6 +70,7 @@ function LabelHeader({ children, className }: LabelProps) {
   )
   return <h3 className={headerClass}> {children} </h3>
 }
+
 function Input({
   className,
   type,
@@ -77,6 +79,7 @@ function Input({
   register,
   hasError,
   autoComplete,
+  checked,
 }: InputProps) {
   const inputClass = cn(
     'rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
@@ -93,6 +96,7 @@ function Input({
       required={required}
       placeholder={placeholder}
       autoComplete={autoComplete}
+      checked={checked}
     />
   )
 }

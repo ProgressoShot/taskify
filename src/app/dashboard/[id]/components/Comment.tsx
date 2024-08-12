@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { Comment } from '@/types/types'
 
 interface CommentProps {
@@ -14,7 +16,7 @@ export default function Comment({ comment }: CommentProps) {
   return (
     <div className='flex gap-2 md:gap-3'>
       <div className='flex h-[26px] w-[26px] items-center justify-center'>
-        <img
+        <Image
           className='h-[22px] w-[22px] rounded-full object-cover'
           src={profileImageUrl}
           alt='프로필'
