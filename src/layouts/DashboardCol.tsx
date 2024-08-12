@@ -9,8 +9,8 @@ import NewTaskButton from '@/components/NewTaskButton'
 import TaskCards from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
 import taskifyApi from '@/lib/axiosInstance'
-import useModalStore from '@/store/useModalStore'
 import type { Column, TaskCard as CardType } from '@/lib/types'
+import useModalStore from '@/store/useModalStore'
 
 interface DashboardColProps {
   column: Column

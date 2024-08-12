@@ -9,8 +9,8 @@ import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitat
 import Button from '@/components/Button'
 import Form from '@/components/Form'
 import { getDashboard, updateDashboard } from '@/lib/api'
-import useDashboardStore from '@/store/useDashboardStore'
 import { DashboardColor, DashboardFormValue } from '@/lib/types'
+import useDashboardStore from '@/store/useDashboardStore'
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()
