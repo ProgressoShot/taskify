@@ -1,5 +1,4 @@
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { listDashboardInvitations } from '@/app/utils/api'
 import { useDashboardInvitationStore } from '@/store/useInvitationStore'
 import { Invitation } from '@/types/types'
 

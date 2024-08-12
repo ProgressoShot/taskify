@@ -7,8 +7,8 @@ import { Controller, useForm } from 'react-hook-form'
 
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
-import api from '@/app/utils/axiosInstance'
 import Form from '@/components/Form'
+import taskifyApi from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 
 import Button from './Button'
@@ -96,7 +96,7 @@ export default function AddTaskModal() {
     console.log('Final data being sent:', filteredData)
 
     try {
-      const response = await api.post('/cards', filteredData)
+      const response = await taskifyApi.post('/cards', filteredData)
       console.log('Post 성공:', response.data)
       closeModal()
       window.location.reload()

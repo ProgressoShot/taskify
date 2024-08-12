@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import IconAddBox from '/public/icons/add-box.svg'
 import IconClose from '/public/icons/close.svg'
 import IconSettings from '/public/icons/settings.svg'
-import api from '@/app/utils/axiosInstance'
+import taskifyApi from '@/lib/axiosInstance'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
@@ -76,7 +76,7 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
   const { openModal, closeModal } = useModalStore()
 
   const onSubmit = async (data: InviteFormValue) => {
-    const inviteeCheck = await api
+    const inviteeCheck = await taskifyApi
       .get(`dashboards/${dashboardId}/invitations?page=1&size=10`)
       .then(res =>
         res.data.invitations.some(
@@ -90,7 +90,7 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
         openModal(<ConfirmModalContent message={'이미 초대된 사용자입니다.'} />)
       )
 
-    await api
+    await taskifyApi
       .post(`dashboards/${dashboardId}/invitations`, data)
       .then(function (response) {
         closeModal()

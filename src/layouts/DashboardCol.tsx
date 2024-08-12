@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 
 import Bullet from '/public/icons/bullet.svg'
 import Setting from '/public/icons/settings.svg'
-import api from '@/app/utils/axiosInstance'
 import AddTaskModal from '@/components/AddTaskModal'
 import NewTaskButton from '@/components/NewTaskButton'
 import TaskCards from '@/components/TaskCard'
 import { useTaskCards } from '@/hooks/useTaskCards'
+import taskifyApi from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 import type { Column, TaskCard as CardType } from '@/types/types'
 
@@ -45,7 +45,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
   useEffect(() => {
     const TaskData = async () => {
       try {
-        const response = await api.get(`cards?size=10&columnId=${columnId}`)
+        const response = await taskifyApi.get(`cards?size=10&columnId=${columnId}`)
         setCards(response.data.cards)
       } catch {
         console.log('error발생', error?.message)

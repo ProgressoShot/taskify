@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
 
-import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import ModalFormLayout from '@/layouts/ModalFormLayout'
+import taskifyApi from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 import type { Column } from '@/types/types'
 
@@ -33,7 +33,7 @@ export default function ColumnCreateForm({
   const isDisabled = !!(errors.title || isLoading)
 
   const onSubmit = async (data: CreateColumnForm) => {
-    await api
+    await taskifyApi
       .post('columns', data)
       .finally(() => closeModal())
       .catch(error => {

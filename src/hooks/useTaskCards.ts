@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import api from '@/app/utils/axiosInstance'
+import taskifyApi from '@/lib/axiosInstance'
 import type { TaskCard } from '@/types/types'
 
 export const useTaskCards = (columnId: number) => {
@@ -12,7 +12,7 @@ export const useTaskCards = (columnId: number) => {
   useEffect(() => {
     const fetchTaskCards = async () => {
       try {
-        const res = await api.get(
+        const res = await taskifyApi.get(
           `cards?size=10&cursorId=0&columnId=${columnId}`
         )
         const { cards, totalCount: count } = res.data
