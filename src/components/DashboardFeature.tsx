@@ -76,6 +76,20 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
   const { openModal, closeModal } = useModalStore()
 
   const onSubmit = async (data: InviteFormValue) => {
+    const inviteeCheck = await api
+      .get(`dashboards/${dashboardId}/invitations?page=1&size=10`)
+      .then(res =>
+        res.data.invitations.some(
+          (item: any) => item.invitee.email === data.email
+        )
+      )
+
+    if (inviteeCheck)
+      return (
+        closeModal(),
+        openModal(<ConfirmModalContent message={'이미 초대된 사용자입니다.'} />)
+      )
+
     await api
       .post(`dashboards/${dashboardId}/invitations`, data)
       .then(function (response) {
