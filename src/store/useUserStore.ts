@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import type { User } from '@/lib/types'
+import type { User } from '@/types/types'
 
 interface UserStore {
   user: User | null

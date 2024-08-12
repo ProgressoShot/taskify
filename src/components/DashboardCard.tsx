@@ -2,7 +2,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 
-import { Dashboard, DashboardCardType } from '@/lib/types'
+import { Dashboard, DashboardCardType } from '@/types/types'
 
 import Button from './Button'
 import DashboardName from './DashboardName'

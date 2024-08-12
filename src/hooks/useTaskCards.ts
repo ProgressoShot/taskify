@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import taskifyApi from '@/lib/axiosInstance'
-import type { TaskCard } from '@/lib/types'
+import type { TaskCard } from '@/types/types'
 
 export const useTaskCards = (columnId: number) => {
   const [taskCards, setTaskCards] = useState<TaskCard[]>([])

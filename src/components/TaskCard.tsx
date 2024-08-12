@@ -4,7 +4,7 @@ import Calendar from '/public/icons/calendar.svg'
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
 import useModalStore from '@/store/useModalStore'
-import type { TaskCard } from '@/lib/types'
+import type { TaskCard } from '@/types/types'
 
 interface CardProps {
   card: TaskCard

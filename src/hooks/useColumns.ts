@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import taskifyApi from '@/lib/axiosInstance'
-import type { Column } from '@/lib/types'
+import type { Column } from '@/types/types'
 
 export const useColumns = (dashboardId: number) => {
   const [columns, setColumns] = useState<Column[]>([])
