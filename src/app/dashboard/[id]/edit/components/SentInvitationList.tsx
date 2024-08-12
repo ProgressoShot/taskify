@@ -1,6 +1,6 @@
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { Invitation } from '@/lib/types'
 import { useDashboardInvitationStore } from '@/store/useInvitationStore'
+import { Invitation } from '@/lib/types'
 
 import SentInvitation from './SentInvitation'
 
