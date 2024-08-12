@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import AddBox from '/public/icons/add-box2.svg'
 import api from '@/app/utils/axiosInstance'
 import Button from './Button'
+import Chip from './Chip'
 import Dropdown from './Dropdown'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
@@ -40,10 +41,27 @@ export default function AddTaskModal() {
   const { closeModal } = useModalStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  const [tags, setTags] = useState<string[]>([]) // State to store tags
+
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click()
     }
+  }
+
+  const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      const tagValue = event.currentTarget.value.trim()
+      if (tagValue && !tags.includes(tagValue)) {
+        setTags([...tags, tagValue])
+        event.currentTarget.value = '' // Clear the input field after adding tag
+      }
+    }
+  }
+
+  const removeTag = (tag: string) => {
+    setTags(tags.filter(t => t !== tag))
   }
 
   const onSubmit = async (data: taskFormValue) => {
@@ -53,11 +71,14 @@ export default function AddTaskModal() {
 
     const newData = {
       ...data,
+      tags: tags, // Use the state to submit the tags array
       dueDate: formattedDueDate,
-      assigneeUserId: '4444',
-      dashboardId: '11482',
-      columnId: '38782',
-      imageUrl: watch('imageUrl'),
+      assigneeUserId: 4444,
+      dashboardId: 11482,
+      columnId: 38778,
+      imageUrl:
+        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
+      //   imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
@@ -151,11 +172,17 @@ export default function AddTaskModal() {
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>태그</Form.LabelHeader>
-          <Form.Input
-            register={register('tags')}
+          <input
             type='text'
             placeholder='태그를 입력해 주세요'
+            onKeyDown={handleTagKeyDown}
+            className='rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'
           />
+          <div className='mt-2 flex flex-wrap'>
+            {tags.map(tag => (
+              <Chip key={tag}>{tag}</Chip>
+            ))}
+          </div>
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
