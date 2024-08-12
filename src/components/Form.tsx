@@ -101,7 +101,12 @@ function Input({
   )
 }
 
-function TextArea({ className, required, placeholder }: TextAreaProps) {
+function TextArea({
+  className,
+  required,
+  placeholder,
+  register,
+}: TextAreaProps) {
   const textAreaClass = cn(
     'rounded-container block h-[126px] w-full resize-none px-4 py-3 text-custom-black-200 placeholder:text-custom-gray-400',
     className
@@ -109,6 +114,7 @@ function TextArea({ className, required, placeholder }: TextAreaProps) {
   return (
     <textarea
       className={textAreaClass}
+      {...register}
       required={required}
       placeholder={placeholder}
     />

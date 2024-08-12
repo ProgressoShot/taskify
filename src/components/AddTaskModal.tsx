@@ -92,7 +92,20 @@ export default function AddTaskModal() {
         <div className='mb-8 h-8 text-2xl font-bold'>할 일 생성</div>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>담당자</Form.LabelHeader>
-          <Form.Input type='text' placeholder='담당자를 입력해 주세요' />
+          {/* 드롭다운 영역 */}
+          <Dropdown>
+            <Dropdown.Trigger className='border'>
+              담당자 토글 클릭하세요
+            </Dropdown.Trigger>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => alert('첫 번째 아이템 선택됨')}>
+                첫 번째 아이템
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => alert('두 번째 아이템 선택됨')}>
+                두 번째 아이템
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader flex'>
