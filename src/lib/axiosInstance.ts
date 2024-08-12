@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const api = axios.create({
+const taskifyApi = axios.create({
   baseURL: 'https://sp-taskify-api.vercel.app/7-2',
   headers: {
     'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export const setAccessToken = (token: string) => {
   accessToken = token
 }
 
-api.interceptors.request.use(
+taskifyApi.interceptors.request.use(
   config => {
     const token = sessionStorage.getItem('accessToken')
     if (token) {
@@ -28,4 +28,4 @@ api.interceptors.request.use(
   }
 )
 
-export default api
+export default taskifyApi

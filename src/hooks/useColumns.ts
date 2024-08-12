@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import api from '@/app/utils/axiosInstance'
+import taskifyApi from '@/lib/axiosInstance'
 import type { Column } from '@/types/types'
 
 export const useColumns = (dashboardId: number) => {
@@ -11,7 +11,7 @@ export const useColumns = (dashboardId: number) => {
   useEffect(() => {
     const fetchColumns = async () => {
       try {
-        const res = await api.get(`columns?dashboardId=${dashboardId}`)
+        const res = await taskifyApi.get(`columns?dashboardId=${dashboardId}`)
         const { data } = res.data
         setColumns(() => data)
       } catch (err) {

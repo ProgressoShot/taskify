@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 
 import IconSearch from '/public/icons/search.svg'
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { getReceivedInvitiationList } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
+import { listReceivedInvitiations } from '@/lib/api'
 
 import ReceivedInvitiation from './ReceivedInvitiation'
 
@@ -48,14 +48,14 @@ export default function ReceivedInvitiationList() {
   const [list, setList] = useState<ReceivedInvitiationType[] | null>(null)
   const [cursor, setCursor] = useState<number | null>(null)
 
-  type ParametersType = Parameters<typeof getReceivedInvitiationList>
+  type ParametersType = Parameters<typeof listReceivedInvitiations>
 
   const getReceivedInvitiation = async ([
     size = ITEM_PER_PAGE,
     cursorId = cursor,
     title = value,
   ]: ParametersType) => {
-    const data = await getReceivedInvitiationList(size, cursorId, title)
+    const data = await listReceivedInvitiations(size, cursorId, title)
     setList(prev =>
       Boolean(cursorId) && prev !== null
         ? [...prev, ...data.invitations]
@@ -75,7 +75,7 @@ export default function ReceivedInvitiationList() {
 
   useEffect(() => {
     getReceivedInvitiation([ITEM_PER_PAGE, cursor, value])
-  }, [value])
+  }, [cursor, getReceivedInvitiation, value])
 
   if (list === null || list.length === 0) return <EmptyInvitationList />
 

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import Calendar from '/public/icons/calendar.svg'
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
@@ -33,7 +35,7 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
     >
       {imageUrl && (
         <div className='h-40 w-[274px] pb-4'>
-          <img
+          <Image
             src={imageUrl}
             alt='TaskCard 이미지'
             className='size-full rounded-md object-cover object-top'
