@@ -174,6 +174,7 @@ export default function AddTaskModal() {
               // 파일이 선택되었을 때의 로직
               console.log(e.target.files)
             }}
+            className='h-[76px] w-[76px]'
           />
           <button
             className='h-[76px] w-[76px]'
