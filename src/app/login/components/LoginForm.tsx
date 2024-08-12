@@ -1,6 +1,6 @@
 'use client'
 
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
@@ -9,11 +9,7 @@ import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
-import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import useUserStore from '@/store/useUserStore'
-
-import { fetchDashboards, login } from '../utils/utils'
 
 export interface LoginFormValue {
   email: string
@@ -23,47 +19,35 @@ export interface LoginFormValue {
 const EMAIL_PATTERN = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 const PASSWORD_LENGTH = 8
 
-/**
- * to @KingNono1030
- * 윤호님!
- * 대시보드 호출하는 부분 사이드바로 옮겼습니다.
- * 기존 호출하던 코드를 주석해두었으니 추후에 필요없다면 삭제해도 될 것 같습니다!
- * from @JuhyeokC
- */
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isLoading },
   } = useForm<LoginFormValue>()
 
   const router = useRouter()
   const { openModal } = useModalStore()
-  // const { setDashboards } = useDashboardStore()
-  const { setUser } = useUserStore()
 
   const [pwdVisible, togglePwd] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
 
   const onSubmit = async (data: LoginFormValue) => {
     try {
-      const { accessToken, user } = await login(data)
+      const response = await api.post('auth/login', data)
+      const { accessToken, user } = response.data
       sessionStorage.setItem('accessToken', accessToken)
-      setUser(user)
-      // const dashboards = await fetchDashboards()
-      // setDashboards(dashboards)
+      sessionStorage.setItem('user', user)
       router.push('/mydashboard')
     } catch (error) {
+      let loginErrorMessage = ''
       if (axios.isAxiosError(error)) {
-        openModal(
-          <ConfirmModalContent message={error.response?.data.message} />
-        )
+        loginErrorMessage = error.response?.data.message
       } else {
-        openModal(
-          <ConfirmModalContent message='서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?' />
-        )
+        loginErrorMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
+      openModal(<ConfirmModalContent message={loginErrorMessage} />)
     }
   }
 
