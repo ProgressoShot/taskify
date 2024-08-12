@@ -1,5 +1,18 @@
 import api from '@/app/utils/axiosInstance'
 
+/**
+ * @function convertURL
+ * @param {String} url - The server URL.
+ * @param {Object} params - Query parameters as key-value pairs.
+ * @returns {String} - URL String with Query parameters.
+ * @throws Will throw an error with the URL is empty.
+ */
+const convertURL = (url: string, params: Record<string, string>) => {
+  if (!url) throw new Error('URL is Empty')
+  const query = params ? '?' + new URLSearchParams(params).toString() : ''
+  return url + query
+}
+
 export const getDashboardList = async () => {
   const params: {
     navigationMethod: 'infiniteScroll' | 'pagination'
