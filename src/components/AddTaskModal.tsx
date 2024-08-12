@@ -99,6 +99,7 @@ export default function AddTaskModal() {
       const response = await api.post('/cards', filteredData)
       console.log('Post 성공:', response.data)
       closeModal()
+      window.location.reload()
     } catch (error) {
       console.error('Post 실패:', error)
       console.log('데이터:', filteredData)
