@@ -37,7 +37,7 @@ export default function LoginForm() {
       const response = await api.post('auth/login', data)
       const { accessToken, user } = response.data
       sessionStorage.setItem('accessToken', accessToken)
-      sessionStorage.setItem('user', user)
+      sessionStorage.setItem('user', JSON.stringify(user))
       router.push('/mydashboard')
     } catch (error) {
       let loginErrorMessage = ''

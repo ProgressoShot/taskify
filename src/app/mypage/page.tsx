@@ -1,6 +1,8 @@
 import CaretLeft from '/public/icons/caret-left.svg'
 import Form from '@/components/Form'
 
+import ProfileEditForm from './components/ProfileEditForm'
+
 export default function MyPagePage() {
   return (
     <>
@@ -9,6 +11,7 @@ export default function MyPagePage() {
       </button>
       <section className='mb-4 rounded-lg bg-white p-4 md:mb-6 md:rounded-2xl md:p-6'>
         <h2 className='mb-10 text-lg font-bold md:mb-6 md:text-2xl'>프로필</h2>
+        <ProfileEditForm />
       </section>
       <section className='rounded-lg bg-white p-4 md:mb-6 md:rounded-2xl md:p-6'>
         <h2 className='mb-10 text-lg font-bold md:mb-6 md:text-2xl'>

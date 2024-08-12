@@ -28,6 +28,7 @@ interface InputProps {
   hasError?: boolean
   autoComplete?: string
   checked?: boolean
+  isDisabled?: boolean
 }
 
 interface TextAreaProps {
@@ -80,6 +81,7 @@ function Input({
   hasError,
   autoComplete,
   checked,
+  isDisabled = false,
 }: InputProps) {
   const inputClass = cn(
     'rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
@@ -97,6 +99,7 @@ function Input({
       placeholder={placeholder}
       autoComplete={autoComplete}
       checked={checked}
+      disabled={isDisabled}
     />
   )
 }
