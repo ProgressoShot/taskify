@@ -11,7 +11,7 @@ import useModalStore from '@/store/useModalStore'
 import { Dashboard, DashboardColorHex } from '@/types/types'
 
 import Button from './Button'
-import ConfirmModal from './ConfirmModal'
+import ConfirmModalContent from './ConfirmModalContent'
 import moduleCSS from './CreateDashboardModal.module.css'
 
 const COLOR_LIST: Array<DashboardColorHex> = [
@@ -53,7 +53,7 @@ export default function CreateDashboardModal() {
     } catch (error: any) {
       closeModal()
       openModal(
-        <ConfirmModal
+        <ConfirmModalContent
           message={error?.message || '오류가 발생했습니다. 다시 시도해주세요.'}
         />
       )

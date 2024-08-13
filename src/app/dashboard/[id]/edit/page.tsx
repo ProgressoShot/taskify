@@ -11,7 +11,7 @@ import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitat
 import { getDashboard, updateDashboard } from '@/app/utils/api'
 import { deleteDashboard } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
-import ConfirmModal from "@/components/ConfirmModal";
+import ConfirmModalContent from "@/components/ConfirmModalContent";
 import { InviteModal } from '@/components/DashboardFeature'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
@@ -96,7 +96,7 @@ export default function DashboardIdEditPage() {
         await router.push('/mydashboard')
       } catch (error) {
         openModal(
-          <ConfirmModal
+          <ConfirmModalContent
             message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
           />)
       }

@@ -5,7 +5,7 @@ interface ConfirmModalContentProps {
   message: string
 }
 
-export default function ConfirmModal({ message }: ConfirmModalContentProps) {
+export default function ConfirmModalContent({ message }: ConfirmModalContentProps) {
   const { closeModal } = useModalStore()
 
   return (
