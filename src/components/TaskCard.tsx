@@ -7,8 +7,6 @@ import type { TaskCard } from '@/types/types'
 interface CardProps {
   card: TaskCard
   columnTitle: string
-  description: string
-  createdAt?: string
 }
 
 export default function TaskCard({ card, columnTitle }: CardProps) {

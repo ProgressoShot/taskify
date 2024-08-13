@@ -7,8 +7,10 @@ interface Props {
   children: ReactNode
   className?: string
 }
-
-interface DropdownProps extends Props {}
+type Position = 'absolute' | 'relative'
+interface DropdownProps extends Props {
+  position?: Position
+}
 interface TriggerProps extends Props {
   onClick?: () => void
 }
@@ -23,9 +25,13 @@ const DropdownContext = createContext({
   toggleClose: () => {},
 })
 
-function Dropdown({ children, className }: DropdownProps) {
+function Dropdown({
+  children,
+  className,
+  position = 'relative',
+}: DropdownProps) {
   const [isOpen, toggle, toggleClose] = useToggle(false)
-  const containerStyle = cn('relative', className)
+  const containerStyle = cn(position, className)
 
   return (
     <DropdownContext.Provider value={{ isOpen, toggle, toggleClose }}>
