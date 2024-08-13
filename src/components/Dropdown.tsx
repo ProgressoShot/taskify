@@ -17,18 +17,13 @@ interface ItemProps extends Props {
   onClick: () => void
 }
 
-const DropdownContext = createContext({
-  isOpen: false,
-  toggle: () => {},
-  close: () => {},
-})
-
+const DropdownContext = createContext({ isOpen: false, toggle: () => {} })
 function Dropdown({ children, className }: DropdownProps) {
-  const [isOpen, toggle, close] = useToggle(false)
+  const [isOpen, toggle] = useToggle(false)
   const containerStyle = cn('relative', className)
-  console.log(isOpen)
+
   return (
-    <DropdownContext.Provider value={{ isOpen, toggle, close }}>
+    <DropdownContext.Provider value={{ isOpen, toggle }}>
       <div className={containerStyle}>{children}</div>
     </DropdownContext.Provider>
   )
@@ -38,7 +33,16 @@ const Trigger = ({ children, className, onClick }: TriggerProps) => {
   const { toggle } = useContext(DropdownContext)
 
   return (
-    <button className={className} onClick={toggle} type='button'>
+    <button
+      className={className}
+      onClick={() => {
+        if (onClick) {
+          onClick()
+        }
+        toggle()
+      }}
+      type='button'
+    >
       {children}
     </button>
   )
@@ -55,8 +59,7 @@ const Menu = ({ children, className }: MenuProps) => {
 }
 
 const Item = ({ children, className, onClick }: ItemProps) => {
-  const { toggle, close, isOpen } = useContext(DropdownContext)
-
+  const { toggle } = useContext(DropdownContext)
   const itemStyle = cn(
     'flex w-full items-center rounded-[4px] text-sm text-custom-black-200',
     className
@@ -68,7 +71,7 @@ const Item = ({ children, className, onClick }: ItemProps) => {
       type='button'
       onClick={() => {
         onClick()
-        close()
+        toggle()
       }}
     >
       {children}
