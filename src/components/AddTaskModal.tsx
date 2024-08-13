@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -25,7 +25,7 @@ interface taskFormValue {
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: FileList | null
 }
 
 interface AddTaskModalProps {
@@ -38,7 +38,6 @@ export default function AddTaskModal({
   columnId,
 }: AddTaskModalProps) {
   const { closeModal } = useModalStore()
-
   const user = JSON.parse(sessionStorage.user)
 
   const {
@@ -52,10 +51,13 @@ export default function AddTaskModal({
     defaultValues: {
       dashboardId: dashboardId,
       columnId: columnId,
+      imageUrl: null,
     },
   })
+
   const [tags, setTags] = useState<string[]>([])
   const [members, setMembers] = useState<[]>([])
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
 
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -75,12 +77,16 @@ export default function AddTaskModal({
 
   const onSubmit = async (data: taskFormValue) => {
     try {
-      const res = await imageUpload({
-        type: 'card',
-        columnId: columnId,
-        image: data.imageUrl[0],
-      })
-      data.imageUrl = res.imageUrl
+      if (data.imageUrl && data.imageUrl.length > 0) {
+        const res = await imageUpload({
+          type: 'card',
+          columnId: columnId,
+          image: data.imageUrl[0],
+        })
+        data.imageUrl = res.imageUrl
+      } else {
+        data.imageUrl // Ensure imageUrl is handled even if not provided
+      }
     } catch (error) {
       return '이미지 업로드 실패'
     }
@@ -142,6 +148,18 @@ export default function AddTaskModal({
 
     fetchMembers()
   }, [dashboardId])
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null
+    if (file) {
+      const objectUrl = URL.createObjectURL(file)
+      setImagePreview(objectUrl)
+      setValue('imageUrl', event.target.files) // Store the FileList in the form state
+    } else {
+      setImagePreview(null)
+      setValue('imageUrl', null) // Handle the case where no file is selected
+    }
+  }
 
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
@@ -223,24 +241,31 @@ export default function AddTaskModal({
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
-          <label className='h-[76px] w-[76px] cursor-pointer'>
+          <label className='relative h-[76px] w-[76px] cursor-pointer'>
             <AddBox className='h-full w-full' viewBox='0 0 22 22' />
-            <Form.Input
-              register={register('imageUrl')}
+            <input
               type='file'
               className='hidden'
+              onChange={handleImageChange}
             />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt='Image preview'
+                className='absolute inset-0 h-full w-full object-cover'
+              />
+            )}
           </label>
         </Form.Label>
         <div className='flex'>
           <Button
-            className='mr-2 h-[54px] w-full'
+            className='mr-2 h-[54px] w-64'
             color='secondary'
             onClick={closeModal}
           >
             취소
           </Button>
-          <Button className='h-[54px] w-full' type='submit' color='primary'>
+          <Button className='h-[54px] w-64' type='submit' color='primary'>
             생성
           </Button>
         </div>
