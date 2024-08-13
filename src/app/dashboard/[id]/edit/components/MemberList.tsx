@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react'
 
-import {getDashboardMemberList, getReceivedInvitiationList} from '@/app/utils/dashboardsApi'
+import {getDashboardMemberList, getReceivedInvitiationList} from '@/lib/dashboardsApi'
 
 import {DashboardMember} from "@/types/types";
 import Member from "@/app/dashboard/[id]/edit/components/Member"

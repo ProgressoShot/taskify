@@ -1,16 +1,14 @@
 import cn from 'classnames'
-import {PropsWithChildren} from 'react'
+import { PropsWithChildren } from 'react'
 
 import {
   deleteDashboardMember,
-  getDashboardList, getDashboardMemberList,
-} from '@/app/utils/dashboardsApi'
+  getDashboardMemberList,
+} from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
-import useDashboardStore from '@/store/useDashboardStore'
-import {DashboardMember} from "@/types/types";
-import UserAvatar from "@/components/UserAvatar";
-import {useMemberStore} from "@/store/useMemberStore";
-
+import UserAvatar from '@/components/UserAvatar'
+import { useMemberStore } from '@/store/useMemberStore'
+import { DashboardMember } from '@/types/types'
 
 const classNames = {
   inner: {
@@ -30,7 +28,7 @@ const classNames = {
   },
   value: {
     default:
-        'px-2 text-custom-black-200 text-nowrap overflow-hidden text-ellipsis',
+      'px-2 text-custom-black-200 text-nowrap overflow-hidden text-ellipsis',
   },
   button: {
     default: 'w-full rounded-[4px] md:w-20',
@@ -47,13 +45,13 @@ export interface ItemProps {
 }
 
 function Item({
-              dashboardId,
-                page,
-                size,
-                member,
-                callBackFunction,
-              }: ItemProps) {
-  const {setMembers} = useMemberStore();
+  dashboardId,
+  page,
+  size,
+  member,
+  callBackFunction,
+}: ItemProps) {
+  const { setMembers } = useMemberStore()
 
   const listDashboardMembers = async () => {
     const data = await getDashboardMemberList(dashboardId, page, size)
@@ -62,63 +60,61 @@ function Item({
 
   const handleClick = async (id: number) => {
     await deleteDashboardMember(id).then(() => {
-      getDashboardMemberList(page,size)
+      getDashboardMemberList(page, size)
       callBackFunction([])
     })
   }
 
   return (
+    <div
+      className={cn(
+        classNames.inner.default,
+        classNames.inner.item,
+        classNames.inner.mobile
+      )}
+    >
       <div
-          className={cn(
-              classNames.inner.default,
-              classNames.inner.item,
-              classNames.inner.mobile
-          )}
+        className={cn(classNames.cols.default)}
+        style={classNames.cols.style}
       >
-        <div
-            className={cn(classNames.cols.default)}
-            style={classNames.cols.style}
+        <p
+          className={cn(
+            classNames.label.default,
+            classNames.label.mobile,
+            'text-sm'
+          )}
         >
-          <p
-              className={cn(
-                  classNames.label.default,
-                  classNames.label.mobile,
-                  'text-sm'
-              )}
-          >
-            이름
-          </p>
-          <UserAvatar name={member.nickname[0]}/>
-          <p className={cn(classNames.value.default)}>
-            {member.nickname}
-          </p>
-        </div>
-        <div
-            className={cn(
-                classNames.value.default,
-                'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
-            )}
-        >
-          <Button
-              className={cn(classNames.button.default)}
-              color='secondary'
-              onClick={() => handleClick(member.id)}
-          >
-            삭제
-          </Button>
-        </div>
+          이름
+        </p>
+        <UserAvatar member={member} />
+        <p className={cn(classNames.value.default)}>{member.nickname}</p>
       </div>
+      <div
+        className={cn(
+          classNames.value.default,
+          'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
+        )}
+      >
+        <Button
+          className={cn(classNames.button.default)}
+          color='secondary'
+          onClick={() => handleClick(member.id)}
+        >
+          삭제
+        </Button>
+      </div>
+    </div>
   )
 }
 
-function Member({children}: PropsWithChildren) {
+function Member({ children }: PropsWithChildren) {
   return (
-      <div className='py-4 md:py-8'>
-        <div className={cn(classNames.inner.default, 'hidden')}>
-          <p className={cn(classNames.label.default, 'text-base')}>이름</p>
-        </div>
-        {children}
+    <div className='py-4 md:py-8'>
+      <div className={cn(classNames.inner.default, 'hidden')}>
+        <p className={cn(classNames.label.default, 'text-base')}>이름</p>
       </div>
+      {children}
+    </div>
   )
 }
 

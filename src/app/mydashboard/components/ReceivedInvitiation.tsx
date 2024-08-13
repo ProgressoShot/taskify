@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react'
 import {
   getDashboardList,
   putResponseInvitiation,
-} from '@/app/utils/dashboardsApi'
+} from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
 import useDashboardStore from '@/store/useDashboardStore'
 

@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
-import { getDashboardList } from '@/app/utils/dashboardsApi'
+import { getDashboardList } from '@/lib/dashboardsApi'
 import CreateDashboardModal from '@/components/CreateDashboardModal'
 import DashboardCard from '@/components/DashboardCard'
 import useDashboardStore from '@/store/useDashboardStore'

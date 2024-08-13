@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import api from '@/app/utils/axiosInstance'
+import api from '@/lib/axiosInstance'
 import type { Column } from '@/types/types'
 
 export const useColumns = (dashboardId: number) => {
