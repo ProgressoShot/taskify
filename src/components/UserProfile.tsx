@@ -50,8 +50,12 @@ export default function UserProfile() {
     <Dropdown>
       <Dropdown.Trigger>
         <div className='flex items-center gap-3 pl-4 md:pl-6 lg:pr-6'>
-          <UserAvatar name={user?.nickname[0] || ''} />
-          <p className='hidden text-nowrap md:block'>{user?.nickname}</p>
+          {user && (
+            <>
+              <UserAvatar user={user} />
+              <p className='hidden text-nowrap md:block'>{user.nickname}</p>
+            </>
+          )}
         </div>
       </Dropdown.Trigger>
       <div className='relative'>
