@@ -66,7 +66,12 @@ export default function DashboardCol({ column }: DashboardColProps) {
 
         {cards.map(card => (
           <li key={card.id}>
-            <TaskCard card={card} columnTitle={title} />
+            <TaskCard
+              card={card}
+              columnTitle={title}
+              dashboardId={dashboardId}
+              columnId={columnId}
+            />
           </li>
         ))}
       </div>

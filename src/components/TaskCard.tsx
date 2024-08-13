@@ -7,9 +7,16 @@ import type { TaskCard } from '@/types/types'
 interface CardProps {
   card: TaskCard
   columnTitle: string
+  dashboardId: number
+  columnId: number
 }
 
-export default function TaskCard({ card, columnTitle }: CardProps) {
+export default function TaskCard({
+  card,
+  columnTitle,
+  dashboardId,
+  columnId,
+}: CardProps) {
   const {
     id: taskCardId,
     title,
@@ -25,7 +32,14 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
     <button
       type='button'
       onClick={() => {
-        openModal(<TaskCardContent card={card} columnTitle={columnTitle} />)
+        openModal(
+          <TaskCardContent
+            card={card}
+            columnTitle={columnTitle}
+            dashboardId={dashboardId}
+            columnId={columnId}
+          />
+        )
       }}
       className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4 text-left'
     >
