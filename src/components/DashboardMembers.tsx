@@ -19,9 +19,9 @@ type MemberSizeType = {
 }
 
 const MEMBER_SIZES: MemberSizeType = {
-  desktop: 4,
-  tablet: 2,
-  mobile: 2,
+  desktop: 5,
+  tablet: 3,
+  mobile: 3,
 }
 
 export default function DashboardMembers() {
@@ -59,12 +59,20 @@ export default function DashboardMembers() {
   if (!id) return null
 
   return (
-    <Dropdown className='border-r border-custom-gray-300'>
-      <Dropdown.Trigger onClick={handleClick} className='px-9'>
+    <Dropdown className='border-r border-custom-gray-300 px-9'>
+      <Dropdown.Trigger onClick={handleClick} className=''>
         <div className='flex items-center'>
           {members &&
             members
-              .slice(0, Math.min(MEMBER_SIZES[mode], members.length))
+              .slice(
+                0,
+                Math.min(
+                  members.length,
+                  totalCount && totalCount > MEMBER_SIZES[mode]
+                    ? MEMBER_SIZES[mode] - 1
+                    : MEMBER_SIZES[mode]
+                )
+              )
               .map((member, index) => {
                 let gap
                 if (index) gap = '-ml-2'
@@ -85,8 +93,8 @@ export default function DashboardMembers() {
           )}
         </div>
       </Dropdown.Trigger>
-      <div className='relative left-1/2 ml-6 min-w-32 -translate-x-1/2'>
-        <Dropdown.Menu className='w-auto'>
+      <div className='relative'>
+        <Dropdown.Menu className='left-1/2 right-auto -translate-x-1/2'>
           {allMembers &&
             allMembers.map(member => {
               return (
