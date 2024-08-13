@@ -30,7 +30,7 @@ export default function TaskCard({ card, columnTitle }: CardProps) {
       className='mb-4 w-full rounded-md border-[1px] border-solid border-custom-gray-300 bg-white px-5 py-4 text-left'
     >
       {imageUrl && (
-        <div className='h-40 w-[274px] pb-4'>
+        <div className='h-40 w-full pb-4'>
           <img
             src={imageUrl}
             alt='TaskCard 이미지'
