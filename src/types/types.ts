@@ -2,6 +2,14 @@ import { ReactNode } from 'react'
 
 export type DashboardColor = 'green' | 'purple' | 'orange' | 'blue' | 'pink'
 
+export const DASHBOARD_COLORS = {
+  green: '#7AC555',
+  purple: '#760DDE',
+  orange: '#FFA500',
+  blue: '#76A5EA',
+  pink: '#E876EA',
+}
+
 export type DashboardColorHex =
   | '#7AC555' // green
   | '#760DDE' // purple
@@ -68,6 +76,7 @@ export interface Column {
 }
 
 export type DashboardCardType = 'card' | 'side' | 'add'
+
 export interface TaskCard {
   id: number
   title: string
@@ -85,6 +94,7 @@ export interface TaskCard {
   createdAt: string
   updatedAt: string
 }
+
 export interface CardsResponse {
   cards: TaskCard[]
   totalCount: number
@@ -119,4 +129,4 @@ export interface DashboardMember {
   userId: number
 }
 
-export type DashboardMembers = DashboardMember[] | null;
+export type DashboardMembers = DashboardMember[] | null
