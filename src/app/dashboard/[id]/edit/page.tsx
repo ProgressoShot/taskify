@@ -24,11 +24,7 @@ import { deleteDashboard } from '@/lib/dashboardsApi'
 import { DASHBOARD_MEMBERS } from '@/lib/mock'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import {
-  DASHBOARD_COLORS,
-  DashboardFormValue,
-  DashboardMember,
-} from '@/types/types'
+import { DASHBOARD_COLORS, DashboardFormValue } from '@/types/types'
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4
@@ -195,12 +191,20 @@ export default function DashboardIdEditPage() {
           <AddBox />
           초대하기
         </Button>
-
+        <Pagination>
+          <Pagination.Pages>
+            {totalPages} 페이지 중 {page}
+          </Pagination.Pages>
+          <Pagination.Prev
+            prevPage={() => {}}
+            disabled={noMorePrev}
+          ></Pagination.Prev>
+          <Pagination.Next
+            nextPage={() => {}}
+            disabled={noMoreNext}
+          ></Pagination.Next>
+        </Pagination>
         <SentInvitationList dashboardId={dashboardId} />
-        {/*<Pagination>*/}
-        {/*  <Pagination.Prev />*/}
-        {/*  <Pagination.Next />*/}
-        {/*</Pagination>*/}
       </section>
 
       <Button
