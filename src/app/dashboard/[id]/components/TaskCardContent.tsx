@@ -114,13 +114,16 @@ export default function TaskCardContent({
           ))}
         </div>
       </div>
-      <Dropdown className='absolute right-14 top-4 md:right-[86px] md:top-6'>
+      <Dropdown
+        className='right-14 top-4 md:right-[86px] md:top-6'
+        position='absolute'
+      >
         <Dropdown.Trigger className='flex items-center justify-center'>
           <Kebab className='h-6 w-6 text-custom-black-200 md:h-8 md:w-8' />
         </Dropdown.Trigger>
-        <Dropdown.Menu>
+        <Dropdown.Menu className='w-24 gap-1 p-[6px]'>
           <Dropdown.Item
-            className='hover:bg-custom-light-violet hover:text-custom-violet'
+            className='flex h-8 w-full items-center justify-center hover:bg-custom-light-violet hover:text-custom-violet'
             onClick={() => {
               console.log('수정')
             }}
@@ -128,7 +131,7 @@ export default function TaskCardContent({
             수정하기
           </Dropdown.Item>
           <Dropdown.Item
-            className='hover:bg-custom-light-violet hover:text-custom-violet'
+            className='flex h-8 w-full items-center justify-center hover:bg-custom-light-violet hover:text-custom-violet'
             onClick={() => {
               console.log('삭제')
             }}
