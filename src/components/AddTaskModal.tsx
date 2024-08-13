@@ -1,12 +1,14 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
+import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
+import Edit from '/public/icons/edit.svg'
 import AsigneeSelect from '@/app/dashboard/[id]/components/AsigneeSelect'
 import { imageUpload } from '@/app/utils/api'
 import api from '@/app/utils/axiosInstance'
@@ -25,7 +27,7 @@ interface taskFormValue {
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: File[]
 }
 
 interface AddTaskModalProps {
@@ -37,6 +39,7 @@ export default function AddTaskModal({
   dashboardId,
   columnId,
 }: AddTaskModalProps) {
+  const [preview, setPreview] = useState('')
   const { closeModal } = useModalStore()
 
   const user = JSON.parse(sessionStorage.user)
@@ -91,7 +94,6 @@ export default function AddTaskModal({
 
     const newData = {
       ...data,
-      assigneeUserId: user.id,
       dashboardId: dashboardId,
       columnId: columnId,
       tags: tags,
@@ -107,17 +109,11 @@ export default function AddTaskModal({
       })
     )
 
-    console.log('Final data being sent:', filteredData)
-
     try {
       const response = await api.post('/cards', filteredData)
-      console.log('Post 성공:', response.data)
       closeModal()
       window.location.reload()
-    } catch (error) {
-      console.error('Post 실패:', error)
-      console.log('데이터:', filteredData)
-    }
+    } catch (error) {}
   }
 
   const [date, setDate] = React.useState<Date>(new Date(Date.now()))
@@ -143,6 +139,13 @@ export default function AddTaskModal({
     fetchMembers()
   }, [dashboardId])
 
+  useEffect(() => {
+    const file = watch('imageUrl')
+    if (file && file.length > 0) {
+      const fileURL = URL.createObjectURL(file[0])
+      setPreview(fileURL)
+    }
+  }, [watch('imageUrl')])
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
@@ -189,7 +192,7 @@ export default function AddTaskModal({
             control={control}
             name='dueDate'
             render={({ field }) => (
-              <div className='rounded-container block flex w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'>
+              <div className='rounded-container flex w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet'>
                 <Calendar className='mr-1 mt-[1px] h-5 w-5 text-custom-gray-500' />
                 <DatePicker
                   placeholderText='마감일을 입력해 주세요'
@@ -223,24 +226,46 @@ export default function AddTaskModal({
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
-          <label className='h-[76px] w-[76px] cursor-pointer'>
-            <AddBox className='h-full w-full' viewBox='0 0 22 22' />
-            <Form.Input
-              register={register('imageUrl')}
-              type='file'
-              className='hidden'
-            />
-          </label>
+          <div className='h-[58px] w-[58px] md:h-[76px] md:w-[76px]'>
+            {preview ? (
+              <label className='relative flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-black opacity-60'>
+                <Image
+                  src={preview}
+                  alt='이미지 업로드'
+                  fill
+                  className='rounded-md object-cover'
+                />
+                <Edit className='z-10 h-5 w-5 md:h-[30px] md:w-[30px]' />
+                <Form.Input
+                  register={register('imageUrl')}
+                  type='file'
+                  className='hidden'
+                />
+              </label>
+            ) : (
+              <label className='h-full w-full cursor-pointer'>
+                <AddBox className='h-full w-full' viewBox='0 0 22 22' />
+                <Form.Input
+                  register={register('imageUrl')}
+                  type='file'
+                  className='hidden'
+                />
+              </label>
+            )}
+          </div>
         </Form.Label>
-        <div className='flex'>
+        <div className='grid grid-cols-2 gap-2'>
           <Button
-            className='mr-2 h-[54px] w-64'
             color='secondary'
+            className='mr-2 h-[54px] w-full text-base font-medium !text-custom-gray-500'
             onClick={closeModal}
           >
             취소
           </Button>
-          <Button className='h-[54px] w-64' type='submit' color='primary'>
+          <Button
+            className='h-[54px] w-full text-base font-semibold'
+            type='submit'
+          >
             생성
           </Button>
         </div>
