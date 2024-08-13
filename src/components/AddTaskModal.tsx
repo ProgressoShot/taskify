@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
+import Edit from '/public/icons/edit.svg'
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
 import AsigneeSelect from '@/app/dashboard/[id]/components/AsigneeSelect'
@@ -16,6 +17,7 @@ import useUserStore from '@/store/useUserStore'
 
 import Button from './Button'
 import Chip from './Chip'
+import Image from 'next/image'
 
 interface taskFormValue {
   assigneeUserId: number
@@ -25,7 +27,7 @@ interface taskFormValue {
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: File[]
 }
 
 interface AddTaskModalProps {
@@ -109,7 +111,6 @@ export default function AddTaskModal({
 
     try {
       const response = await api.post('/cards', filteredData)
-      console.log('Post 성공:', response.data)
       closeModal()
       window.location.reload()
     } catch (error) {}
@@ -140,7 +141,10 @@ export default function AddTaskModal({
 
   useEffect(() => {
     const file = watch('imageUrl')
-    console.log(file)
+    if (file && file.length > 0) {
+      const fileURL = URL.createObjectURL(file[0])
+      setPreview(fileURL)
+    }
   }, [watch('imageUrl')])
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
@@ -222,14 +226,33 @@ export default function AddTaskModal({
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
-          <label className='h-[58px] w-[58px] cursor-pointer md:h-[76px] md:w-[76px]'>
-            <AddBox className='h-full w-full' viewBox='0 0 22 22' />
-            <Form.Input
-              register={register('imageUrl')}
-              type='file'
-              className='hidden'
-            />
-          </label>
+          <div className='h-[58px] w-[58px] md:h-[76px] md:w-[76px]'>
+            {preview ? (
+              <label className='relative flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-black opacity-60'>
+                <Image
+                  src={preview}
+                  alt='이미지 업로드'
+                  fill
+                  className='rounded-md object-cover'
+                />
+                <Edit className='z-10 h-5 w-5 md:h-[30px] md:w-[30px]' />
+                <Form.Input
+                  register={register('imageUrl')}
+                  type='file'
+                  className='hidden'
+                />
+              </label>
+            ) : (
+              <label className='h-full w-full cursor-pointer'>
+                <AddBox className='h-full w-full' viewBox='0 0 22 22' />
+                <Form.Input
+                  register={register('imageUrl')}
+                  type='file'
+                  className='hidden'
+                />
+              </label>
+            )}
+          </div>
         </Form.Label>
         <div className='grid grid-cols-2 gap-2'>
           <Button
