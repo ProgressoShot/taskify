@@ -37,12 +37,22 @@ export const getDashboardList = async () => {
     page: 0,
     size: 10,
   }
+
   try {
     const response = await api.get(
       'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
     )
     const { dashboards } = response.data
     return dashboards
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteDashboard = async (id: number) => {
+  try {
+    const response = await api.delete(`dashboards/${id}`)
+    return response.data
   } catch (error) {
     throw error
   }

@@ -16,6 +16,8 @@ import { Dashboard } from '@/types/types'
 import Button from './Button'
 import ConfirmModalContent from './ConfirmModalContent'
 import Form from './Form'
+import { deleteDashboard } from '@/app/utils/dashboardsApi'
+import { useRouter } from 'next/navigation'
 
 /**
  * @todo
@@ -27,8 +29,9 @@ const BUTTON_CLASSNAME =
   'flex h-10 items-center justify-between gap-2 rounded-lg border border-custom-gray-300 px-4 text-base text-custom-gray-500'
 
 export default function DashboardFeature() {
+  const router = useRouter()
   const { id: dashboardId } = useParams()
-  const { dashboards } = useDashboardStore()
+  const { dashboards, setDashboards } = useDashboardStore()
   const { openModal } = useModalStore()
   const currentDashboard = dashboards
     ?.filter((dashboard: Dashboard) => dashboard.id === Number(dashboardId))
@@ -36,10 +39,31 @@ export default function DashboardFeature() {
 
   const createByMe = currentDashboard?.createdByMe
 
+  const handleDeleteDashboard = async () => {
+    const message = `${currentDashboard?.title} 대시보드를 정말 삭제하시겠습니까?`
+    if (confirm(message)) {
+      try {
+        await deleteDashboard(Number(dashboardId)).then(() => {
+          if (dashboards)
+            setDashboards(
+              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
+                null
+            )
+        })
+        router.push('/mydashboard')
+      } catch (error) {
+        console.log('error: ', error)
+      }
+    }
+  }
+
   if (!createByMe) return null
 
   return (
     <div className='flex gap-4 border-r border-custom-gray-300 pr-9'>
+      <button type='button' onClick={handleDeleteDashboard}>
+        DEL
+      </button>
       <Link
         href={`/dashboard/${dashboardId}/edit`}
         className={BUTTON_CLASSNAME}
