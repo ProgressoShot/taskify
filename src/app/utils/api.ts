@@ -1,9 +1,5 @@
 import api from '@/app/utils/axiosInstance'
-import {
-  Dashboard,
-  Invitations,
-  ListDashboardInvitationsResponse,
-} from '@/types/types'
+import { Dashboard, ListDashboardInvitationsResponse } from '@/types/types'
 
 export async function getDashboard(id: number): Promise<Dashboard> {
   try {
@@ -17,7 +13,7 @@ export async function getDashboard(id: number): Promise<Dashboard> {
 export async function updateDashboard(
   id: number,
   body: { title: string; color: string }
-) {
+): Promise<Dashboard> {
   try {
     const response = await api.put(`/dashboards/${id}`, body)
     return response.data
@@ -38,11 +34,13 @@ export async function listDashboardInvitations(
 }
 
 type ImageUploadType = 'card' | 'profile'
+
 interface ImageUpload {
   type: ImageUploadType
   columnId?: number
   image: any
 }
+
 export const imageUpload = async ({ type, columnId, image }: ImageUpload) => {
   let url
   switch (type) {
