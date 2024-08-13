@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Check from '/public/icons/check.svg'
+import Check from '/public/icons/check-black.svg'
 import MenuDown from '/public/icons/menu-down.svg'
 import Dropdown from '@/components/Dropdown'
 
