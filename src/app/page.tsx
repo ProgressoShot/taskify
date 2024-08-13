@@ -6,7 +6,7 @@ import Link from 'next/link'
 import LandingFooter from '@/components/LandingFooter'
 import useAutotyping from '@/hooks/useAutotyping'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import useRedirect, { type UseRedirect } from '@/hooks/useRedirect'
+import useRedirect from '@/hooks/useRedirect'
 import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
