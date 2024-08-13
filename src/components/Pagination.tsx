@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { ReactNode } from 'react'
 
 import Left from '/public/icons/caret-left.svg'
@@ -5,6 +6,7 @@ import Right from '/public/icons/caret-right.svg'
 
 interface PaginationProps {
   children: ReactNode
+  className?: string
 }
 interface PrevProps {
   prevPage: () => void
@@ -15,8 +17,9 @@ interface NextProps {
   disabled: boolean
 }
 
-export default function Pagination({ children }: PaginationProps) {
-  return <div className='flex text-base text-custom-black-200'>{children}</div>
+export default function Pagination({ children, className }: PaginationProps) {
+  const paginationClass = cn('flex text-base text-custom-black-200', className)
+  return <div className={paginationClass}>{children}</div>
 }
 
 function Pages({ children }: PaginationProps) {
