@@ -76,8 +76,6 @@ export default function AddTaskModal({
   }
 
   const onSubmit = async (data: taskFormValue) => {
-    console.log('data 나가신다~')
-    console.log(data)
     const formattedDueDate = data.dueDate
       ? format(new Date(data.dueDate), 'yyyy-MM-dd HH:mm')
       : undefined

@@ -44,7 +44,10 @@ export default function AsigneeSelect({
 
   return (
     <Dropdown>
-      <Dropdown.Trigger className='rounded-container flex h-12 w-full items-center justify-between px-4 py-3 text-base font-normal text-custom-black-200 focus:border-custom-violet'>
+      <Dropdown.Trigger
+        onClick={handleTriggerClick}
+        className='rounded-container flex h-12 w-full items-center justify-between px-4 py-3 text-base font-normal text-custom-black-200 focus:border-custom-violet'
+      >
         {isInputMode ? (
           <input
             value={searchTerm}
@@ -67,7 +70,7 @@ export default function AsigneeSelect({
                   className='relative flex h-12 w-full items-center py-2 pl-[46px] pr-4'
                   onClick={() => {
                     handleAssigneeSelect(member.userId)
-                    // setIsInputMode(false)
+                    setIsInputMode(false)
                   }}
                 >
                   {isSelected && (
