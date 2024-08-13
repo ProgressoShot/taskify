@@ -43,7 +43,7 @@ export const getDashboardList = async () => {
     const response = await api.get(
         'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
     )
-    const {dashboards} = response.data
+    const { dashboards } = response.data
     return dashboards
   } catch (error) {
     throw error
@@ -79,8 +79,8 @@ export const getReceivedInvitiationList = async (
 }
 
 export const putResponseInvitiation = async (
-    id: number,
-    inviteAccepted: boolean
+  id: number,
+  inviteAccepted: boolean
 ) => {
   try {
     const response = await api.put(`invitations/${id}`, {
@@ -93,10 +93,10 @@ export const putResponseInvitiation = async (
 }
 
 export const getDashboardMemberList = async (
-    dashboardId: number,
-    page?: number,
-    size?: number
-) => {
+  dashboardId: number,
+  page?: number,
+  size?: number
+): Promise<any> => {
   const params: Record<string, string> = {
     dashboardId: String(dashboardId),
     page: String(1),
