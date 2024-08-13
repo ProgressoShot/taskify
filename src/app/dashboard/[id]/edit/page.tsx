@@ -10,8 +10,6 @@ import AddBox from '/public/icons/add-box.svg'
 import CaretLeft from '/public/icons/caret-left.svg'
 import MemberList from '@/app/dashboard/[id]/edit/components/MemberList'
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
-import { getDashboard, updateDashboard } from '@/lib/api'
-import { deleteDashboard } from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import moduleCSS from '@/components/CreateDashboardModal.module.css'
@@ -21,6 +19,9 @@ import Form from '@/components/Form'
 import Pagination from '@/components/Pagination'
 import useGoBack from '@/hooks/useGoBack'
 import usePagination from '@/hooks/usePagination'
+import { getDashboard, updateDashboard } from '@/lib/api'
+import { deleteDashboard } from '@/lib/dashboardsApi'
+import { DASHBOARD_MEMBERS } from '@/lib/mock'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import {
@@ -28,8 +29,6 @@ import {
   DashboardFormValue,
   DashboardMember,
 } from '@/types/types'
-import {DASHBOARD_MEMBERS} from "@/lib/mock";
-
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4

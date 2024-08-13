@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form'
 
 import Edit from '/public/icons/edit.svg'
 import Plus from '/public/icons/plus.svg'
-import { imageUpload } from '@/lib/api'
-import api from '@/lib/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
+import { imageUpload } from '@/lib/api'
+import api from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 import type { User } from '@/types/types'
 

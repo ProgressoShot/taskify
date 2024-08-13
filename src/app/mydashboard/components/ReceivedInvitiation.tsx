@@ -1,11 +1,8 @@
 import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
-import {
-  getDashboardList,
-  putResponseInvitiation,
-} from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
+import { getDashboardList, putResponseInvitiation } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 
 import { ReceivedInvitiationType } from './ReceivedInvitiationList'
