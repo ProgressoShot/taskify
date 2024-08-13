@@ -101,3 +101,14 @@ export interface Comment {
 export type StrictPropsWithChildren<P = unknown> = P & {
   children: ReactNode
 }
+
+export interface DashboardMembersType {
+  id: number
+  email: string
+  nickname: string
+  profileImageUrl: string | null
+  isOwner: boolean
+  createdAt: string
+  updatedAt: string
+  userId: number
+}
