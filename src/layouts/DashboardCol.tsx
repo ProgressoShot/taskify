@@ -42,7 +42,6 @@ export default function DashboardCol({ column }: DashboardColProps) {
   //   updatedAt: '2024-08-10T16:55:52.421Z',
   // }
 
-
   const [cards, setCards] = useState<CardType[]>([])
   useEffect(() => {
     const TaskData = async () => {
@@ -85,7 +84,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
           }
         />
 
-         {/* <TaskCard
+        {/* <TaskCard
           card={taskCard}
           columnTitle={title}
           dashboardId={dashboardId}
