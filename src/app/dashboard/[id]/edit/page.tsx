@@ -106,7 +106,7 @@ export default function DashboardIdEditPage() {
           onSubmit={handleSubmit}
           formId='dashboardForm'
         >
-          <Form.Label className={'flex gap-5'}>
+          <Form.Label className={'flex gap-5 justify-between'}>
             <div className={'w-fit grow-0'}>
               <Form.LabelHeader className={'text-lg'}>
                 대시보드 이름
@@ -162,6 +162,10 @@ export default function DashboardIdEditPage() {
       <section className='mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
         <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
           구성원
+          {/*<Pagination>*/}
+          {/*  <Pagination.Prev  />*/}
+          {/*  <Pagination.Next />*/}
+          {/*</Pagination>*/}
         </h2>
         <Pagination>
           <Pagination.Pages>
