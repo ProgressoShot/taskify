@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import DashboardCard from '@/components/DashboardCard'
 import Pagination from '@/components/Pagination'
@@ -10,6 +10,8 @@ import useDashboardStore from '@/store/useDashboardStore'
 import { Dashboards } from '@/types/types'
 
 import ReceivedInvitiationList from './components/ReceivedInvitiationList'
+import CreateDashboardModal from '@/components/CreateDashboardModal'
+import useModalStore from '@/store/useModalStore'
 
 type PaginationAction = 'prev' | 'next'
 
@@ -18,11 +20,9 @@ const ITEM_PER_PAGE = 5
 export default function MyDashboard() {
   useRedirect({ requireAuth: true })
 
+  const { openModal } = useModalStore()
   const { dashboards } = useDashboardStore()
   const [list, setList] = useState<Dashboards>(null)
-
-  if (dashboards !== null && list === null)
-    setList(dashboards?.slice(0, Math.min(5, dashboards.length)) || null)
 
   const { page, totalPages, prevPage, nextPage, noMorePrev, noMoreNext } =
     usePagination({
@@ -52,10 +52,18 @@ export default function MyDashboard() {
     }
   }
 
+  useEffect(() => {
+    // if (dashboards !== null && list === null)
+    setList(dashboards?.slice(0, Math.min(5, dashboards.length)) || null)
+  }, [dashboards])
+
   return (
     <>
       <section className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        <DashboardCard type='add' onClick={() => alert('대시보드 생성 모달')}>
+        <DashboardCard
+          type='add'
+          onClick={() => openModal(<CreateDashboardModal />)}
+        >
           새로운 대시보드
         </DashboardCard>
         {list &&
