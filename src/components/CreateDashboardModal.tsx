@@ -99,14 +99,14 @@ export default function CreateDashboardModal() {
         </Form.Label>
         <div className='flex gap-2'>
           <Button
-            className='h-[54px] w-1/2'
+            className='h-[54px] w-1/2 flex-auto'
             color='secondary'
             onClick={closeModal}
           >
             취소
           </Button>
           <Button
-            className='h-[54px] w-1/2'
+            className='h-[54px] w-1/2 flex-auto'
             type='submit'
             color='primary'
             isDisabled={!buttonDisabled}
