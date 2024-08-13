@@ -17,24 +17,31 @@ interface ItemProps extends Props {
   onClick: () => void
 }
 
-const DropdownContext = createContext({ isOpen: false, toggle: () => {} })
+const DropdownContext = createContext({
+  isOpen: false,
+  toggle: () => {},
+  toggleClose: () => {},
+})
 
 function Dropdown({ children, className }: DropdownProps) {
-  const [isOpen, toggle] = useToggle(false)
+  const [isOpen, toggle, toggleClose] = useToggle(false)
   const containerStyle = cn('relative', className)
 
   return (
-    <DropdownContext.Provider value={{ isOpen, toggle }}>
-      <div className={containerStyle}>{children}</div>
+    <DropdownContext.Provider value={{ isOpen, toggle, toggleClose }}>
+      <div className={containerStyle} onBlur={toggleClose}>
+        {children}
+      </div>
     </DropdownContext.Provider>
   )
 }
 
 const Trigger = ({ children, className, onClick }: TriggerProps) => {
-  const { toggle } = useContext(DropdownContext)
+  const { toggle, toggleClose } = useContext(DropdownContext)
 
   return (
     <button
+      type='button'
       className={className}
       onClick={() => {
         if (onClick) {
@@ -42,7 +49,6 @@ const Trigger = ({ children, className, onClick }: TriggerProps) => {
         }
         toggle()
       }}
-      type='button'
     >
       {children}
     </button>
@@ -71,7 +77,8 @@ const Item = ({ children, className, onClick }: ItemProps) => {
     <button
       className={itemStyle}
       type='button'
-      onClick={() => {
+      onMouseDown={event => {
+        event?.stopPropagation()
         onClick()
         toggle()
       }}
