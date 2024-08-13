@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import IconSearch from '/public/icons/search.svg'
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
-import { getReceivedInvitiationList } from '@/app/utils/dashboardsApi'
+import { getReceivedInvitiationList } from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
 
 import ReceivedInvitiation from './ReceivedInvitiation'

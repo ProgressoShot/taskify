@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import api from '@/app/utils/axiosInstance'
+import api from '@/lib/axiosInstance'
 import useUserStore from '@/store/useUserStore'
 
 import Dropdown from './Dropdown'

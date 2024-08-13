@@ -1,4 +1,4 @@
-import api from '@/app/utils/axiosInstance'
+import api from '@/lib/axiosInstance'
 import {DashboardMember} from "@/types/types";
 
 /**

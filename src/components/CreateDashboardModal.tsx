@@ -4,7 +4,7 @@ import cn from 'classnames'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-import { createDashboard } from '@/app/utils/dashboardsApi'
+import { createDashboard } from '@/lib/dashboardsApi'
 import Form from '@/components/Form'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
