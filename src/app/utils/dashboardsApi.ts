@@ -66,3 +66,26 @@ export const putResponseInvitiation = async (
     throw error
   }
 }
+
+export const getDashboardMemberList = async (
+  dashboardId: number,
+  page?: number,
+  size?: number
+) => {
+  const params: Record<string, string> = {
+    dashboardId: String(dashboardId),
+    page: String(1),
+    size: String(20),
+  }
+  if (page) params.page = String(page)
+  if (size) params.size = String(size)
+
+  console.log(convertURL('members', params))
+
+  try {
+    const response = await api.get(convertURL('members', params))
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
