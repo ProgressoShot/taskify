@@ -1,13 +1,14 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
+import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
-import Edit from '/public/icons/edit.svg'
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
+import Edit from '/public/icons/edit.svg'
 import AsigneeSelect from '@/app/dashboard/[id]/components/AsigneeSelect'
 import { imageUpload } from '@/app/utils/api'
 import api from '@/app/utils/axiosInstance'
@@ -17,7 +18,6 @@ import useUserStore from '@/store/useUserStore'
 
 import Button from './Button'
 import Chip from './Chip'
-import Image from 'next/image'
 
 interface taskFormValue {
   assigneeUserId: number
