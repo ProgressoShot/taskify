@@ -80,8 +80,6 @@ export const getDashboardMemberList = async (
   if (page) params.page = String(page)
   if (size) params.size = String(size)
 
-  console.log(convertURL('members', params))
-
   try {
     const response = await api.get(convertURL('members', params))
     return response.data

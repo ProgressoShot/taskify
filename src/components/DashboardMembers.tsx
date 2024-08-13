@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import CrownIcon from '/public/icons/crown.svg'
 import { getDashboardMemberList } from '@/app/utils/dashboardsApi'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import { DashboardMembersType } from '@/types/types'
@@ -47,13 +48,13 @@ export default function DashboardMembers() {
     }
   }
 
-  useEffect(() => {
-    getDashboardMembers([Number(id), 1, MEMBER_SIZES[mode]])
-  }, [id, mode])
-
   const handleClick = async () => {
     const data = await getDashboardMembers([Number(id), 1, totalCount || 0])
   }
+
+  useEffect(() => {
+    if (id) getDashboardMembers([Number(id), 1, MEMBER_SIZES[mode]])
+  }, [id, mode])
 
   if (!id) return null
 
@@ -95,6 +96,7 @@ export default function DashboardMembers() {
                 >
                   <UserAvatar name={member.nickname[0]} />
                   <p className='text-nowrap'>{member.nickname}</p>
+                  {member.isOwner && <CrownIcon style={{ color: '#FDD446' }} />}
                 </div>
               )
             })}
