@@ -53,7 +53,7 @@ export default function AddTaskModal({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [tags, setTags] = useState<string[]>([])
-  const [members, setMembers] = useState<string[]>([])
+  const [members, setMembers] = useState<[]>([])
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -122,14 +122,13 @@ export default function AddTaskModal({
 
   const assigneeUserId = watch('assigneeUserId')
 
-  // Fetch members when component mounts
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const response = await api.get(
           `/members?page=1&size=20&dashboardId=${dashboardId}`
         )
-        setMembers(response.data.members) // Adjust based on your API response structure
+        setMembers(response.data.members)
       } catch (error) {
         console.error('Failed to fetch members:', error)
       }
@@ -147,7 +146,7 @@ export default function AddTaskModal({
           <AsigneeSelect
             handleAssigneeSelect={handleAssigneeSelect}
             selectedUserId={assigneeUserId}
-            members={members} // Pass members here
+            members={members}
           />
         </Form.Label>
         <Form.Label className='mb-5'>
