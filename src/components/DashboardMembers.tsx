@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import CrownIcon from '/public/icons/crown.svg'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import { getDashboardMemberList } from '@/lib/dashboardsApi'
+import { listDashboardMembers } from '@/lib/dashboardsApi'
 import { DashboardMember } from '@/types/types'
 
 import Dropdown from './Dropdown'
@@ -31,13 +31,13 @@ export default function DashboardMembers() {
   const [allMembers, setAllMembers] = useState<DashboardMember[] | null>(null)
   const [totalCount, setTotalCount] = useState<number | null>(null)
 
-  type getDashboardMemberListTypes = Parameters<typeof getDashboardMemberList>
+  type getDashboardMemberListTypes = Parameters<typeof listDashboardMembers>
   const getDashboardMembers = async ([
     dashboardId,
     page,
     size,
   ]: getDashboardMemberListTypes) => {
-    const data = await getDashboardMemberList(dashboardId, page, size)
+    const data = await listDashboardMembers(dashboardId, page, size)
     if (size === totalCount) {
       setAllMembers(data.members)
     } else {
@@ -45,7 +45,6 @@ export default function DashboardMembers() {
       setMembers(data.members)
     }
   }
-
   const handleClick = async () => {
     const data = await getDashboardMembers([Number(id), 1, totalCount || 0])
   }

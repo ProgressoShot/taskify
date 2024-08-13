@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import Member from '@/app/dashboard/[id]/edit/components/Member'
 import {
-  getDashboardMemberList,
-  getReceivedInvitiationList,
+  listDashboardMembers,
 } from '@/lib/dashboardsApi'
 import { DashboardMember } from '@/types/types'
 
@@ -13,14 +12,14 @@ export default function MemberList({ dashboardId }: { dashboardId: number }) {
   const [list, setList] = useState<DashboardMember[] | null>(null)
   const [page, setPage] = useState<number>(1)
 
-  type ParametersType = Parameters<typeof getDashboardMemberList>
+  type ParametersType = Parameters<typeof listDashboardMembers>
 
   const getDashboardMember = async ([
     size = ITEM_PER_PAGE,
     page = 1,
     dashboardId = 1,
   ]: ParametersType) => {
-    const response = await getDashboardMemberList(dashboardId, page, size)
+    const response = await listDashboardMembers(dashboardId, page, size)
     setList(prev =>
       Boolean(response.members?.length) && prev !== null
         ? [...prev, ...response.members]

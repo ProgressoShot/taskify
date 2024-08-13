@@ -1,5 +1,5 @@
 import api from '@/lib/axiosInstance'
-import {DashboardMember} from "@/types/types";
+import {DashboardMember} from '@/types/types'
 
 /**
  * @function convertURL
@@ -41,7 +41,7 @@ export const getDashboardList = async () => {
 
   try {
     const response = await api.get(
-        'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
+      'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
     )
     const { dashboards } = response.data
     return dashboards
@@ -60,9 +60,9 @@ export const deleteDashboard = async (id: number) => {
 }
 
 export const getReceivedInvitiationList = async (
-    size: number,
-    cursorId?: number | null,
-    title?: string
+  size: number,
+  cursorId?: number | null,
+  title?: string
 ) => {
   const params: Record<string, string> = {
     size: String(size),
@@ -92,11 +92,16 @@ export const putResponseInvitiation = async (
   }
 }
 
-export const getDashboardMemberList = async (
+interface listDashboardMembersResponse {
+  members: DashboardMember[]
+  totalCount: number
+}
+
+export const listDashboardMembers = async (
   dashboardId: number,
   page?: number,
   size?: number
-): Promise<any> => {
+): Promise<listDashboardMembersResponse> => {
   const params: Record<string, string> = {
     dashboardId: String(dashboardId),
     page: String(1),
@@ -113,7 +118,9 @@ export const getDashboardMemberList = async (
   }
 }
 
-export const deleteDashboardMember = async (memberId: number) :Promise<void> => {
+export const deleteDashboardMember = async (
+  memberId: number
+): Promise<void> => {
   try {
     await api.delete(`members/${memberId}`)
   } catch (error) {
