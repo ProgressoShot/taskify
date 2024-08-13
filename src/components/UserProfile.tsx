@@ -24,6 +24,8 @@ export default function UserProfile() {
     }
   }
 
+  const moveMyDashboard = () => router.push('/mydashboard')
+
   const moveMyPage = () => router.push('/mypage')
 
   const handleLogout = () => {
@@ -54,6 +56,9 @@ export default function UserProfile() {
       </Dropdown.Trigger>
       <div className='relative left-1/2 ml-5 w-32 -translate-x-1/2'>
         <Dropdown.Menu className='w-full'>
+          <Dropdown.Item onClick={moveMyDashboard} className={classNames}>
+            내 대시보드
+          </Dropdown.Item>
           <Dropdown.Item onClick={moveMyPage} className={classNames}>
             계정 관리
           </Dropdown.Item>
