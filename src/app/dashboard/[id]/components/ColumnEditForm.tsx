@@ -29,9 +29,25 @@ export default function ColumnEditForm({
   } = useForm<ColumnEditValue>({ defaultValues: { title: columnTitle } })
 
   const onSubmit = async (data: ColumnEditValue) => {
+    closeModal()
     try {
       await api.put(`columns/${columnId}`, data)
-      closeModal()
+    } catch (error) {
+      let errorMessage = ''
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data.message
+      } else {
+        errorMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+      }
+      openModal(<ConfirmModalContent message={errorMessage} />)
+    }
+  }
+
+  const onDelete = async () => {
+    closeModal()
+    try {
+      await api.delete(`columns/${columnId}`)
     } catch (error) {
       let errorMessage = ''
       if (axios.isAxiosError(error)) {
@@ -80,9 +96,7 @@ export default function ColumnEditForm({
               openModal(
                 <DeleteAlertModal
                   message='칼럼의 모든 카드가 삭제됩니다.'
-                  onDelete={() => {
-                    console.log('야호')
-                  }}
+                  onDelete={onDelete}
                 />
               )
             }}
