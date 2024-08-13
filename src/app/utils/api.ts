@@ -1,5 +1,9 @@
 import api from '@/app/utils/axiosInstance'
-import {Dashboard, Invitations, ListDashboardInvitationsResponse} from '@/types/types'
+import {
+  Dashboard,
+  Invitations,
+  ListDashboardInvitationsResponse,
+} from '@/types/types'
 
 export async function getDashboard(id: number): Promise<Dashboard> {
   try {
@@ -22,11 +26,50 @@ export async function updateDashboard(
   }
 }
 
-export async function listDashboardInvitations(id: number): Promise<ListDashboardInvitationsResponse> {
+export async function listDashboardInvitations(
+  id: number
+): Promise<ListDashboardInvitationsResponse> {
   try {
     const response = await api.get(`/dashboards/${id}/invitations`)
     return response.data
   } catch (error: any) {
     return error.message
+  }
+}
+
+type ImageUploadType = 'card' | 'profile'
+interface ImageUpload {
+  type: ImageUploadType
+  columnId?: number
+  image: any
+}
+export const imageUpload = async ({ type, columnId, image }: ImageUpload) => {
+  let url
+  switch (type) {
+    case 'card':
+      url = `columns/${columnId}/card-image`
+      break
+    default:
+      url = 'users/me/image'
+      break
+  }
+
+  const formData = new FormData()
+  formData.append('image', image, image.name)
+
+  try {
+    const response = await api.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      transformRequest: [
+        function () {
+          return formData
+        },
+      ],
+    })
+    return response.data
+  } catch (error) {
+    throw error
   }
 }
