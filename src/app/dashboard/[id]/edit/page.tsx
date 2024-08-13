@@ -8,104 +8,46 @@ import { useForm } from 'react-hook-form'
 
 import AddBox from '/public/icons/add-box.svg'
 import CaretLeft from '/public/icons/caret-left.svg'
+import MemberList from '@/app/dashboard/[id]/edit/components/MemberList'
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
-import { getDashboard, updateDashboard } from '@/app/utils/api'
-import { deleteDashboard } from '@/app/utils/dashboardsApi'
+import { getDashboard, updateDashboard } from '@/lib/api'
+import { deleteDashboard } from '@/lib/dashboardsApi'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import moduleCSS from '@/components/CreateDashboardModal.module.css'
 import { InviteModal } from '@/components/DashboardFeature'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
-import useGoBack from '@/hooks/useGoBack'
 import Pagination from '@/components/Pagination'
-import usePagination from "@/hooks/usePagination";
+import useGoBack from '@/hooks/useGoBack'
+import usePagination from '@/hooks/usePagination'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import useUserStore from "@/store/useUserStore";
-import {DashboardColor, DashboardFormValue, DashboardMember} from '@/types/types'
-import MemberList from "@/app/dashboard/[id]/edit/components/MemberList";
+import {
+  DASHBOARD_COLORS,
+  DashboardFormValue,
+  DashboardMember,
+} from '@/types/types'
+import {DASHBOARD_MEMBERS} from "@/lib/mock";
 
-
-const DASHBOARD_MEMBERS: DashboardMember[] = [
-  {
-    id: 1,
-    userId: 1,
-    nickname: '정만철',
-    email: 'test1@test.com',
-    profileImageUrl: "",
-    updatedAt: "2024-08-13T14:52:12.643Z",
-    createdAt: "2024-08-13T14:52:12.643Z",
-    isOwner: true
-  },
-  {
-    id: 2,
-    userId: 2,
-    nickname: '김태순',
-    email: 'test2@test.com',
-    profileImageUrl: "",
-    updatedAt: "2024-08-13T14:52:12.643Z",
-    createdAt: "2024-08-13T14:52:12.643Z",
-    isOwner: false
-  },
-  {
-    id: 3,
-    userId: 3,
-    nickname: '최주협',
-    email: 'test3@test.com',
-    profileImageUrl: "",
-    updatedAt: "2024-08-13T14:52:12.643Z",
-    createdAt: "2024-08-13T14:52:12.643Z",
-    isOwner: false
-  },
-  {
-    id: 4,
-    userId: 4,
-    nickname: '윤지현',
-    email: 'test4@test.com',
-    profileImageUrl: "",
-    updatedAt: "2024-08-13T14:52:12.643Z",
-    createdAt: "2024-08-13T14:52:12.643Z",
-    isOwner: false
-  }
-]
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4
-  const {id} = useParams()
+  const { id } = useParams()
   const dashboardId = Number(id)
-  const {openModal} = useModalStore()
-  const {dashboard, setDashboard, dashboards, setDashboards} = useDashboardStore()
-  const {title, color} = dashboard
   const { openModal } = useModalStore()
   const { dashboard, setDashboard, dashboards, setDashboards } =
     useDashboardStore()
   const handleGoBack = useGoBack()
   const { title, color } = dashboard
   const dashBoardForm = useForm<DashboardFormValue>({
-    values: {title: title, color: color},
+    values: { title: title, color: color },
   })
-  const {
-    page,
-    totalPages,
-    prevPage,
-    nextPage,
-    noMorePrev,
-    noMoreNext
-  } = usePagination({
-    totalItems: DASHBOARD_MEMBERS?.length,
-    itemsPerPage: ITEM_PER_PAGE,
-  })
-
-
-  const DASHBOARD_COLORS = {
-    green: '#7AC555',
-    purple: '#760DDE',
-    orange: '#FFA500',
-    blue: '#76A5EA',
-    pink: '#E876EA',
-  }
-
+  const { page, totalPages, prevPage, nextPage, noMorePrev, noMoreNext } =
+    usePagination({
+      totalItems: DASHBOARD_MEMBERS?.length,
+      itemsPerPage: ITEM_PER_PAGE,
+    })
 
   useEffect(() => {
     async function fetchData() {
@@ -129,16 +71,17 @@ export default function DashboardIdEditPage() {
         await deleteDashboard(dashboardId).then(() => {
           if (dashboards)
             setDashboards(
-                dashboards?.filter(item => item.id !== Number(dashboardId)) ||
+              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
                 null
             )
         })
         await router.push('/mydashboard')
       } catch (error) {
         openModal(
-            <ConfirmModalContent
-                message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
-            />)
+          <ConfirmModalContent
+            message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
+          />
+        )
       }
     }
   }
@@ -171,20 +114,20 @@ export default function DashboardIdEditPage() {
               </Form.LabelHeader>
             </div>
 
-                {title && (
-                    <Form.Input
-                        register={dashBoardForm.register('title', {
-                          required: {
-                            value: true,
-                            message: '대시보드 이름을 입력해주세요',
-                          },
-                        })}
-                        type='text'
-                        required={true}
-                        className={'grow'}
-                    />
-                )}
-              </Form.Label>
+            {title && (
+              <Form.Input
+                register={dashBoardForm.register('title', {
+                  required: {
+                    value: true,
+                    message: '대시보드 이름을 입력해주세요',
+                  },
+                })}
+                type='text'
+                required={true}
+                className={'grow'}
+              />
+            )}
+          </Form.Label>
 
           <Form.Label className='mb-5'>
             <Form.LabelHeader className={'text-lg'}>
@@ -234,7 +177,7 @@ export default function DashboardIdEditPage() {
             disabled={noMoreNext}
           ></Pagination.Next>
         </Pagination>
-        <MemberList dashboardId={dashboardId}/>
+        <MemberList dashboardId={dashboardId} />
       </section>
 
       <section className='relative mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
