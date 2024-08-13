@@ -1,9 +1,14 @@
+import axios from 'axios'
+
 import Close from '/public/icons/close.svg'
 import Kebab from '/public/icons/kebab-menu.svg'
 import ColumnChip from '@/app/dashboard/[id]/components/ColumnChip'
 import Comment from '@/app/dashboard/[id]/components/Comment'
+import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import Chip from '@/components/Chip'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
+import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
 import { useComments } from '@/hooks/useComments'
@@ -18,7 +23,7 @@ export default function TaskCardContent({
   card,
   columnTitle,
 }: TaskCardContentProps) {
-  const { closeModal } = useModalStore()
+  const { openModal, closeModal } = useModalStore()
 
   const {
     id: taskCardId,
@@ -38,6 +43,27 @@ export default function TaskCardContent({
   } = assignee
 
   const { comments, loading, error } = useComments(taskCardId)
+
+  const onEdit = () => {
+    closeModal()
+    openModal(<div>카드 수정하기 폼</div>)
+  }
+
+  const onDelete = async () => {
+    closeModal()
+    try {
+      await api.delete(`cards/${taskCardId}`)
+    } catch (error) {
+      let errorMessage = ''
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data.message
+      } else {
+        errorMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+      }
+      openModal(<ConfirmModalContent message={errorMessage} />)
+    }
+  }
 
   return (
     <section className='modal-container relative max-w-[730px] p-4 md:px-6 md:py-8'>
@@ -124,16 +150,20 @@ export default function TaskCardContent({
         <Dropdown.Menu className='w-24 gap-1 p-[6px]'>
           <Dropdown.Item
             className='flex h-8 w-full items-center justify-center hover:bg-custom-light-violet hover:text-custom-violet'
-            onClick={() => {
-              console.log('수정')
-            }}
+            onClick={onEdit}
           >
             수정하기
           </Dropdown.Item>
           <Dropdown.Item
             className='flex h-8 w-full items-center justify-center hover:bg-custom-light-violet hover:text-custom-violet'
             onClick={() => {
-              console.log('삭제')
+              closeModal()
+              openModal(
+                <DeleteAlertModal
+                  message='정말로 해당 카드를 삭제하시겠습니까?'
+                  onDelete={onDelete}
+                />
+              )
             }}
           >
             삭제하기
