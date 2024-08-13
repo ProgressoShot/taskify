@@ -54,8 +54,8 @@ export default function UserProfile() {
           <p className='text-nowrap'>{user?.nickname}</p>
         </div>
       </Dropdown.Trigger>
-      <div className='relative left-1/2 ml-5 w-32 -translate-x-1/2'>
-        <Dropdown.Menu className='w-full'>
+      <div className='relative'>
+        <Dropdown.Menu className='totalCount left-1/2 right-auto ml-5 min-w-32 -translate-x-1/2'>
           <Dropdown.Item onClick={moveMyDashboard} className={classNames}>
             내 대시보드
           </Dropdown.Item>

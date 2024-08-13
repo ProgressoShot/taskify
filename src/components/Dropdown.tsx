@@ -58,7 +58,7 @@ const Trigger = ({ children, className, onClick }: TriggerProps) => {
 const Menu = ({ children, className }: MenuProps) => {
   const { isOpen } = useContext(DropdownContext)
   const menuStyle = cn(
-    'rounded-container absolute right-0 z-10 mt-[2px] flex flex-col justify-between gap-1 p-[6px]',
+    'rounded-container absolute right-0 z-10 mt-[2px] flex flex-col justify-between gap-1 p-[6px] shadow-md',
     className
   )
 
