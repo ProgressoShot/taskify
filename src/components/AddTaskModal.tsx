@@ -8,9 +8,11 @@ import { Controller, useForm } from 'react-hook-form'
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
 import AsigneeSelect from '@/app/dashboard/[id]/components/AsigneeSelect'
+import { imageUpload } from '@/app/utils/api'
 import api from '@/app/utils/axiosInstance'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
+import useUserStore from '@/store/useUserStore'
 
 import Button from './Button'
 import Chip from './Chip'
@@ -35,6 +37,10 @@ export default function AddTaskModal({
   dashboardId,
   columnId,
 }: AddTaskModalProps) {
+  const { closeModal } = useModalStore()
+
+  const user = JSON.parse(sessionStorage.user)
+
   const {
     register,
     handleSubmit,
@@ -48,17 +54,7 @@ export default function AddTaskModal({
       columnId: columnId,
     },
   })
-
-  const { closeModal } = useModalStore()
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
   const [tags, setTags] = useState<string[]>([])
-
-  const handleFileUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
 
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -76,19 +72,28 @@ export default function AddTaskModal({
   }
 
   const onSubmit = async (data: taskFormValue) => {
+    try {
+      const res = await imageUpload({
+        type: 'card',
+        columnId: columnId,
+        image: data.imageUrl[0],
+      })
+      data.imageUrl = res.imageUrl
+    } catch (error) {
+      return '이미지 업로드 실패'
+    }
+
     const formattedDueDate = data.dueDate
       ? format(new Date(data.dueDate), 'yyyy-MM-dd HH:mm')
       : undefined
 
     const newData = {
       ...data,
+      assigneeUserId: user.id,
       dashboardId: dashboardId,
       columnId: columnId,
       tags: tags,
       dueDate: formattedDueDate,
-      imageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
-      //   imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
@@ -124,7 +129,9 @@ export default function AddTaskModal({
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-8 h-8 text-2xl font-bold'>할 일 생성</div>
+        <div className='mb-8 h-8 text-2xl font-bold text-custom-black-200'>
+          할 일 생성
+        </div>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className={labelHeader}>담당자</Form.LabelHeader>
           <AsigneeSelect
@@ -198,22 +205,14 @@ export default function AddTaskModal({
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader'>이미지</Form.LabelHeader>
-          <input
-            type='file'
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={e => {
-              console.log(e.target.files)
-            }}
-            className='h-[76px] w-[76px]'
-          />
-          <button
-            className='h-[76px] w-[76px]'
-            type='button'
-            onClick={handleFileUploadClick}
-          >
-            <AddBox className='h-[76px] w-[76px]' viewBox='0 0 25 25' />
-          </button>
+          <label className='h-[76px] w-[76px] cursor-pointer'>
+            <AddBox className='h-full w-full' viewBox='0 0 22 22' />
+            <Form.Input
+              register={register('imageUrl')}
+              type='file'
+              className='hidden'
+            />
+          </label>
         </Form.Label>
         <div className='flex'>
           <Button
