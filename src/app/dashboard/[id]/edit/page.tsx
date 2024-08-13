@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import backIcon from '/public/icons/back.svg'
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
 import { getDashboard, updateDashboard } from '@/app/utils/api'
 import Button from '@/components/Button'
@@ -38,14 +37,26 @@ export default function DashboardIdEditPage() {
   function ColorRadioInput({ colorName }: { colorName: DashboardColor }) {
     return (
       <>
-        <div
-          className={`h-[30px] w-[30px] bg-custom-${colorName} rounded-full`}
-        >
-          <Form.Input
-            className={'hidden'}
-            register={dashBoardForm.register('color')}
-            type='radio'
-            value={DASHBOARD_COLORS[colorName]}
+        <Form.Input
+          className={'hidden'}
+          register={dashBoardForm.register('color')}
+          type='radio'
+          value={DASHBOARD_COLORS[colorName]}
+        />
+        <div className={'relative h-[30px] w-[30px]'}>
+          <div
+            className={`h-[30px] w-[30px] bg-custom-${colorName} rounded-full`}
+            onClick={() => {
+              dashBoardForm.setValue('color', DASHBOARD_COLORS[colorName])
+            }}
+          />
+          <Image
+            src={'/icons/check-white.svg'}
+            width={24}
+            height={24}
+            alt={`${colorName} 색상 선택됨`}
+            className={`absolute left-[3px] top-[3px] h-6 w-6 hover:cursor-pointer`}
+            hidden={color !== DASHBOARD_COLORS[colorName]}
           />
         </div>
       </>
@@ -72,24 +83,31 @@ export default function DashboardIdEditPage() {
 
   return (
     <div className={'flex-col'}>
-      <div className={'flex-row gap-1'}>
-        <Image src={backIcon} alt={'뒤로가기 아이콘'} />
+      <div className={'flex gap-1'}>
+        <Image
+          src={'/icons/back.svg'}
+          alt={'뒤로가기 아이콘'}
+          width={20}
+          height={20}
+        />
         <Link href='#'>돌아가기</Link>
       </div>
 
       <div className={'container flex-col gap-1'}>
         <div className='w-[620px] rounded-lg bg-white'>
           <h1 className={'text-xl font-bold'}>대시보드 정보</h1>
-
           <Form
             className={'justify-end'}
             onSubmit={handleSubmit}
             formId='dashboardInfoForm'
           >
-            <Form.Label className={'flex-low'}>
-              <Form.LabelHeader className={'text-lg'}>
-                대시보드 이름
-              </Form.LabelHeader>
+            <Form.Label className={'flex'}>
+              <div className={'w-fit grow-0'}>
+                <Form.LabelHeader className={'text-lg'}>
+                  대시보드 이름
+                </Form.LabelHeader>
+              </div>
+
               {title && (
                 <Form.Input
                   register={dashBoardForm.register('title', {
@@ -100,11 +118,12 @@ export default function DashboardIdEditPage() {
                   })}
                   type='text'
                   required={true}
+                  className={'grow'}
                 />
               )}
             </Form.Label>
 
-            <Form.Label className={'flex-row'}>
+            <Form.Label className={'flex'}>
               <Form.LabelHeader className={'text-lg'}>
                 대시보드 색상
               </Form.LabelHeader>
