@@ -41,7 +41,7 @@ export type Invitations = Invitation[] | null
 
 export interface ListDashboardInvitationsResponse {
   totalCount: number
-  invitations: Invitations
+  invitations?: Invitations
 }
 
 export interface ListCursorIDInvitationsResponse {
@@ -129,4 +129,4 @@ export interface DashboardMember {
   userId: number
 }
 
-export type DashboardMembers = DashboardMember[] | null
+export type DashboardMembers = DashboardMember[]
