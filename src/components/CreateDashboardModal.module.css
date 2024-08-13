@@ -1,0 +1,40 @@
+.radio {
+  appearance: none;
+  border: none;
+  border-radius: 9999px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+  cursor: pointer;
+}
+
+.radio:focus {
+  border: none;
+}
+
+.radio:checked {
+  background-image: url('/icons/check-white.svg');
+}
+
+.bg-\[\#7AC555\] {
+  background-color: #7ac555;
+}
+
+.bg-\[\#760DDE\] {
+  background-color: #760dde;
+}
+
+.bg-\[\#FFA500\] {
+  background-color: #ffa500;
+}
+
+.bg-\[\#76A5EA\] {
+  background-color: #76a5ea;
+}
+
+.bg-\[\#E876EA\] {
+  background-color: #e876ea;
+}
