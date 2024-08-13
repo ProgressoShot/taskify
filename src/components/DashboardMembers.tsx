@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import CrownIcon from '/public/icons/crown.svg'
 import { getDashboardMemberList } from '@/app/utils/dashboardsApi'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import { DashboardMembersType } from '@/types/types'
+import { DashboardMember } from '@/types/types'
 
 import Dropdown from './Dropdown'
 import UserAvatar from './UserAvatar'
@@ -27,8 +27,8 @@ const MEMBER_SIZES: MemberSizeType = {
 export default function DashboardMembers() {
   const { id } = useParams()
   const mode: Mode = useMediaQuery()
-  const [members, setMembers] = useState<DashboardMembersType[] | null>(null)
-  const [allMembers, setAllMembers] = useState<DashboardMembersType[] | null>(
+  const [members, setMembers] = useState<DashboardMember[] | null>(null)
+  const [allMembers, setAllMembers] = useState<DashboardMember[] | null>(
     null
   )
   const [totalCount, setTotalCount] = useState<number | null>(null)

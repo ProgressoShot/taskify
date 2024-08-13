@@ -18,21 +18,86 @@ import { InviteModal } from '@/components/DashboardFeature'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
 import useGoBack from '@/hooks/useGoBack'
+import Pagination from '@/components/Pagination'
+import usePagination from "@/hooks/usePagination";
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import { DashboardFormValue } from '@/types/types'
+import useUserStore from "@/store/useUserStore";
+import {DashboardColor, DashboardFormValue, DashboardMember} from '@/types/types'
+import MemberList from "@/app/dashboard/[id]/edit/components/MemberList";
+
+
+const DASHBOARD_MEMBERS: DashboardMember[] = [
+  {
+    id: 1,
+    userId: 1,
+    nickname: '정만철',
+    email: 'test1@test.com',
+    profileImageUrl: "",
+    updatedAt: "2024-08-13T14:52:12.643Z",
+    createdAt: "2024-08-13T14:52:12.643Z",
+    isOwner: true
+  },
+  {
+    id: 2,
+    userId: 2,
+    nickname: '김태순',
+    email: 'test2@test.com',
+    profileImageUrl: "",
+    updatedAt: "2024-08-13T14:52:12.643Z",
+    createdAt: "2024-08-13T14:52:12.643Z",
+    isOwner: false
+  },
+  {
+    id: 3,
+    userId: 3,
+    nickname: '최주협',
+    email: 'test3@test.com',
+    profileImageUrl: "",
+    updatedAt: "2024-08-13T14:52:12.643Z",
+    createdAt: "2024-08-13T14:52:12.643Z",
+    isOwner: false
+  },
+  {
+    id: 4,
+    userId: 4,
+    nickname: '윤지현',
+    email: 'test4@test.com',
+    profileImageUrl: "",
+    updatedAt: "2024-08-13T14:52:12.643Z",
+    createdAt: "2024-08-13T14:52:12.643Z",
+    isOwner: false
+  }
+]
 
 export default function DashboardIdEditPage() {
-  const { id } = useParams()
+  const ITEM_PER_PAGE = 4
+  const {id} = useParams()
   const dashboardId = Number(id)
+  const {openModal} = useModalStore()
+  const {dashboard, setDashboard, dashboards, setDashboards} = useDashboardStore()
+  const {title, color} = dashboard
   const { openModal } = useModalStore()
   const { dashboard, setDashboard, dashboards, setDashboards } =
     useDashboardStore()
   const handleGoBack = useGoBack()
   const { title, color } = dashboard
   const dashBoardForm = useForm<DashboardFormValue>({
-    values: { title: title, color: color },
+    values: {title: title, color: color},
   })
+  const {
+    page,
+    totalPages,
+    prevPage,
+    nextPage,
+    noMorePrev,
+    noMoreNext
+  } = usePagination({
+    totalItems: DASHBOARD_MEMBERS?.length,
+    itemsPerPage: ITEM_PER_PAGE,
+  })
+
+
   const DASHBOARD_COLORS = {
     green: '#7AC555',
     purple: '#760DDE',
@@ -41,34 +106,6 @@ export default function DashboardIdEditPage() {
     pink: '#E876EA',
   }
 
-  // function ColorRadioInput({ colorName }: { colorName: DashboardColor }) {
-  //   return (
-  //     <>
-  //       <Form.Input
-  //         className={'hidden'}
-  //         register={dashBoardForm.register('color')}
-  //         type='radio'
-  //         value={DASHBOARD_COLORS[colorName]}
-  //       />
-  //       <div className={'relative h-[30px] w-[30px]'}>
-  //         <div
-  //           className={`h-[30px] w-[30px] bg-custom-${colorName} rounded-full`}
-  //           onClick={() => {
-  //             dashBoardForm.setValue('color', DASHBOARD_COLORS[colorName])
-  //           }}
-  //         />
-  //         <Image
-  //           src={'/icons/check-white.svg'}
-  //           width={24}
-  //           height={24}
-  //           alt={`${colorName} 색상 선택됨`}
-  //           className={`absolute left-[3px] top-[3px] h-6 w-6 hover:cursor-pointer`}
-  //           hidden={color !== DASHBOARD_COLORS[colorName]}
-  //         />
-  //       </div>
-  //     </>
-  //   )
-  // }
 
   useEffect(() => {
     async function fetchData() {
@@ -92,17 +129,16 @@ export default function DashboardIdEditPage() {
         await deleteDashboard(dashboardId).then(() => {
           if (dashboards)
             setDashboards(
-              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
+                dashboards?.filter(item => item.id !== Number(dashboardId)) ||
                 null
             )
         })
         await router.push('/mydashboard')
       } catch (error) {
         openModal(
-          <ConfirmModalContent
-            message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
-          />
-        )
+            <ConfirmModalContent
+                message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
+            />)
       }
     }
   }
@@ -135,20 +171,20 @@ export default function DashboardIdEditPage() {
               </Form.LabelHeader>
             </div>
 
-            {title && (
-              <Form.Input
-                register={dashBoardForm.register('title', {
-                  required: {
-                    value: true,
-                    message: '대시보드 이름을 입력해주세요',
-                  },
-                })}
-                type='text'
-                required={true}
-                className={'grow'}
-              />
-            )}
-          </Form.Label>
+                {title && (
+                    <Form.Input
+                        register={dashBoardForm.register('title', {
+                          required: {
+                            value: true,
+                            message: '대시보드 이름을 입력해주세요',
+                          },
+                        })}
+                        type='text'
+                        required={true}
+                        className={'grow'}
+                    />
+                )}
+              </Form.Label>
 
           <Form.Label className='mb-5'>
             <Form.LabelHeader className={'text-lg'}>
@@ -184,11 +220,21 @@ export default function DashboardIdEditPage() {
       <section className='mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
         <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
           구성원
-          {/*<Pagination>*/}
-          {/*  <Pagination.Prev  />*/}
-          {/*  <Pagination.Next />*/}
-          {/*</Pagination>*/}
         </h2>
+        <Pagination>
+          <Pagination.Pages>
+            {totalPages} 페이지 중 {page}
+          </Pagination.Pages>
+          <Pagination.Prev
+            prevPage={() => {}}
+            disabled={noMorePrev}
+          ></Pagination.Prev>
+          <Pagination.Next
+            nextPage={() => {}}
+            disabled={noMoreNext}
+          ></Pagination.Next>
+        </Pagination>
+        <MemberList dashboardId={dashboardId}/>
       </section>
 
       <section className='relative mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>

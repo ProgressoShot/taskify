@@ -108,7 +108,7 @@ export type StrictPropsWithChildren<P = unknown> = P & {
   children: ReactNode
 }
 
-export interface DashboardMembersType {
+export interface DashboardMember {
   id: number
   email: string
   nickname: string
@@ -118,3 +118,5 @@ export interface DashboardMembersType {
   updatedAt: string
   userId: number
 }
+
+export type DashboardMembers = DashboardMember[] | null;
