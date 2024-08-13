@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import api from '@/app/utils/axiosInstance'
 import { getDashboardList } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
-import ConfirmModalContent from '@/components/ConfirmModalContent'
+import ConfirmModal from '@/components/ConfirmModal'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
 import useDashboardStore from '@/store/useDashboardStore'
@@ -52,7 +52,7 @@ export default function LoginForm() {
         loginErrorMessage =
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
-      openModal(<ConfirmModalContent message={loginErrorMessage} />)
+      openModal(<ConfirmModal message={loginErrorMessage} />)
     }
   }
 

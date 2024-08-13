@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
-import ConfirmModalContent from '@/components/ConfirmModalContent'
+import ConfirmModal from '@/components/ConfirmModal'
 import Form from '@/components/Form'
 import ModalFormLayout from '@/layouts/ModalFormLayout'
 import useModalStore from '@/store/useModalStore'
@@ -37,7 +37,7 @@ export default function ColumnCreateForm({
       .post('columns', data)
       .finally(() => closeModal())
       .catch(error => {
-        openModal(<ConfirmModalContent message={error.response.data.message} />)
+        openModal(<ConfirmModal message={error.response.data.message} />)
       })
   }
 
