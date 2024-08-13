@@ -54,6 +54,7 @@ export default function DashboardMembers() {
 
   useEffect(() => {
     if (id) getDashboardMembers([Number(id), 1, MEMBER_SIZES[mode]])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, mode])
 
   if (!id) return null
@@ -73,14 +74,14 @@ export default function DashboardMembers() {
                     : MEMBER_SIZES[mode]
                 )
               )
-              .map((member, index) => {
+              .map((member: DashboardMembersType, index: number) => {
                 let gap
                 if (index) gap = '-ml-2'
                 return (
                   <UserAvatar
                     key={`dashboard-member-${member.id}`}
                     className={gap}
-                    name={member.nickname[0]}
+                    member={member}
                   />
                 )
               })}
@@ -88,7 +89,7 @@ export default function DashboardMembers() {
           {totalCount && totalCount > MEMBER_SIZES[mode] && (
             <UserAvatar
               className='-ml-2'
-              name={`+${totalCount - MEMBER_SIZES[mode] + 1}`}
+              count={`+${totalCount - MEMBER_SIZES[mode] + 1}`}
             />
           )}
         </div>
@@ -96,13 +97,13 @@ export default function DashboardMembers() {
       <div className='relative'>
         <Dropdown.Menu className='md:left-1/2 md:right-auto md:-translate-x-1/2'>
           {allMembers &&
-            allMembers.map(member => {
+            allMembers.map((member: DashboardMembersType) => {
               return (
                 <div
                   key={`dashboard-all-member-${member.id}`}
                   className='flex items-center gap-3 py-0.5 pl-2 pr-4'
                 >
-                  <UserAvatar name={member.nickname[0]} />
+                  <UserAvatar member={member} />
                   <p className='text-nowrap'>{member.nickname}</p>
                   {member.isOwner && <CrownIcon style={{ color: '#FDD446' }} />}
                 </div>
