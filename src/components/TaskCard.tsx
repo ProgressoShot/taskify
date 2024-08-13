@@ -1,4 +1,5 @@
 import Calendar from '/public/icons/calendar.svg'
+import { format } from 'date-fns'
 import TaskCardContent from '@/app/dashboard/[id]/components/TaskCardContent'
 import Chip from '@/components/Chip'
 import useModalStore from '@/store/useModalStore'
@@ -28,6 +29,7 @@ export default function TaskCard({
     createdAt,
   } = card
   const { openModal } = useModalStore()
+  const formattedDate = format(createdAt, 'yyyy-MM-dd HH:mm')
   return (
     <button
       type='button'
@@ -63,7 +65,9 @@ export default function TaskCard({
       <div className='flex'>
         <div className='flex'>
           <Calendar className='mr-[6px] h-[15px] w-[15px] text-custom-gray-500' />
-          <span className='text-[12px] text-custom-gray-500'>{createdAt}</span>
+          <span className='text-[12px] text-custom-gray-500'>
+            {formattedDate}
+          </span>
         </div>
         {/* 여기는 Profile 컴포넌트가 들어오겠네요
         <Profile profile={assignee} />
