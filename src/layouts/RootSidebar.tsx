@@ -9,12 +9,15 @@ import DashboardCard from '@/components/DashboardCard'
 import useDashboardStore from '@/store/useDashboardStore'
 
 import { HEADER_HEIGHT } from './RootHeader'
+import CreateDashboardModal from '@/components/CreateDashboardModal'
+import useModalStore from '@/store/useModalStore'
 
 export default function RootSidebar() {
-  const ListElement = useRef<HTMLElement>(null)
-
-  const { dashboards, setDashboards } = useDashboardStore()
   const { id: dashboardId } = useParams()
+  const { dashboards, setDashboards } = useDashboardStore()
+  const { openModal } = useModalStore()
+
+  const ListElement = useRef<HTMLElement>(null)
 
   const getDashboard = async () => {
     const data = await getDashboardList()
@@ -39,7 +42,10 @@ export default function RootSidebar() {
         <p className='hidden whitespace-nowrap text-xs font-semibold text-custom-gray-500 md:block'>
           Dash Boards
         </p>
-        <button className='p-0.5' onClick={() => alert('대시보드 생성 모달')}>
+        <button
+          className='p-0.5'
+          onClick={() => openModal(<CreateDashboardModal />)}
+        >
           <AddIcon className='text-custom-gray-500' />
         </button>
       </section>
