@@ -5,9 +5,7 @@ interface ConfirmModalContentProps {
   message: string
 }
 
-export default function ConfirmModalContent({
-  message,
-}: ConfirmModalContentProps) {
+export default function ConfirmModal({ message }: ConfirmModalContentProps) {
   const { closeModal } = useModalStore()
 
   return (
@@ -16,8 +14,9 @@ export default function ConfirmModalContent({
         {message}
       </h2>
       <Button
-        className='h-[42px] w-48 font-semibold md:text-base'
+        className='h-[42px] w-full font-semibold md:text-base'
         onClick={closeModal}
+        color={'secondary'}
       >
         확인
       </Button>
