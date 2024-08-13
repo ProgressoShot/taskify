@@ -70,7 +70,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
             className='ml-auto'
             type='button'
             onClick={() => {
-              openModal(<ColumnEditForm columnTitle='title' />)
+              openModal(<ColumnEditForm title={title} columnId={columnId} />)
             }}
           >
             <Setting className='h-[22px] w-[22px] text-custom-gray-500 md:h-6 md:w-6' />
