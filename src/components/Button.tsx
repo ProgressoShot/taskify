@@ -45,5 +45,5 @@ const styleByColor: Record<ButtonColor, string> = {
   primary: 'bg-custom-violet text-white',
   secondary:
     'bg-white text-custom-violet border border-solid border-custom-gray-300',
-  tertiary: 'bg-red text-custom-white',
+  tertiary: 'bg-custom-red border-solid text-white',
 }
