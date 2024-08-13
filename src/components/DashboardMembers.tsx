@@ -59,7 +59,7 @@ export default function DashboardMembers() {
   if (!id) return null
 
   return (
-    <Dropdown className='border-r border-custom-gray-300 px-9'>
+    <Dropdown className='border-r border-custom-gray-300 px-4 md:px-6 lg:px-9'>
       <Dropdown.Trigger onClick={handleClick} className=''>
         <div className='flex items-center'>
           {members &&
@@ -88,13 +88,13 @@ export default function DashboardMembers() {
           {totalCount && totalCount > MEMBER_SIZES[mode] && (
             <UserAvatar
               className='-ml-2'
-              name={`+${totalCount - MEMBER_SIZES[mode]}`}
+              name={`+${totalCount - MEMBER_SIZES[mode] + 1}`}
             />
           )}
         </div>
       </Dropdown.Trigger>
       <div className='relative'>
-        <Dropdown.Menu className='left-1/2 right-auto -translate-x-1/2'>
+        <Dropdown.Menu className='md:left-1/2 md:right-auto md:-translate-x-1/2'>
           {allMembers &&
             allMembers.map(member => {
               return (
