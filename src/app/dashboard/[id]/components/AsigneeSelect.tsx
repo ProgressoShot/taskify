@@ -5,24 +5,24 @@ import MenuDown from '/public/icons/menu-down.svg'
 import Dropdown from '@/components/Dropdown'
 
 const INITIAL_MEMBERS = [
-  { userId: '1212', nickname: '배수지' },
-  { userId: '1213', nickname: '배수진' },
-  { userId: '1214', nickname: '배수저' },
+  { userId: 1212, nickname: '배수지' },
+  { userId: 1213, nickname: '배수진' },
+  { userId: 121, nickname: '배수저' },
 ]
 
 interface Member {
-  userId: string
+  userId: number
   nickname: string
 }
 
 interface AsigneeSelectProps {
-  setValue: (name: string, value: string) => void
-  selectedUserId: string
+  handleAssigneeSelect: (value: number) => void
+  selectedUserId: number
   members?: Member[]
 }
 
 export default function AsigneeSelect({
-  setValue,
+  handleAssigneeSelect,
   selectedUserId,
   members = INITIAL_MEMBERS,
 }: AsigneeSelectProps) {
@@ -31,11 +31,6 @@ export default function AsigneeSelect({
 
   const handleTriggerClick = () => {
     setIsInputMode(true)
-  }
-
-  const handleSelect = (value: string) => {
-    setValue('columnId', value)
-    setIsInputMode(false)
   }
 
   const filteredMembers = members.filter(member =>
@@ -49,10 +44,7 @@ export default function AsigneeSelect({
 
   return (
     <Dropdown>
-      <Dropdown.Trigger
-        className='rounded-container flex h-12 w-full items-center justify-between p-2 text-base font-normal text-custom-black-200 focus:border-custom-violet'
-        onClick={handleTriggerClick}
-      >
+      <Dropdown.Trigger className='rounded-container flex h-12 w-full items-center justify-between px-4 py-3 text-base font-normal text-custom-black-200 focus:border-custom-violet'>
         {isInputMode ? (
           <input
             value={searchTerm}
@@ -74,7 +66,8 @@ export default function AsigneeSelect({
                 <Dropdown.Item
                   className='relative flex h-12 w-full items-center py-2 pl-[46px] pr-4'
                   onClick={() => {
-                    handleSelect(member.userId)
+                    handleAssigneeSelect(member.userId)
+                    // setIsInputMode(false)
                   }}
                 >
                   {isSelected && (
