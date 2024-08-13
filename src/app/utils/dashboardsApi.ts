@@ -13,6 +13,20 @@ const convertURL = (url: string, params: Record<string, string>) => {
   return url + query
 }
 
+export const createDashboard = async (title: string, color: string) => {
+  const params: Record<string, string> = {
+    title: title,
+    color: color,
+  }
+
+  try {
+    const response = await api.post('dashboards', params)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const getDashboardList = async () => {
   const params: {
     navigationMethod: 'infiniteScroll' | 'pagination'
