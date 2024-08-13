@@ -1,12 +1,12 @@
 'use client'
 
-import {useParams} from 'next/navigation'
-import {useEffect, useState} from 'react'
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 import CrownIcon from '/public/icons/crown.svg'
-import {getDashboardMemberList} from '@/lib/dashboardsApi'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import {DashboardMember} from '@/types/types'
+import { getDashboardMemberList } from '@/lib/dashboardsApi'
+import { DashboardMember } from '@/types/types'
 
 import Dropdown from './Dropdown'
 import UserAvatar from './UserAvatar'
@@ -25,7 +25,7 @@ const MEMBER_SIZES: MemberSizeType = {
 }
 
 export default function DashboardMembers() {
-  const {id} = useParams()
+  const { id } = useParams()
   const mode: Mode = useMediaQuery()
   const [members, setMembers] = useState<DashboardMember[] | null>(null)
   const [allMembers, setAllMembers] = useState<DashboardMember[] | null>(null)
@@ -33,10 +33,10 @@ export default function DashboardMembers() {
 
   type getDashboardMemberListTypes = Parameters<typeof getDashboardMemberList>
   const getDashboardMembers = async ([
-                                       dashboardId,
-                                       page,
-                                       size,
-                                     ]: getDashboardMemberListTypes) => {
+    dashboardId,
+    page,
+    size,
+  ]: getDashboardMemberListTypes) => {
     const data = await getDashboardMemberList(dashboardId, page, size)
     if (size === totalCount) {
       setAllMembers(data.members)
@@ -101,9 +101,9 @@ export default function DashboardMembers() {
                   key={`dashboard-all-member-${member.id}`}
                   className='flex items-center gap-3 py-0.5 pl-2 pr-4'
                 >
-                  <UserAvatar member={member}/>
+                  <UserAvatar member={member} />
                   <p className='text-nowrap'>{member.nickname}</p>
-                  {member.isOwner && <CrownIcon style={{color: '#FDD446'}}/>}
+                  {member.isOwner && <CrownIcon style={{ color: '#FDD446' }} />}
                 </div>
               )
             })}

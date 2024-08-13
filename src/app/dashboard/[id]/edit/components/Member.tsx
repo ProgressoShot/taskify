@@ -1,12 +1,12 @@
 import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
+import Button from '@/components/Button'
+import UserAvatar from '@/components/UserAvatar'
 import {
   deleteDashboardMember,
   getDashboardMemberList,
 } from '@/lib/dashboardsApi'
-import Button from '@/components/Button'
-import UserAvatar from '@/components/UserAvatar'
 import { useMemberStore } from '@/store/useMemberStore'
 import { DashboardMember } from '@/types/types'
 

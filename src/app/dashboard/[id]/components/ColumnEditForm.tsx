@@ -2,11 +2,11 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
 import Close from '/public/icons/close.svg'
-import api from '@/lib/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
+import api from '@/lib/axiosInstance'
 import useModalStore from '@/store/useModalStore'
 
 interface ColumnEditValue {
