@@ -75,6 +75,7 @@ export default function ReceivedInvitiationList() {
 
   useEffect(() => {
     getReceivedInvitiation([ITEM_PER_PAGE, cursor, value])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
   if (list === null || list.length === 0) return <EmptyInvitationList />

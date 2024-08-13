@@ -12,6 +12,7 @@ import ConfirmModalContent from '@/components/ConfirmModalContent'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Dropdown from '@/components/Dropdown'
 import Form from '@/components/Form'
+import UserAvatar from '@/components/UserAvatar'
 import { useComments } from '@/hooks/useComments'
 import useModalStore from '@/store/useModalStore'
 import type { TaskCard } from '@/types/types'
@@ -48,12 +49,6 @@ export default function TaskCardContent({
     imageUrl,
     createdAt,
   } = card
-
-  const {
-    id: assigneeId,
-    nickname: assigneeNickname,
-    profileImageUrl: assigneeProfileUrl,
-  } = assignee
 
   const { comments, loading, error } = useComments(taskCardId)
 
@@ -120,10 +115,11 @@ export default function TaskCardContent({
           <div className='flex flex-col'>
             <h2 className='mb-1 text-xs font-semibold text-black'>담당자</h2>
             <div className='flex items-center gap-2 text-xs font-normal text-custom-black-200 md:text-sm'>
-              <div className='m-[2px] flex h-[22px] w-[22px] items-center justify-center rounded-full bg-custom-green text-white md:mb-[6px] md:h-8 md:w-8'>
-                B
-              </div>
-              {assigneeNickname}
+              <UserAvatar
+                card={card}
+                className='m-[2px] !h-[22px] !w-[22px] md:mb-[6px] md:!h-8 md:!w-8'
+              />
+              {assignee && assignee.nickname}
             </div>
           </div>
           <div className='flex flex-col'>
