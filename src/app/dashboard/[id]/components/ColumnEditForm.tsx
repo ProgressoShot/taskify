@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import Close from '/public/icons/close.svg'
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
-import ConfirmModal from '@/components/ConfirmModal'
+import ConfirmModalContent from '@/components/ConfirmModalContent'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
@@ -40,7 +40,7 @@ export default function ColumnEditForm({
         errorMessage =
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
-      openModal(<ConfirmModal message={errorMessage} />)
+      openModal(<ConfirmModalContent message={errorMessage} />)
     }
   }
 
@@ -56,7 +56,7 @@ export default function ColumnEditForm({
         errorMessage =
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
-      openModal(<ConfirmModal message={errorMessage} />)
+      openModal(<ConfirmModalContent message={errorMessage} />)
     }
   }
 

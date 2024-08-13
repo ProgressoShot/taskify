@@ -15,7 +15,7 @@ import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
 
 import Button from './Button'
-import ConfirmModal from './ConfirmModal'
+import ConfirmModalContent from './ConfirmModalContent'
 import Form from './Form'
 
 /**
@@ -96,18 +96,18 @@ export function InviteModal({ dashboardId }: { dashboardId: number }) {
     if (inviteeCheck)
       return (
         closeModal(),
-        openModal(<ConfirmModal message={'이미 초대된 사용자입니다.'} />)
+        openModal(<ConfirmModalContent message={'이미 초대된 사용자입니다.'} />)
       )
 
     await api
       .post(`dashboards/${dashboardId}/invitations`, data)
       .then(function (response) {
         closeModal()
-        openModal(<ConfirmModal message={'초대전송 완료!'} />)
+        openModal(<ConfirmModalContent message={'초대전송 완료!'} />)
       })
       .catch(function (error) {
         closeModal()
-        openModal(<ConfirmModal message={error.response.data.message} />)
+        openModal(<ConfirmModalContent message={error.response.data.message} />)
       })
   }
 
