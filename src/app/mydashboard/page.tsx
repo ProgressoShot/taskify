@@ -5,6 +5,7 @@ import { useState } from 'react'
 import DashboardCard from '@/components/DashboardCard'
 import Pagination from '@/components/Pagination'
 import usePagination from '@/hooks/usePagination'
+import useRedirect from '@/hooks/useRedirect'
 import useDashboardStore from '@/store/useDashboardStore'
 import { Dashboards } from '@/types/types'
 
@@ -15,6 +16,8 @@ type PaginationAction = 'prev' | 'next'
 const ITEM_PER_PAGE = 5
 
 export default function MyDashboard() {
+  useRedirect({ requireAuth: true })
+
   const { dashboards } = useDashboardStore()
   const [list, setList] = useState<Dashboards>(null)
 

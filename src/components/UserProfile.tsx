@@ -15,7 +15,6 @@ export default function UserProfile() {
   const { user, setUser } = useUserStore()
 
   const getUser = async () => {
-    if (!sessionStorage?.accessToken) return router.push('/login')
     try {
       const response = await api.get('users/me')
       setUser(response.data)
@@ -36,7 +35,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (user === null) getUser()
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const classNames = cn(
     'relative',
