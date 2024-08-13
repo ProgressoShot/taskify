@@ -5,6 +5,7 @@ import Close from '/public/icons/close.svg'
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
+import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
@@ -74,6 +75,17 @@ export default function ColumnEditForm({
           <Button
             color='secondary'
             className='h-[54px] w-full text-base font-medium text-custom-gray-500'
+            onClick={() => {
+              closeModal()
+              openModal(
+                <DeleteAlertModal
+                  message='칼럼의 모든 카드가 삭제됩니다.'
+                  onDelete={() => {
+                    console.log('야호')
+                  }}
+                />
+              )
+            }}
           >
             삭제
           </Button>
