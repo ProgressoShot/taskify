@@ -1,34 +1,49 @@
+'use client'
+
 import cn from 'classnames'
+import { useParams } from 'next/navigation'
 import { ReactNode } from 'react'
 
+import CrownIcon from '/public/icons/crown.svg'
 import DashboardFeature from '@/components/DashboardFeature'
 import DashboardMembers from '@/components/DashboardMembers'
 import UserProfile from '@/components/UserProfile'
+import useDashboardStore from '@/store/useDashboardStore'
 
 import styles from './ResponsiveLayout.module.css'
 import RootHeader, { HEADER_HEIGHT } from './RootHeader'
 import RootSidebar from './RootSidebar'
 
 interface DashboardLayoutProp {
-  title: string
+  title: string | any
   children: ReactNode
   className?: string
 }
 
-/**
- * @todo
- * 유저 기능 컴포넌트 구현
- * 대시보드에 참여한 사용자 목록 컴포넌트 구현
- */
 export default function DashboardLayout({
   title,
   children,
   className,
 }: DashboardLayoutProp) {
+  const { dashboard } = useDashboardStore()
+  const { id } = useParams()
+  const dashboardId = Number(id)
+
   return (
     <main className='h-screen w-screen'>
-      <RootHeader border theme='light'>
-        <RootHeader.Title>{title}</RootHeader.Title>
+      <RootHeader
+        border
+        theme='light'
+        className={cn(dashboard.id === dashboardId && 'md:!px-6')}
+      >
+        <RootHeader.Title
+          className={cn(dashboard.id === dashboardId && 'hidden lg:flex')}
+        >
+          <p className='overflow-hidden text-ellipsis text-nowrap'>{title}</p>
+          {dashboard.id === dashboardId && dashboard.createdByMe && (
+            <CrownIcon className='ml-1' style={{ color: '#FDD446' }} />
+          )}
+        </RootHeader.Title>
         <RootHeader.Features>
           <DashboardFeature />
           <DashboardMembers />

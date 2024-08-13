@@ -17,7 +17,7 @@ export default function UserAvatar({ name, className }: UserAvatarProps) {
   return (
     <div
       className={cn(
-        'flex h-10 w-10 items-center justify-center rounded-full border-2 border-white',
+        'flex h-8 w-8 items-center justify-center rounded-full border-2 border-white text-sm md:h-10 md:w-10 md:text-base',
         bgColor,
         textColor,
         className

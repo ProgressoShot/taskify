@@ -49,13 +49,13 @@ export default function UserProfile() {
   return (
     <Dropdown>
       <Dropdown.Trigger>
-        <div className='flex items-center gap-3 px-9'>
+        <div className='flex items-center gap-3 pl-4 md:pl-6 lg:pr-6'>
           <UserAvatar name={user?.nickname[0] || ''} />
-          <p className='text-nowrap'>{user?.nickname}</p>
+          <p className='hidden text-nowrap md:block'>{user?.nickname}</p>
         </div>
       </Dropdown.Trigger>
       <div className='relative'>
-        <Dropdown.Menu className='totalCount left-1/2 right-auto ml-5 min-w-32 -translate-x-1/2'>
+        <Dropdown.Menu className='min-w-32 lg:left-1/2 lg:right-auto lg:ml-5 lg:-translate-x-1/2'>
           <Dropdown.Item onClick={moveMyDashboard} className={classNames}>
             내 대시보드
           </Dropdown.Item>

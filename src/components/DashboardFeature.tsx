@@ -18,14 +18,8 @@ import Button from './Button'
 import ConfirmModalContent from './ConfirmModalContent'
 import Form from './Form'
 
-/**
- * @todo
- * 버튼 스타일 수정: 피그마 참조
- * 대시보드 ID로 관리, 초대하기 기능 구현
- */
-
 const BUTTON_CLASSNAME =
-  'flex h-10 items-center justify-between gap-2 rounded-lg border border-custom-gray-300 px-4 text-base text-custom-gray-500'
+  'flex h-[30px] md:h-10 items-center justify-between gap-2 rounded-lg border border-custom-gray-300 px-2 md:px-4 text-sm md:text-base text-custom-gray-500'
 
 export default function DashboardFeature() {
   const router = useRouter()
@@ -44,20 +38,20 @@ export default function DashboardFeature() {
   if (!createByMe) return null
 
   return (
-    <div className='flex gap-4 border-r border-custom-gray-300 pr-9'>
+    <div className='flex gap-1.5 md:gap-3 lg:gap-4 lg:border-r lg:border-custom-gray-300 lg:pr-9'>
       <Link
         href={`/dashboard/${dashboardId}/edit`}
         className={BUTTON_CLASSNAME}
       >
-        <IconSettings />
-        <p>관리</p>
+        <IconSettings className='hidden md:block' />
+        <p className='text-nowrap'>관리</p>
       </Link>
       <button
         onClick={() => openModal(<InviteModal dashboardId={dashboardId} />)}
         className={BUTTON_CLASSNAME}
       >
-        <IconAddBox />
-        <p>초대하기</p>
+        <IconAddBox className='hidden md:block' />
+        <p className='text-nowrap'>초대하기</p>
       </button>
     </div>
   )
@@ -73,7 +67,6 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
  * @todo
  * 고도화: 이메일 리스트로 초대 요청하기
  */
-
 export function InviteModal({ dashboardId }: { dashboardId: number }) {
   const {
     register,
@@ -110,9 +103,6 @@ export function InviteModal({ dashboardId }: { dashboardId: number }) {
         openModal(<ConfirmModalContent message={error.response.data.message} />)
       })
   }
-
-  useEffect(() => {
-  }, [register])
 
   return (
     <div className='modal-container max-w-[568px] px-4 py-6 text-custom-black-200'>

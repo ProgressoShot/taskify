@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
+import { PropsWithChildren, ReactNode } from 'react'
 
 import LogoIcon from '/public/logo/logo.svg'
 import LogoSymbol from '/public/logo/logo-symbol.svg'
@@ -29,29 +30,43 @@ function Logo({ theme = 'light' }: ThemeProp) {
   )
 }
 
-function Title({ children }: React.PropsWithChildren) {
+interface CompoundProps {
+  children: ReactNode
+  className?: string
+}
+
+function Title({ children, className }: CompoundProps) {
   return (
     <section
-      className={`flex h-full flex-1 items-center text-custom-black-200`}
+      className={cn(
+        'flex flex-1 items-center text-base font-bold text-custom-black-200 md:text-xl',
+        className
+      )}
     >
       {children}
     </section>
   )
 }
 
-function Features({ children }: React.PropsWithChildren & ThemeProp) {
+function Features({ children, className }: CompoundProps) {
   return (
-    <section className={`flex h-full items-center text-custom-black-200`}>
+    <section
+      className={cn(
+        'flex h-full items-center text-custom-black-200',
+        className
+      )}
+    >
       {children}
     </section>
   )
 }
 
 function RootHeader({
+  className,
   children,
   border,
   theme,
-}: React.PropsWithChildren & BorderProp & ThemeProp) {
+}: CompoundProps & BorderProp & ThemeProp) {
   const classNames: Record<string, string> = {
     wrap: cn(
       'grid w-full',
@@ -64,8 +79,9 @@ function RootHeader({
       border && 'border-r border-custom-gray-300'
     ),
     right: cn(
-      'h-full w-full px-10 py-2',
-      border && 'border-b border-custom-gray-300'
+      'h-full w-full px-4 md:px-10 py-2',
+      border && 'border-b border-custom-gray-300',
+      className
     ),
   }
 
