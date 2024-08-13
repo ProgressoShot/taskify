@@ -27,7 +27,7 @@ export default function DashboardLayout({
 }: DashboardLayoutProp) {
   return (
     <main className='h-screen w-screen'>
-      <RootHeader border>
+      <RootHeader border theme='light'>
         <RootHeader.Title>{title}</RootHeader.Title>
         <RootHeader.Features>
           <DashboardFeature />
