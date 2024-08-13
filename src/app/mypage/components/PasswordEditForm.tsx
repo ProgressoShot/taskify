@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
-import ConfirmModalContent from '@/components/ConfirmModalContent'
+import ConfirmModal from '@/components/ConfirmModal'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
@@ -48,7 +48,7 @@ export default function PasswordEditForm() {
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
     } finally {
-      openModal(<ConfirmModalContent message={modalMessage} />)
+      openModal(<ConfirmModal message={modalMessage} />)
     }
   }
 

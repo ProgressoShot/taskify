@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
-import ConfirmModalContent from '@/components/ConfirmModalContent'
+import ConfirmModal from '@/components/ConfirmModal'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
 import useModalStore from '@/store/useModalStore'
@@ -41,11 +41,11 @@ export default function SignupForm() {
       .post('users', data)
       .then(function (response) {
         const message = `가입이 완료되었습니다!`
-        openModal(<ConfirmModalContent message={message} />)
+        openModal(<ConfirmModal message={message} />)
         router.push('/login')
       })
       .catch(function (error) {
-        openModal(<ConfirmModalContent message={error.response.data.message} />)
+        openModal(<ConfirmModal message={error.response.data.message} />)
       })
   }
 

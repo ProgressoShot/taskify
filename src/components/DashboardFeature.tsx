@@ -15,7 +15,7 @@ import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
 
 import Button from './Button'
-import ConfirmModalContent from './ConfirmModalContent'
+import ConfirmModal from './ConfirmModal'
 import Form from './Form'
 
 /**
@@ -39,31 +39,12 @@ export default function DashboardFeature() {
 
   const createByMe = currentDashboard?.createdByMe
 
-  const handleDeleteDashboard = async () => {
-    const message = `${currentDashboard?.title} 대시보드를 정말 삭제하시겠습니까?`
-    if (confirm(message)) {
-      try {
-        await deleteDashboard(Number(dashboardId)).then(() => {
-          if (dashboards)
-            setDashboards(
-              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
-                null
-            )
-        })
-        router.push('/mydashboard')
-      } catch (error) {
-        console.log('error: ', error)
-      }
-    }
-  }
+
 
   if (!createByMe) return null
 
   return (
     <div className='flex gap-4 border-r border-custom-gray-300 pr-9'>
-      <button type='button' onClick={handleDeleteDashboard}>
-        DEL
-      </button>
       <Link
         href={`/dashboard/${dashboardId}/edit`}
         className={BUTTON_CLASSNAME}
@@ -115,18 +96,18 @@ export function InviteModal({ dashboardId }: { dashboardId: number }) {
     if (inviteeCheck)
       return (
         closeModal(),
-        openModal(<ConfirmModalContent message={'이미 초대된 사용자입니다.'} />)
+        openModal(<ConfirmModal message={'이미 초대된 사용자입니다.'} />)
       )
 
     await api
       .post(`dashboards/${dashboardId}/invitations`, data)
       .then(function (response) {
         closeModal()
-        openModal(<ConfirmModalContent message={'초대전송 완료!'} />)
+        openModal(<ConfirmModal message={'초대전송 완료!'} />)
       })
       .catch(function (error) {
         closeModal()
-        openModal(<ConfirmModalContent message={error.response.data.message} />)
+        openModal(<ConfirmModal message={error.response.data.message} />)
       })
   }
 
