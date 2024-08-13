@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
-import React, { useEffect,useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -96,7 +96,6 @@ export default function AddTaskModal({
       columnId: columnId,
       tags: tags,
       dueDate: formattedDueDate,
-      imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
