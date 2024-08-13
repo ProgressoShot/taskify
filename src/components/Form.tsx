@@ -29,6 +29,7 @@ interface InputProps {
   autoComplete?: string
   checked?: boolean
   isDisabled?: boolean
+  value?: string
 }
 
 interface TextAreaProps {
@@ -82,6 +83,7 @@ function Input({
   autoComplete,
   checked,
   isDisabled = false,
+  value,
 }: InputProps) {
   const inputClass = cn(
     'rounded-container block w-full px-4 py-3 text-custom-black-200 outline-none placeholder:text-custom-gray-400 focus:border-custom-violet',
@@ -100,11 +102,17 @@ function Input({
       autoComplete={autoComplete}
       checked={checked}
       disabled={isDisabled}
+      value={value}
     />
   )
 }
 
-function TextArea({ className, required, placeholder }: TextAreaProps) {
+function TextArea({
+  className,
+  required,
+  placeholder,
+  register,
+}: TextAreaProps) {
   const textAreaClass = cn(
     'rounded-container block h-[126px] w-full resize-none px-4 py-3 text-custom-black-200 placeholder:text-custom-gray-400',
     className
@@ -112,6 +120,7 @@ function TextArea({ className, required, placeholder }: TextAreaProps) {
   return (
     <textarea
       className={textAreaClass}
+      {...register}
       required={required}
       placeholder={placeholder}
     />
@@ -119,8 +128,8 @@ function TextArea({ className, required, placeholder }: TextAreaProps) {
 }
 
 function Error({ children, className }: BasicProps) {
-  const errorClasee = cn('text-sm font-normal text-custom-red', className)
-  return <span className={errorClasee}>{children}</span>
+  const errorClasses = cn('text-sm font-normal text-custom-red', className)
+  return <span className={errorClasses}>{children}</span>
 }
 
 function EyeButton({ className, isOpen, onClick }: EyeButtonProps) {

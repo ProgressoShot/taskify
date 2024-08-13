@@ -1,23 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react'
 
-export type Color =
-  | 'violet'
-  | 'red'
-  | 'green'
-  | 'purple'
-  | 'orange'
-  | 'blue'
-  | 'pink'
-
-export const COLOR_CLASSNAME: Record<Color, string> = {
-  violet: 'text-custom-violet',
-  red: 'text-custom-red',
-  green: 'text-custom-green',
-  purple: 'text-custom-purple',
-  orange: 'text-custom-orange',
-  blue: 'text-custom-blue',
-  pink: 'text-custom-pink',
-}
+export type DashboardColor = 'green' | 'purple' | 'orange' | 'blue' | 'pink'
 
 export interface User {
   createdAt?: Date
@@ -49,6 +32,11 @@ export interface ListDashboardInvitationsResponse {
 export interface ListCursorIDInvitationsResponse {
   cursorID: number
   invitations: Invitations
+}
+
+export interface DashboardFormValue {
+  title?: string
+  color?: string
 }
 
 export interface Dashboard {
@@ -90,6 +78,11 @@ export interface TaskCard {
   columnId: number
   createdAt: string
   updatedAt: string
+}
+export interface CardsResponse {
+  cards: TaskCard[]
+  totalCount: number
+  cursorId: string | null
 }
 
 export interface Comment {

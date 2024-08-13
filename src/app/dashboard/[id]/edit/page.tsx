@@ -10,28 +10,37 @@ import { getDashboard, updateDashboard } from '@/app/utils/api'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
 import useDashboardStore from '@/store/useDashboardStore'
+import { DashboardColor, DashboardFormValue } from '@/types/types'
 
 export default function DashboardIdEditPage() {
   const { id } = useParams()
   const dashboardId = Number(id)
-  const { dashboard, setDashboard } = useDashboardStore()
-  const { title, color, createdAt } = dashboard
+  const { dashboard, setDashboard, dashboards } = useDashboardStore()
 
-  interface DashboardFormValue {
-    title: string
-    color: string
-  }
+  const { title, color } = dashboard
 
   const dashBoardInfoForm = useForm<DashboardFormValue>({
-    defaultValues: { title: title, color: color },
+    values: { title: title, color: color },
   })
 
-  const COLORS = {
+  const DASHBOARD_COLORS = {
     green: '#7AC555',
     purple: '#760DDE',
     orange: '#FFA500',
     blue: '#76A5EA',
     pink: '#E876EA',
+  }
+
+  function ColorRadioInput({ colorName }: { colorName: DashboardColor }) {
+    return (
+      <>
+        <Form.Input
+          register={dashBoardInfoForm.register('color')}
+          type='radio'
+          value={DASHBOARD_COLORS[colorName]}
+        />
+      </>
+    )
   }
 
   useEffect(() => {
@@ -40,12 +49,17 @@ export default function DashboardIdEditPage() {
       setDashboard(data)
     }
 
-    fetchData()
+    fetchData().then()
   }, [dashboardId, setDashboard])
 
   const handleSubmit = (body: DashboardFormValue) => {
-    updateDashboard(dashboardId, body).then()
+    updateDashboard(dashboardId, {
+      title: body.title as string,
+      color: body.color as string,
+    }).then()
   }
+
+  if (!dashboard) return <div>로딩중...</div>
 
   return (
     <>
@@ -57,46 +71,24 @@ export default function DashboardIdEditPage() {
             <Form.LabelHeader>대시보드 이름</Form.LabelHeader>
             {title && (
               <Form.Input
-                {...dashBoardInfoForm.register('title', {
+                register={dashBoardInfoForm.register('title', {
                   required: {
                     value: true,
                     message: '대시보드 이름을 입력해주세요',
                   },
-                  value: title,
                 })}
                 type='text'
                 required={true}
-                placeholder='대시보드 이름을 입력해주세요'
               />
             )}
           </Form.Label>
           <Form.Label>
             <Form.LabelHeader>대시보드 색상</Form.LabelHeader>
-            <Form.Input
-              {...dashBoardInfoForm.register('color', { value: COLORS.green })}
-              type='radio'
-              checked={color === COLORS.green}
-            />
-            <Form.Input
-              {...dashBoardInfoForm.register('color', { value: COLORS.purple })}
-              type='radio'
-              checked={color === COLORS.purple}
-            />
-            <Form.Input
-              {...dashBoardInfoForm.register('color', { value: COLORS.orange })}
-              type='radio'
-              checked={color === COLORS.orange}
-            />
-            <Form.Input
-              {...dashBoardInfoForm.register('color', { value: COLORS.blue })}
-              type='radio'
-              checked={color === COLORS.blue}
-            />
-            <Form.Input
-              {...dashBoardInfoForm.register('color', { value: COLORS.pink })}
-              type='radio'
-              checked={color === COLORS.pink}
-            />
+            <ColorRadioInput colorName={'green'} />
+            <ColorRadioInput colorName={'purple'} />
+            <ColorRadioInput colorName={'orange'} />
+            <ColorRadioInput colorName={'blue'} />
+            <ColorRadioInput colorName={'pink'} />
           </Form.Label>
           <Button type='submit'>변경</Button>
         </Form>

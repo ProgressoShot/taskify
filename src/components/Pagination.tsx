@@ -16,7 +16,13 @@ interface NextProps {
 }
 
 export default function Pagination({ children }: PaginationProps) {
-  return <div className='flex text-base text-custom-black-200'></div>
+  return <div className='flex text-base text-custom-black-200'>{children}</div>
+}
+
+function Pages({ children }: PaginationProps) {
+  return (
+    <div className='flex items-center justify-center p-2 px-4'>{children}</div>
+  )
 }
 
 function Prev({ prevPage, disabled }: PrevProps) {
@@ -30,6 +36,7 @@ function Prev({ prevPage, disabled }: PrevProps) {
     </button>
   )
 }
+
 function Next({ nextPage, disabled }: NextProps) {
   return (
     <button
@@ -42,5 +49,6 @@ function Next({ nextPage, disabled }: NextProps) {
   )
 }
 
+Pagination.Pages = Pages
 Pagination.Prev = Prev
 Pagination.Next = Next

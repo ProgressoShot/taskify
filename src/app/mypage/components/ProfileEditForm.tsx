@@ -1,17 +1,17 @@
 'use client'
+import axios from 'axios'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import Plus from '/public/icons/plus.svg'
 import Edit from '/public/icons/edit.svg'
-import Button from '@/components/Button'
-import Form from '@/components/Form'
-import type { User } from '@/types/types'
-import Image from 'next/image'
+import Plus from '/public/icons/plus.svg'
 import api from '@/app/utils/axiosInstance'
-import axios from 'axios'
-import useModalStore from '@/store/useModalStore'
+import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
+import Form from '@/components/Form'
+import useModalStore from '@/store/useModalStore'
+import type { User } from '@/types/types'
 
 interface ProfileEditValue {
   nickname: User['nickname']

@@ -1,9 +1,9 @@
 'use client'
 import CaretLeft from '/public/icons/caret-left.svg'
+import useGoBack from '@/hooks/useGoBack'
 
 import PasswordEditForm from './components/PasswordEditForm'
 import ProfileEditForm from './components/ProfileEditForm'
-import useGoBack from '@/hooks/useGoBack'
 
 export default function MyPagePage() {
   const handleGoBack = useGoBack()

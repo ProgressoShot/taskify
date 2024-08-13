@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
-import { getDashboardList } from '@/app/utils/dashboardsApi'
 import DashboardCard from '@/components/DashboardCard'
 import useDashboardStore from '@/store/useDashboardStore'
 
@@ -13,19 +12,8 @@ import { HEADER_HEIGHT } from './RootHeader'
 export default function RootSidebar() {
   const ListElement = useRef<HTMLElement>(null)
 
-  const { dashboards, setDashboards } = useDashboardStore()
+  const { dashboards } = useDashboardStore()
   const { id: dashboardId } = useParams()
-
-  const getDashboard = async () => {
-    const data = await getDashboardList().then(res =>
-      res.sort((a: { id: number }, b: { id: number }) => a.id - b.id)
-    )
-    setDashboards(data)
-  }
-
-  useEffect(() => {
-    if (dashboards === null) getDashboard()
-  })
 
   useEffect(() => {
     // 무한스크롤 구현을 위한 대시보드 목록 높이 확인용

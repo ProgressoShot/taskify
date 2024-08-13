@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 import api from '@/app/utils/axiosInstance'
+import { getDashboardList } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
+import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 
 export interface LoginFormValue {
@@ -28,6 +30,7 @@ export default function LoginForm() {
 
   const router = useRouter()
   const { openModal } = useModalStore()
+  const { setDashboards } = useDashboardStore()
 
   const [pwdVisible, togglePwd] = useToggle(false)
   const passwordType = pwdVisible ? 'text' : 'password'
@@ -38,6 +41,8 @@ export default function LoginForm() {
       const { accessToken, user } = response.data
       sessionStorage.setItem('accessToken', accessToken)
       sessionStorage.setItem('user', JSON.stringify(user))
+      const dashboards = await getDashboardList()
+      setDashboards(dashboards)
       router.push('/mydashboard')
     } catch (error) {
       let loginErrorMessage = ''
