@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 
-import { DashboardMembersType, User } from '@/types/types'
+import { Comment, DashboardMembersType, TaskCard, User } from '@/types/types'
 
 type Colors = 'orange' | 'green' | 'pink' | 'blue'
 const colors: Colors[] = ['orange', 'green', 'pink', 'blue']
@@ -11,6 +11,8 @@ interface UserAvatarProps {
   user?: User
   member?: DashboardMembersType
   count?: string
+  card?: TaskCard
+  comment?: Comment
 }
 
 export default function UserAvatar({
@@ -18,14 +20,27 @@ export default function UserAvatar({
   user,
   member,
   count,
+  comment,
+  card,
 }: UserAvatarProps) {
   const randomIndex = Math.floor(Math.random() * colors.length)
   const randomColor = colors[randomIndex]
   const bgColor = `bg-custom-tag-${randomColor}-100`
   const textColor = `text-custom-tag-${randomColor}-200`
 
-  const url: string = user?.profileImageUrl || member?.profileImageUrl || ''
-  const name: string = user?.nickname || member?.nickname || ''
+  const url: string =
+    user?.profileImageUrl ||
+    member?.profileImageUrl ||
+    comment?.author.profileImageUrl ||
+    card?.assignee.profileImageUrl ||
+    ''
+
+  const name: string =
+    user?.nickname ||
+    member?.nickname ||
+    comment?.author.nickname ||
+    card?.assignee.nickname ||
+    ''
 
   const classNames = {
     default:
