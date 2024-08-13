@@ -23,7 +23,7 @@ export default function DashboardCol({ column }: DashboardColProps) {
   const { openModal } = useModalStore()
 
   const taskCard = {
-    id: 0,
+    id: 23112,
     title: '새로운 일정 관리 Taskify',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus nibh arcu, quis consequat ante cursus eget. Cras mattis, nulla non laoreet porttitor, diam justo laoreet eros, vel aliquet diam elit at leo.',
@@ -84,10 +84,20 @@ export default function DashboardCol({ column }: DashboardColProps) {
           }
         />
 
-        <TaskCard card={taskCard} columnTitle={title} />
+        <TaskCard
+          card={taskCard}
+          columnTitle={title}
+          dashboardId={dashboardId}
+          columnId={columnId}
+        />
         {cards.map(card => (
           <li key={card.id}>
-            <TaskCard card={card} columnTitle={title} />
+            <TaskCard
+              card={card}
+              columnTitle={title}
+              dashboardId={dashboardId}
+              columnId={columnId}
+            />
           </li>
         ))}
       </div>
