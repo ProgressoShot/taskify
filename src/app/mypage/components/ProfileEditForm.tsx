@@ -22,6 +22,9 @@ interface ProfileEditValue {
 
 export default function ProfileEditForm() {
   const [mount, setMount] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -32,44 +35,53 @@ export default function ProfileEditForm() {
   const { openModal } = useModalStore()
 
   useEffect(() => {
+    const userData = sessionStorage.getItem('user')
+    if (userData) {
+      const parsedUser = JSON.parse(userData)
+      setUser(parsedUser)
+      setValue('nickname', parsedUser.nickname)
+      setValue('profileImageUrl', parsedUser.profileImageUrl)
+      setPreview(parsedUser.profileImageUrl)
+    }
     setMount(true)
-  }, [])
-  if (!mount) return null
-  const user: User = JSON.parse(String(sessionStorage.getItem('user')))
+  }, [setValue])
 
-  setValue('nickname', user.nickname)
-  setValue('profileImageUrl', user.profileImageUrl)
+  useEffect(() => {
+    const file = watch('file')
+    if (file && file.length > 0) {
+      const fileURL = URL.createObjectURL(file[0])
+      setPreview(fileURL)
+      setValue('profileImageUrl', fileURL)
+    }
+  }, [watch('file'), setValue])
 
-  let fileURL = ''
-  const file = watch('file')
-  if (file && file.length > 0) {
-    fileURL = URL.createObjectURL(file[0])
-    setValue('profileImageUrl', fileURL)
-  }
+  if (!mount || !user) return null
 
   const isDisabled = !!(errors.nickname || errors.profileImageUrl)
 
   const onSubmit = async (data: ProfileEditValue) => {
     let modalMessage = ''
-    let { nickname, profileImageUrl, file } = data
+    let { nickname, profileImageUrl } = data
 
-    try {
-      const res = await imageUpload({ type: 'profile', image: file[0] })
-      profileImageUrl = res.profileImageUrl
-    } catch (error) {
-      modalMessage = '이미지 업로드 실패'
+    if (data.file && data.file.length > 0) {
+      try {
+        const res = await imageUpload({ type: 'profile', image: data.file[0] })
+        profileImageUrl = res.profileImageUrl
+      } catch (error) {
+        modalMessage = '이미지 업로드 실패'
+        openModal(<ConfirmModalContent message={modalMessage} />)
+      }
     }
 
     try {
       await api.put('users/me', { nickname, profileImageUrl })
       const updatedUser = { ...user, nickname, profileImageUrl }
       sessionStorage.setItem('user', JSON.stringify(updatedUser))
-      setValue('nickname', updatedUser.nickname)
-      setValue('profileImageUrl', updatedUser.profileImageUrl)
+      setUser(updatedUser)
       modalMessage = '프로필 변경에 성공하였습니다.'
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        modalMessage = error.response?.data.message
+        modalMessage = error.response?.data.message || '오류가 발생했습니다.'
       } else {
         modalMessage =
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
@@ -78,7 +90,6 @@ export default function ProfileEditForm() {
       openModal(<ConfirmModalContent message={modalMessage} />)
     }
   }
-
   return (
     <Form
       formId='profileEditForm'
@@ -86,12 +97,12 @@ export default function ProfileEditForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='h-[100px] w-[100px] md:h-[182px] md:w-[182px]'>
-        {fileURL ? (
+        {preview ? (
           <label className='relative flex h-full w-full cursor-pointer items-center justify-center'>
             <Image
               className='rounded-md object-cover opacity-60'
               fill
-              src={fileURL}
+              src={preview}
               alt='프로필 사진'
             />
             <Edit className='z-10 h-5 w-5 md:h-[30px] md:w-[30px]' />
