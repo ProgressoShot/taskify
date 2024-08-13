@@ -17,7 +17,7 @@ interface FormProps extends BasicProps {
 
 interface LabelProps extends BasicProps {}
 
-type InputType = 'email' | 'password' | 'text' | 'radio'
+type InputType = 'email' | 'password' | 'text' | 'radio' | 'file'
 
 interface InputProps {
   className?: string
@@ -27,6 +27,8 @@ interface InputProps {
   register?: ReturnType<UseFormRegister<FieldValues>>
   hasError?: boolean
   autoComplete?: string
+  checked?: boolean
+  isDisabled?: boolean
   value?: string
 }
 
@@ -79,6 +81,8 @@ function Input({
   register,
   hasError,
   autoComplete,
+  checked,
+  isDisabled = false,
   value,
 }: InputProps) {
   const inputClass = cn(
@@ -96,6 +100,8 @@ function Input({
       required={required}
       placeholder={placeholder}
       autoComplete={autoComplete}
+      checked={checked}
+      disabled={isDisabled}
       value={value}
     />
   )

@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import type { Comment } from '@/types/types'
 
 interface CommentProps {
