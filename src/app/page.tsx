@@ -2,11 +2,11 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 
 import LandingFooter from '@/components/LandingFooter'
 import useAutotyping from '@/hooks/useAutotyping'
 import useMediaQuery from '@/hooks/useMediaQuery'
+import useRedirect, { type UseRedirect } from '@/hooks/useRedirect'
 import RootHeader from '@/layouts/RootHeader'
 
 import { Providers } from './providers'
@@ -18,6 +18,8 @@ type TypeTextWidth = {
   desktop: number
 }
 export default function Home() {
+  useRedirect({ requireAuth: false })
+
   const { currentText } = useAutotyping('Taskify')
   const mode: Mode = useMediaQuery()
 

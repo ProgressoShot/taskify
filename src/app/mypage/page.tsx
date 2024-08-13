@@ -1,11 +1,14 @@
 'use client'
 import CaretLeft from '/public/icons/caret-left.svg'
 import useGoBack from '@/hooks/useGoBack'
+import useRedirect from '@/hooks/useRedirect'
 
 import PasswordEditForm from './components/PasswordEditForm'
 import ProfileEditForm from './components/ProfileEditForm'
 
 export default function MyPagePage() {
+  useRedirect({ requireAuth: true })
+
   const handleGoBack = useGoBack()
   return (
     <>
