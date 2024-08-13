@@ -15,7 +15,6 @@ export default function UserProfile() {
   const { user, setUser } = useUserStore()
 
   const getUser = async () => {
-    if (!sessionStorage?.accessToken) return router.push('/login')
     try {
       const response = await api.get('users/me')
       setUser(response.data)
@@ -23,6 +22,8 @@ export default function UserProfile() {
       throw error
     }
   }
+
+  const moveMyDashboard = () => router.push('/mydashboard')
 
   const moveMyPage = () => router.push('/mypage')
 
@@ -34,7 +35,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (user === null) getUser()
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const classNames = cn(
     'relative',
@@ -48,12 +50,15 @@ export default function UserProfile() {
     <Dropdown>
       <Dropdown.Trigger>
         <div className='flex items-center gap-3 px-9'>
-          <UserAvatar name={user?.nickname || ''} />
-          {user?.nickname}
+          <UserAvatar name={user?.nickname[0] || ''} />
+          <p className='text-nowrap'>{user?.nickname}</p>
         </div>
       </Dropdown.Trigger>
-      <div className='relative left-1/2 ml-5 w-32 -translate-x-1/2 pt-2'>
+      <div className='relative left-1/2 ml-5 w-32 -translate-x-1/2'>
         <Dropdown.Menu className='w-full'>
+          <Dropdown.Item onClick={moveMyDashboard} className={classNames}>
+            내 대시보드
+          </Dropdown.Item>
           <Dropdown.Item onClick={moveMyPage} className={classNames}>
             계정 관리
           </Dropdown.Item>

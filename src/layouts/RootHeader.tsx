@@ -54,7 +54,7 @@ function RootHeader({
       border && 'border-r border-custom-gray-300'
     ),
     right: cn(
-      'h-full w-full px-10 py-4',
+      'h-full w-full px-10 py-2',
       border && 'border-b border-custom-gray-300'
     ),
   }

@@ -2,6 +2,7 @@ import cn from 'classnames'
 import { ReactNode } from 'react'
 
 import DashboardFeature from '@/components/DashboardFeature'
+import DashboardMembers from '@/components/DashboardMembers'
 import UserProfile from '@/components/UserProfile'
 
 import styles from './ResponsiveLayout.module.css'
@@ -30,7 +31,7 @@ export default function DashboardLayout({
         <RootHeader.Title>{title}</RootHeader.Title>
         <RootHeader.Features>
           <DashboardFeature />
-          {/* 대시보드에 참여한 사용자 목록 컴포넌트 위치 */}
+          <DashboardMembers />
           <UserProfile />
         </RootHeader.Features>
       </RootHeader>

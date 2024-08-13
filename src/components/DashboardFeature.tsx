@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import IconAddBox from '/public/icons/add-box.svg'
@@ -75,6 +76,8 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
   } = useForm<InviteFormValue>()
   const { openModal, closeModal } = useModalStore()
 
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false)
+
   const onSubmit = async (data: InviteFormValue) => {
     const inviteeCheck = await api
       .get(`dashboards/${dashboardId}/invitations?page=1&size=10`)
@@ -102,6 +105,10 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
       })
   }
 
+  useEffect(() => {
+    console.log(register('email'))
+  }, [register])
+
   return (
     <div className='modal-container max-w-[568px] px-4 py-6 text-custom-black-200'>
       <div className='flex items-center justify-between'>
@@ -124,6 +131,9 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
                 value: EMAIL_PATTERN,
                 message: '이메일 형식으로 작성해주세요.',
               },
+              onChange: event => {
+                setButtonDisabled(Boolean(event.target.value))
+              },
             })}
             hasError={!!errors.email}
             type='email'
@@ -142,7 +152,11 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
           >
             <span className='font-normal text-custom-gray-500'>취소</span>
           </Button>
-          <Button className='h-full flex-auto' type='submit'>
+          <Button
+            className='h-full flex-auto'
+            type='submit'
+            isDisabled={!buttonDisabled}
+          >
             전송
           </Button>
         </div>
