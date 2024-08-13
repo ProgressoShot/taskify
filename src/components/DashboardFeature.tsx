@@ -2,15 +2,15 @@
 
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import IconAddBox from '/public/icons/add-box.svg'
 import IconClose from '/public/icons/close.svg'
 import IconSettings from '/public/icons/settings.svg'
 import api from '@/lib/axiosInstance'
-import { deleteDashboard } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
+import { useDashboardInvitationStore } from '@/store/useInvitationStore'
 import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
 
@@ -32,8 +32,6 @@ export default function DashboardFeature() {
     .pop()
 
   const createByMe = currentDashboard?.createdByMe
-
-
 
   if (!createByMe) return null
 
@@ -74,6 +72,7 @@ export function InviteModal({ dashboardId }: { dashboardId: number }) {
     formState: { errors, isLoading },
   } = useForm<InviteFormValue>()
   const { openModal, closeModal } = useModalStore()
+  const { setDashboardInvitations } = useDashboardInvitationStore()
 
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false)
 
@@ -95,6 +94,7 @@ export function InviteModal({ dashboardId }: { dashboardId: number }) {
     await api
       .post(`dashboards/${dashboardId}/invitations`, data)
       .then(function (response) {
+        setDashboardInvitations(response.data.invitations)
         closeModal()
         openModal(<ConfirmModalContent message={'초대전송 완료!'} />)
       })
