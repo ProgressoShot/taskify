@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -9,6 +9,7 @@ import IconAddBox from '/public/icons/add-box.svg'
 import IconClose from '/public/icons/close.svg'
 import IconSettings from '/public/icons/settings.svg'
 import api from '@/app/utils/axiosInstance'
+import { deleteDashboard } from '@/app/utils/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import { Dashboard } from '@/types/types'
@@ -16,8 +17,6 @@ import { Dashboard } from '@/types/types'
 import Button from './Button'
 import ConfirmModalContent from './ConfirmModalContent'
 import Form from './Form'
-import { deleteDashboard } from '@/app/utils/dashboardsApi'
-import { useRouter } from 'next/navigation'
 
 /**
  * @todo

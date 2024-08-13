@@ -5,12 +5,12 @@ import { useEffect, useRef } from 'react'
 
 import AddIcon from '/public/icons/add-box.svg'
 import { getDashboardList } from '@/app/utils/dashboardsApi'
+import CreateDashboardModal from '@/components/CreateDashboardModal'
 import DashboardCard from '@/components/DashboardCard'
 import useDashboardStore from '@/store/useDashboardStore'
+import useModalStore from '@/store/useModalStore'
 
 import { HEADER_HEIGHT } from './RootHeader'
-import CreateDashboardModal from '@/components/CreateDashboardModal'
-import useModalStore from '@/store/useModalStore'
 
 export default function RootSidebar() {
   const { id: dashboardId } = useParams()

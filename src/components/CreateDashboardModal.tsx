@@ -4,16 +4,15 @@ import cn from 'classnames'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-import moduleCSS from './CreateDashboardModal.module.css'
-
+import { createDashboard } from '@/app/utils/dashboardsApi'
 import Form from '@/components/Form'
+import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
+import { Dashboard, DashboardColorHex } from '@/types/types'
 
 import Button from './Button'
-import { createDashboard } from '@/app/utils/dashboardsApi'
-import { Dashboard, DashboardColorHex } from '@/types/types'
 import ConfirmModalContent from './ConfirmModalContent'
-import useDashboardStore from '@/store/useDashboardStore'
+import moduleCSS from './CreateDashboardModal.module.css'
 
 const COLOR_LIST: Array<DashboardColorHex> = [
   '#7AC555',
