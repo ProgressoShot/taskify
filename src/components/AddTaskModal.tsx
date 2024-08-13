@@ -57,12 +57,6 @@ export default function AddTaskModal({
   const [tags, setTags] = useState<string[]>([])
   const [members, setMembers] = useState<[]>([])
 
-  const handleFileUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
-
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -102,8 +96,7 @@ export default function AddTaskModal({
       columnId: columnId,
       tags: tags,
       dueDate: formattedDueDate,
-      imageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
+      imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
