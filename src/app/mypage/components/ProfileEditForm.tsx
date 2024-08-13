@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 
 import Edit from '/public/icons/edit.svg'
 import Plus from '/public/icons/plus.svg'
+import { imageUpload } from '@/app/utils/api'
 import api from '@/app/utils/axiosInstance'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
@@ -49,11 +50,18 @@ export default function ProfileEditForm() {
   const isDisabled = !!(errors.nickname || errors.profileImageUrl)
 
   const onSubmit = async (data: ProfileEditValue) => {
-    const { nickname, profileImageUrl } = data
-    const formData = { nickname, profileImageUrl }
     let modalMessage = ''
+    let { nickname, profileImageUrl, file } = data
+
     try {
-      await api.put('users/me', formData)
+      const res = await imageUpload({ type: 'profile', image: file[0] })
+      profileImageUrl = res.profileImageUrl
+    } catch (error) {
+      modalMessage = '이미지 업로드 실패'
+    }
+
+    try {
+      await api.put('users/me', { nickname, profileImageUrl })
       const updatedUser = { ...user, nickname, profileImageUrl }
       sessionStorage.setItem('user', JSON.stringify(updatedUser))
       setValue('nickname', updatedUser.nickname)
