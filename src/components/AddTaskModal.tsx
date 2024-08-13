@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -53,6 +53,7 @@ export default function AddTaskModal({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [tags, setTags] = useState<string[]>([])
+  const [members, setMembers] = useState<string[]>([])
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -89,7 +90,6 @@ export default function AddTaskModal({
       dueDate: formattedDueDate,
       imageUrl:
         'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
-      //   imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
@@ -122,6 +122,22 @@ export default function AddTaskModal({
 
   const assigneeUserId = watch('assigneeUserId')
 
+  // Fetch members when component mounts
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await api.get(
+          `/members?page=1&size=20&dashboardId=${dashboardId}`
+        )
+        setMembers(response.data.members) // Adjust based on your API response structure
+      } catch (error) {
+        console.error('Failed to fetch members:', error)
+      }
+    }
+
+    fetchMembers()
+  }, [dashboardId])
+
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
@@ -131,6 +147,7 @@ export default function AddTaskModal({
           <AsigneeSelect
             handleAssigneeSelect={handleAssigneeSelect}
             selectedUserId={assigneeUserId}
+            members={members} // Pass members here
           />
         </Form.Label>
         <Form.Label className='mb-5'>
@@ -232,4 +249,5 @@ export default function AddTaskModal({
     </div>
   )
 }
+
 const labelHeader = 'h-[26px] text-[18px] font-medium'
