@@ -7,17 +7,23 @@ import LogoSymbol from '/public/logo/logo-symbol.svg'
 import styles from './ResponsiveLayout.module.css'
 
 export const HEADER_HEIGHT = 70
-
+interface ThemeProp {
+  theme?: string
+}
 interface BorderProp {
   border?: boolean
 }
 
-function Logo() {
+function Logo({ theme = 'light' }: ThemeProp) {
   return (
     <section className='flex h-full w-full items-center justify-center md:justify-start'>
       <Link href={'/'}>
-        <LogoIcon className='hidden text-custom-violet dark:text-white md:block' />
-        <LogoSymbol className='block text-custom-violet dark:text-white md:hidden' />
+        <LogoIcon
+          className={`hidden text-custom-violet md:block ${theme === 'dark' ? 'text-white' : ''}`}
+        />
+        <LogoSymbol
+          className={`block text-custom-violet md:hidden ${theme === 'dark' ? 'text-white' : ''}`}
+        />
       </Link>
     </section>
   )
@@ -25,15 +31,17 @@ function Logo() {
 
 function Title({ children }: React.PropsWithChildren) {
   return (
-    <section className='flex h-full flex-1 items-center text-custom-black-200 dark:text-white'>
+    <section
+      className={`flex h-full flex-1 items-center text-custom-black-200`}
+    >
       {children}
     </section>
   )
 }
 
-function Features({ children }: React.PropsWithChildren) {
+function Features({ children }: React.PropsWithChildren & ThemeProp) {
   return (
-    <section className='flex h-full items-center text-custom-black-200 dark:text-white'>
+    <section className={`flex h-full items-center text-custom-black-200`}>
       {children}
     </section>
   )
@@ -42,11 +50,13 @@ function Features({ children }: React.PropsWithChildren) {
 function RootHeader({
   children,
   border,
-}: React.PropsWithChildren & BorderProp) {
+  theme,
+}: React.PropsWithChildren & BorderProp & ThemeProp) {
   const classNames: Record<string, string> = {
     wrap: cn(
-      'grid w-full bg-white dark:bg-black',
+      'grid w-full',
       `h-[${HEADER_HEIGHT}px]`,
+      `${theme === 'dark' ? 'bg-black' : 'bg-white'}`,
       styles['ResponsiveLayoutLeft']
     ),
     left: cn(
@@ -62,7 +72,7 @@ function RootHeader({
   return (
     <header className={classNames.wrap}>
       <div className={classNames.left}>
-        <Logo />
+        <Logo theme={theme} />
       </div>
       <div className={classNames.right}>
         <section className='relative flex h-full w-full items-center justify-end'>

@@ -29,11 +29,12 @@ const BUTTON_CLASSNAME =
 
 export default function DashboardFeature() {
   const router = useRouter()
-  const { id: dashboardId } = useParams()
+  const { id } = useParams()
+  const dashboardId = Number(id)
   const { dashboards, setDashboards } = useDashboardStore()
   const { openModal } = useModalStore()
   const currentDashboard = dashboards
-    ?.filter((dashboard: Dashboard) => dashboard.id === Number(dashboardId))
+    ?.filter((dashboard: Dashboard) => dashboard.id === dashboardId)
     .pop()
 
   const createByMe = currentDashboard?.createdByMe
@@ -91,7 +92,8 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
  * @todo
  * 고도화: 이메일 리스트로 초대 요청하기
  */
-function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
+
+export function InviteModal({ dashboardId }: { dashboardId: number }) {
   const {
     register,
     handleSubmit,
@@ -129,7 +131,6 @@ function InviteModal({ dashboardId }: { dashboardId: string | string[] }) {
   }
 
   useEffect(() => {
-    console.log(register('email'))
   }, [register])
 
   return (
