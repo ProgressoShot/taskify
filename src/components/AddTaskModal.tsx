@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { format } from 'date-fns'
-import React, { useRef, useState } from 'react'
+import React, { useEffect,useRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -55,12 +55,14 @@ export default function AddTaskModal({
     },
   })
   const [tags, setTags] = useState<string[]>([])
+  const [members, setMembers] = useState<[]>([])
 
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault()
       const input = event.currentTarget.value.trim()
-      if (input && !tags.includes(input)) {
+      if (event.nativeEvent.isComposing) return
+      else if (input && !tags.includes(input)) {
         setTags(prevTags => [...prevTags, input])
       }
       event.currentTarget.value = ''
@@ -94,6 +96,7 @@ export default function AddTaskModal({
       columnId: columnId,
       tags: tags,
       dueDate: formattedDueDate,
+      imageUrl: watch('imageUrl'),
     }
 
     const filteredData = Object.fromEntries(
@@ -126,6 +129,21 @@ export default function AddTaskModal({
 
   const assigneeUserId = watch('assigneeUserId')
 
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await api.get(
+          `/members?page=1&size=20&dashboardId=${dashboardId}`
+        )
+        setMembers(response.data.members)
+      } catch (error) {
+        console.error('Failed to fetch members:', error)
+      }
+    }
+
+    fetchMembers()
+  }, [dashboardId])
+
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
@@ -137,6 +155,7 @@ export default function AddTaskModal({
           <AsigneeSelect
             handleAssigneeSelect={handleAssigneeSelect}
             selectedUserId={assigneeUserId}
+            members={members}
           />
         </Form.Label>
         <Form.Label className='mb-5'>
@@ -230,4 +249,5 @@ export default function AddTaskModal({
     </div>
   )
 }
+
 const labelHeader = 'h-[26px] text-[18px] font-medium'
