@@ -10,6 +10,7 @@ export default function MyPagePage() {
   useRedirect({ requireAuth: true })
 
   const handleGoBack = useGoBack()
+
   return (
     <>
       <button
