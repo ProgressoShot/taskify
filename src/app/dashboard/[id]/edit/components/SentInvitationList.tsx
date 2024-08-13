@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import ImageEmptyInvitation from '/public/images/not-invited.svg'
 import { listDashboardInvitations } from '@/lib/api'
 import { useDashboardInvitationStore } from '@/store/useInvitationStore'
@@ -21,14 +23,18 @@ export default function SentInvitationList({
 }: {
   dashboardId: number
 }) {
-  const { invitations, setInvitations } = useDashboardInvitationStore()
+  const { dashboardInvitations, setDashboardInvitations } =
+    useDashboardInvitationStore()
 
-  // useEffect
-  // listDashboardInvitations(dashboardId).then()
-  // setInvitations()
+  useEffect(() => {
+    async function fetchInvitations() {
+      const res = await listDashboardInvitations(dashboardId)
+      setDashboardInvitations(res.invitations ? res.invitations : [])
+    }
+  }, [dashboardId, setDashboardInvitations])
 
-  if (invitations) {
-    const notAcceptedInvitations = invitations.filter(
+  if (dashboardInvitations) {
+    const notAcceptedInvitations = dashboardInvitations.filter(
       (item: Invitation) => !item.inviteAccepted
     )
     const count = notAcceptedInvitations.length
