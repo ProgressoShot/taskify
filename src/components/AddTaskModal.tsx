@@ -64,7 +64,8 @@ export default function AddTaskModal({
     if (event.key === 'Enter') {
       event.preventDefault()
       const input = event.currentTarget.value.trim()
-      if (input && !tags.includes(input)) {
+      if (event.nativeEvent.isComposing) return
+      else if (input && !tags.includes(input)) {
         setTags(prevTags => [...prevTags, input])
       }
       event.currentTarget.value = ''
