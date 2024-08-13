@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useForm } from 'react-hook-form'
 
 import Close from '/public/icons/close.svg'
 import Kebab from '/public/icons/kebab-menu.svg'
@@ -18,10 +19,22 @@ import type { TaskCard } from '@/types/types'
 interface TaskCardContentProps {
   card: TaskCard
   columnTitle: string
+  columnId: number
+  dashboardId: number
 }
+
+interface CommentValue {
+  content: string
+  cardId: number
+  columnId: number
+  dashboardId: number
+}
+
 export default function TaskCardContent({
   card,
   columnTitle,
+  dashboardId,
+  columnId,
 }: TaskCardContentProps) {
   const { openModal, closeModal } = useModalStore()
 
@@ -44,6 +57,20 @@ export default function TaskCardContent({
 
   const { comments, loading, error } = useComments(taskCardId)
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isLoading },
+  } = useForm<CommentValue>({
+    defaultValues: {
+      cardId: taskCardId,
+      columnId: columnId,
+      dashboardId: dashboardId,
+    },
+  })
+  const isDisabled = !!(errors.content || isLoading)
+
   const onEdit = () => {
     closeModal()
     openModal(<div>카드 수정하기 폼</div>)
@@ -61,6 +88,24 @@ export default function TaskCardContent({
         errorMessage =
           '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
       }
+
+      openModal(<ConfirmModalContent message={errorMessage} />)
+    }
+  }
+
+  const onSubmit = async (data: CommentValue) => {
+    try {
+      await api.post('comments', data)
+      setValue('content', '')
+    } catch (error) {
+      let errorMessage = ''
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data.message
+      } else {
+        errorMessage =
+          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+      }
+      closeModal()
       openModal(<ConfirmModalContent message={errorMessage} />)
     }
   }
@@ -112,22 +157,24 @@ export default function TaskCardContent({
           </div>
           <Form
             formId='commentForm'
-            onSubmit={e => {
-              e.preventDefault()
-              console.log('댓글 제출')
-            }}
+            onSubmit={handleSubmit(onSubmit)}
             className='mb-4 w-full max-w-full md:mb-6'
           >
             <Form.Label className='relative gap-1'>
               <Form.LabelHeader>댓글</Form.LabelHeader>
               <Form.TextArea
+                register={register('content', {
+                  required: { value: true, message: '댓글을 입력해주세요' },
+                })}
                 placeholder='댓글 작성하기'
                 className='h-[70px] w-full overflow-y-scroll p-3 pr-24 text-xs scrollbar-hide placeholder:text-custom-gray-400 md:h-[110px] md:p-4 md:pr-24 md:text-sm'
               />
               <Button
+                form='commentForm'
                 color='secondary'
                 type='submit'
-                className='absolute bottom-3 right-3'
+                className='absolute bottom-3 right-3 hover:bg-custom-gray-100'
+                isDisabled={isDisabled}
               >
                 입력
               </Button>

@@ -1,5 +1,6 @@
 'use client'
 
+import {router} from "next/client";
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -8,8 +9,11 @@ import { useForm } from 'react-hook-form'
 
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
 import { getDashboard, updateDashboard } from '@/app/utils/api'
+import { deleteDashboard } from '@/app/utils/dashboardsApi'
 import Button from '@/components/Button'
+import ConfirmModalContent from "@/components/ConfirmModalContent";
 import { InviteModal } from '@/components/DashboardFeature'
+import DeleteAlertModal from '@/components/DeleteAlertModal'
 import Form from '@/components/Form'
 import Pagination from '@/components/Pagination'
 import useDashboardStore from '@/store/useDashboardStore'
@@ -20,7 +24,7 @@ export default function DashboardIdEditPage() {
   const { id } = useParams()
   const dashboardId = Number(id)
   const { openModal } = useModalStore()
-  const { dashboard, setDashboard } = useDashboardStore()
+  const { dashboard, setDashboard, dashboards, setDashboards } = useDashboardStore()
   const { title, color } = dashboard
   const dashBoardForm = useForm<DashboardFormValue>({
     values: { title: title, color: color },
@@ -79,6 +83,26 @@ export default function DashboardIdEditPage() {
     }).then()
   }
 
+  const handleDeleteDashboard = async () => {
+    if (dashboardId) {
+      try {
+        await deleteDashboard(dashboardId).then(() => {
+          if (dashboards)
+            setDashboards(
+              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
+                null
+            )
+        })
+        await router.push('/mydashboard')
+      } catch (error) {
+        openModal(
+          <ConfirmModalContent
+            message={`"${title}" 대시보드를 삭제하는 데 문제가 발생했습니다.`}
+          />)
+      }
+    }
+  }
+
   if (!dashboard) return <div>로딩중...</div>
 
   return (
@@ -90,7 +114,7 @@ export default function DashboardIdEditPage() {
           width={20}
           height={20}
         />
-        <Link href='#'>돌아가기</Link>
+        <Link href={`/dashboard/${id}`}>돌아가기</Link>
       </div>
 
       <div className={'container flex-col gap-1'}>
@@ -161,6 +185,14 @@ export default function DashboardIdEditPage() {
           className={'w-full gap-2.5 py-5 text-lg'}
           color='tertiary'
           type='button'
+          onClick={() =>
+            openModal(
+              <DeleteAlertModal
+                message={`"${title}" 대시보드를 정말 삭제하시겠습니까?`}
+                onDelete={handleDeleteDashboard}
+              />
+            )
+          }
         >
           대시보드 삭제하기
         </Button>

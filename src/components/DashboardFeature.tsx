@@ -33,31 +33,12 @@ export default function DashboardFeature() {
 
   const createByMe = currentDashboard?.createdByMe
 
-  const handleDeleteDashboard = async () => {
-    const message = `${currentDashboard?.title} 대시보드를 정말 삭제하시겠습니까?`
-    if (confirm(message)) {
-      try {
-        await deleteDashboard(Number(dashboardId)).then(() => {
-          if (dashboards)
-            setDashboards(
-              dashboards?.filter(item => item.id !== Number(dashboardId)) ||
-                null
-            )
-        })
-        router.push('/mydashboard')
-      } catch (error) {
-        console.log('error: ', error)
-      }
-    }
-  }
+
 
   if (!createByMe) return null
 
   return (
     <div className='flex gap-1.5 md:gap-3 lg:gap-4 lg:border-r lg:border-custom-gray-300 lg:pr-9'>
-      <button type='button' className='hidden' onClick={handleDeleteDashboard}>
-        DEL
-      </button>
       <Link
         href={`/dashboard/${dashboardId}/edit`}
         className={BUTTON_CLASSNAME}
