@@ -1,6 +1,13 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export type DashboardColor = 'green' | 'purple' | 'orange' | 'blue' | 'pink'
+
+export type DashboardColorHex =
+  | '#7AC555' // green
+  | '#760DDE' // purple
+  | '#FFA500' // orange
+  | '#76A5EA' // blue
+  | '#E876EA' // pink
 
 export interface User {
   createdAt?: Date
