@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 
-import { Comment, DashboardMembersType, TaskCard, User } from '@/types/types'
+import { Comment, DashboardMember, TaskCard, User } from '@/types/types'
 
 type Colors = 'orange' | 'green' | 'pink' | 'blue'
 const colors: Colors[] = ['orange', 'green', 'pink', 'blue']
@@ -9,7 +9,7 @@ const colors: Colors[] = ['orange', 'green', 'pink', 'blue']
 interface UserAvatarProps {
   className?: string
   user?: User
-  member?: DashboardMembersType
+  member?: DashboardMember
   count?: string
   card?: TaskCard
   comment?: Comment
