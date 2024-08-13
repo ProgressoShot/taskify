@@ -8,6 +8,9 @@ const nextConfig = {
 
     return config
   },
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: '**.amazonaws.co(m|.kr)' }],
+  },
 }
 
 export default nextConfig
