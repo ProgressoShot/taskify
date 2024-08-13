@@ -7,40 +7,48 @@ import { Controller, useForm } from 'react-hook-form'
 
 import AddBox from '/public/icons/add-box2.svg'
 import Calendar from '/public/icons/calendar.svg'
+import AsigneeSelect from '@/app/dashboard/[id]/components/AsigneeSelect'
 import api from '@/app/utils/axiosInstance'
 import Form from '@/components/Form'
 import useModalStore from '@/store/useModalStore'
 
 import Button from './Button'
 import Chip from './Chip'
-import Dropdown from './Dropdown'
 
 interface taskFormValue {
+  assigneeUserId: number
+  dashboardId: number
+  columnId: number
   title: string
   description: string
   dueDate: string
   tags: string[]
-  imageUrl?: string
+  imageUrl: string
 }
 
-export default function AddTaskModal() {
+interface AddTaskModalProps {
+  columnId: taskFormValue['columnId']
+  dashboardId: taskFormValue['dashboardId']
+}
+
+export default function AddTaskModal({
+  dashboardId,
+  columnId,
+}: AddTaskModalProps) {
   const {
     register,
     handleSubmit,
     watch,
     control,
+    setValue,
     formState: { errors, isLoading },
   } = useForm<taskFormValue>({
     defaultValues: {
-      title: '',
-      description: '',
-      tags: [],
-      dueDate: undefined,
-      imageUrl: undefined,
+      dashboardId: dashboardId,
+      columnId: columnId,
     },
   })
 
-  const labelHeader = 'h-[26px] text-[18px] font-medium'
   const { closeModal } = useModalStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -74,11 +82,10 @@ export default function AddTaskModal() {
 
     const newData = {
       ...data,
+      dashboardId: dashboardId,
+      columnId: columnId,
       tags: tags,
       dueDate: formattedDueDate,
-      assigneeUserId: 4444,
-      dashboardId: 11482,
-      columnId: 38779,
       imageUrl:
         'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/7-2_38678_1723223277048.jpeg',
       //   imageUrl: watch('imageUrl'),
@@ -108,25 +115,22 @@ export default function AddTaskModal() {
 
   const [date, setDate] = React.useState<Date>(new Date(Date.now()))
 
+  const handleAssigneeSelect = (value: number) => {
+    setValue('assigneeUserId', value)
+  }
+
+  const assigneeUserId = watch('assigneeUserId')
+
   return (
     <div className='w-[584px] rounded-2xl bg-white p-8'>
       <Form formId='AddTaskForm' onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-8 h-8 text-2xl font-bold'>할 일 생성</div>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className={labelHeader}>담당자</Form.LabelHeader>
-          <Dropdown>
-            <Dropdown.Trigger className='border'>
-              담당자 토글 클릭하세요
-            </Dropdown.Trigger>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => alert('첫 번째 담당자 선택됨')}>
-                첫 번째 담당자
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => alert('두 번째 담당자 선택됨')}>
-                두 번째 담당자
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <AsigneeSelect
+            handleAssigneeSelect={handleAssigneeSelect}
+            selectedUserId={assigneeUserId}
+          />
         </Form.Label>
         <Form.Label className='mb-5'>
           <Form.LabelHeader className='labelHeader flex'>
@@ -227,3 +231,4 @@ export default function AddTaskModal() {
     </div>
   )
 }
+const labelHeader = 'h-[26px] text-[18px] font-medium'

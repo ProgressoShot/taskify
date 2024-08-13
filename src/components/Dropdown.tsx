@@ -67,7 +67,6 @@ const Menu = ({ children, className }: MenuProps) => {
 
 const Item = ({ children, className, onClick }: ItemProps) => {
   const { toggle } = useContext(DropdownContext)
-
   const itemStyle = cn(
     'flex w-full items-center rounded-[4px] text-sm text-custom-black-200',
     className

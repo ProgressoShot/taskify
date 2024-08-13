@@ -61,7 +61,6 @@ export interface Column {
 }
 
 export type DashboardCardType = 'card' | 'side' | 'add'
-
 export interface TaskCard {
   id: number
   title: string

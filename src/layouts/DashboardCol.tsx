@@ -69,7 +69,13 @@ export default function DashboardCol({ column }: DashboardColProps) {
             <Setting className='h-[19px] w-[19px] text-custom-gray-500' />
           </button>
         </div>
-        <NewTaskButton onClick={() => openModal(<AddTaskModal />)} />
+        <NewTaskButton
+          onClick={() =>
+            openModal(
+              <AddTaskModal dashboardId={dashboardId} columnId={columnId} />
+            )
+          }
+        />
 
         {/* <TaskCards card={taskCard} columnTitle={title} /> */}
         {cards.map(card => (
