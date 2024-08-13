@@ -1,18 +1,18 @@
 .ResponsiveLayoutLeft {
-  grid-template-columns: 300px auto;
-  transition: all 0.16s;
+  grid-template-columns: 67px auto;
 }
 
 /* Tablet */
-@media screen and (max-width: 1199px) {
+@media screen and (min-width: 768px) {
   .ResponsiveLayoutLeft {
     grid-template-columns: 160px auto;
   }
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 1024px) {
   .ResponsiveLayoutLeft {
-    grid-template-columns: 67px auto;
+    grid-template-columns: 300px auto;
+    transition: all 0.16s;
   }
 }

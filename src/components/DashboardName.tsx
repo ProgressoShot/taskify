@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { ReactNode } from 'react'
 
 import AddBoxIcon from '/public/icons/add-box2.svg'
@@ -39,7 +40,23 @@ export default function DashboardName({
         {type !== 'add' && (
           <BulletIcon className={classNames.mr} style={{ color: color }} />
         )}
-        <p className={`whitespace-nowrap ${classNames.txt}`}>{children}</p>
+        <div
+          className={cn(
+            'hidden md:block',
+            type !== 'add' && createdByMe
+              ? 'md:max-w-16 lg:max-w-52'
+              : 'md:max-w-24 lg:max-w-60'
+          )}
+        >
+          <p
+            className={cn(
+              'overflow-hidden text-ellipsis whitespace-nowrap',
+              classNames.txt
+            )}
+          >
+            {children}
+          </p>
+        </div>
         {type === 'add' && <AddBoxIcon />}
         {type !== 'add' && createdByMe && (
           <CrownIcon
