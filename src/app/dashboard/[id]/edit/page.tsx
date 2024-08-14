@@ -25,6 +25,7 @@ import { DASHBOARD_MEMBERS } from '@/lib/mock'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import { DASHBOARD_COLORS, DashboardFormValue } from '@/types/types'
+import {COLOR_LIST} from "@/components/CreateDashboardModal";
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4
@@ -125,24 +126,19 @@ export default function DashboardIdEditPage() {
           </Form.Label>
 
           <Form.Label className='mb-5'>
-            <Form.LabelHeader className={'text-lg'}>
+            <Form.LabelHeader className='labelHeader'>
               대시보드 색상
             </Form.LabelHeader>
             <div className='flex items-center justify-start gap-2'>
-              {Object.entries(DASHBOARD_COLORS).map(
-                ([colorName, colorCode]) => (
-                  <Form.Input
-                    key={`dashboard-color-${colorName}`}
-                    register={dashBoardForm.register('color')}
-                    type='radio'
-                    value={colorCode}
-                    className={cn(
-                      moduleCSS['radio'],
-                      moduleCSS[`bg-custom-${colorName}`]
-                    )}
-                  />
-                )
-              )}
+              {COLOR_LIST.map(item => (
+                <Form.Input
+                  key={`color-radio-${item}`}
+                  register={dashBoardForm.register('color')}
+                  type='radio'
+                  value={item}
+                  className={cn(moduleCSS['radio'], moduleCSS[`bg-[${item}]`])}
+                />
+              ))}
             </div>
           </Form.Label>
 
@@ -158,10 +154,6 @@ export default function DashboardIdEditPage() {
       <section className='mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
         <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
           구성원
-          {/*<Pagination>*/}
-          {/*  <Pagination.Prev  />*/}
-          {/*  <Pagination.Next />*/}
-          {/*</Pagination>*/}
         </h2>
         <Pagination>
           <Pagination.Pages>
