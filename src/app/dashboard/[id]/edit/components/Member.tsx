@@ -56,6 +56,8 @@ function Item({
   member,
   callBackFunction,
 }: ItemProps) {
+  const handleDelete = async (id: number) => {
+    await deleteDashboardMember(id).then(() => {
   const { openModal } = useModalStore()
   const { setMembers } = useMemberStore()
   const { user } = useUserStore()
