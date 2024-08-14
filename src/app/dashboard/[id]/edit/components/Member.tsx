@@ -95,7 +95,7 @@ function Item({
         </p>
         <UserAvatar member={member} />
         <p className={cn(classNames.value.default)}>{member.nickname}</p>
-        {user?.email === member.email && (
+        {member.isOwner && (
           <Image
             src={crownIcon}
             alt={'대시보드 생성자'}
