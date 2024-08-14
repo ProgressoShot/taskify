@@ -1,5 +1,5 @@
 import api from '@/lib/axiosInstance'
-import {DashboardMember} from '@/types/types'
+import { DashboardMember } from '@/types/types'
 
 /**
  * @function convertURL
@@ -32,18 +32,16 @@ export const createDashboard = async (title: string, color: string) => {
 export const getDashboardList = async (): Promise<any> => {
   const params: {
     navigationMethod: 'infiniteScroll' | 'pagination'
-    page: number
-    size: number
+    page: string
+    size: string
   } = {
     navigationMethod: 'infiniteScroll',
-    page: 0,
-    size: 10,
+    page: String(1),
+    size: String(100),
   }
 
   try {
-    const response = await api.get(
-      'dashboards?navigationMethod=infiniteScroll&page=1&size=10'
-    )
+    const response = await api.get(convertURL('dashboards', params))
     const { dashboards } = response.data
     return dashboards
   } catch (error) {
