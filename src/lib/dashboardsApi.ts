@@ -29,15 +29,15 @@ export const createDashboard = async (title: string, color: string) => {
   }
 }
 
-export const getDashboardList = async (): Promise<any> => {
+export const listDashboards = async (): Promise<any> => {
   const params: {
     navigationMethod: 'infiniteScroll' | 'pagination'
-    page: string
-    size: string
+    page?: number
+    size?: number
   } = {
     navigationMethod: 'infiniteScroll',
-    page: String(1),
-    size: String(100),
+    page: 0,
+    size: 10,
   }
 
   try {

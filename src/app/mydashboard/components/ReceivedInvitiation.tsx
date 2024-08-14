@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
 import Button from '@/components/Button'
-import { getDashboardList, putResponseInvitiation } from '@/lib/dashboardsApi'
+import { listDashboards, putResponseInvitiation } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 
 import { ReceivedInvitiationType } from './ReceivedInvitiationList'
@@ -43,7 +43,7 @@ function Item({
   const { setDashboards } = useDashboardStore()
 
   const getDashboard = async () => {
-    const data = await getDashboardList()
+    const data = await listDashboards()
     setDashboards(data)
   }
 
