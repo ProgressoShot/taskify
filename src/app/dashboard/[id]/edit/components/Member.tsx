@@ -1,16 +1,19 @@
 import cn from 'classnames'
-import {PropsWithChildren} from 'react'
+import { PropsWithChildren } from 'react'
 
 import Button from '@/components/Button'
 import UserAvatar from '@/components/UserAvatar'
-import {deleteDashboardMember, listDashboardMembers,} from '@/lib/dashboardsApi'
-import {useMemberStore} from '@/store/useMemberStore'
-import {DashboardMember} from '@/types/types'
+import {
+  deleteDashboardMember,
+  listDashboardMembers,
+} from '@/lib/dashboardsApi'
+import { useMemberStore } from '@/store/useMemberStore'
+import { DashboardMember } from '@/types/types'
 
 const classNames = {
   inner: {
-    default: 'px-4 md:px-8 md:grid md:grid-cols-2',
-    item: 'border-b border-b-custom-gray-200 py-3.5',
+    default: 'w-full px-4 md:px-8 md:grid md:grid-cols-2',
+    item: 'border-b border-b-custom-gray-200 py-3.5 w-full',
     mobile: 'flex w-full flex-col items-center',
   },
   cols: {
@@ -42,13 +45,13 @@ export interface ItemProps {
 }
 
 function Item({
-                dashboardId,
-                page,
-                size,
-                member,
-                callBackFunction,
-              }: ItemProps) {
-  const {setMembers} = useMemberStore()
+  dashboardId,
+  page,
+  size,
+  member,
+  callBackFunction,
+}: ItemProps) {
+  const { setMembers } = useMemberStore()
 
   const fetchDashboardMembers = async () => {
     const res = await listDashboardMembers(dashboardId, page, size)
@@ -67,12 +70,11 @@ function Item({
       className={cn(
         classNames.inner.default,
         classNames.inner.item,
-        classNames.inner.mobile,
-        'w-full justify-between'
+        'flex w-full justify-between'
       )}
     >
       <div
-        className={cn(classNames.cols.default)}
+        className={cn(classNames.cols.default, 'flex w-full items-center')}
         style={classNames.cols.style}
       >
         <p
@@ -84,13 +86,13 @@ function Item({
         >
           이름
         </p>
-        <UserAvatar member={member}/>
+        <UserAvatar member={member} />
         <p className={cn(classNames.value.default)}>{member.nickname}</p>
       </div>
       <div
         className={cn(
           classNames.value.default,
-          'mt-3.5 grid w-full flex-none grid-cols-2 gap-2.5 md:m-auto md:flex md:flex-auto'
+          'flex w-full items-center justify-end'
         )}
       >
         <Button
@@ -105,7 +107,7 @@ function Item({
   )
 }
 
-function Member({children}: PropsWithChildren) {
+function Member({ children }: PropsWithChildren) {
   return (
     <div className='py-4 md:py-8'>
       <div className={cn(classNames.inner.default, 'hidden')}>

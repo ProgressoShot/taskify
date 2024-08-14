@@ -8,6 +8,7 @@ import {DashboardMember} from '@/types/types'
  * @returns {String} - URL String with Query parameters.
  * @throws Will throw an error with the URL is empty.
  */
+
 const convertURL = (url: string, params: Record<string, string>) => {
   if (!url) throw new Error('URL is Empty')
   const query = params ? '?' + new URLSearchParams(params).toString() : ''
@@ -28,7 +29,7 @@ export const createDashboard = async (title: string, color: string) => {
   }
 }
 
-export const getDashboardList = async () => {
+export const getDashboardList = async (): Promise<any> => {
   const params: {
     navigationMethod: 'infiniteScroll' | 'pagination'
     page: number

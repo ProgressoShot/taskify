@@ -25,7 +25,7 @@ import { deleteDashboard } from '@/lib/dashboardsApi'
 import { DASHBOARD_MEMBERS } from '@/lib/mock'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
-import { DASHBOARD_COLORS, DashboardFormValue } from '@/types/types'
+import { DashboardFormValue } from '@/types/types'
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4
@@ -103,7 +103,7 @@ export default function DashboardIdEditPage() {
           onSubmit={handleSubmit}
           formId='dashboardForm'
         >
-          <Form.Label className={'flex justify-between gap-5'}>
+          <Form.Label className={'flex justify-between'}>
             <div className={'w-fit grow-0'}>
               <Form.LabelHeader className={'text-lg'}>
                 대시보드 이름
@@ -125,8 +125,8 @@ export default function DashboardIdEditPage() {
             )}
           </Form.Label>
 
-          <Form.Label className='mb-5'>
-            <Form.LabelHeader className='labelHeader'>
+          <Form.Label className='mb-5 mt-5'>
+            <Form.LabelHeader className={'text-lg'}>
               대시보드 색상
             </Form.LabelHeader>
             <div className='flex items-center justify-start gap-2'>
