@@ -12,6 +12,7 @@ import MemberList from '@/app/dashboard/[id]/edit/components/MemberList'
 import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
+import { COLOR_LIST } from '@/components/CreateDashboardModal'
 import moduleCSS from '@/components/CreateDashboardModal.module.css'
 import { InviteModal } from '@/components/DashboardFeature'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
@@ -25,7 +26,6 @@ import { DASHBOARD_MEMBERS } from '@/lib/mock'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 import { DASHBOARD_COLORS, DashboardFormValue } from '@/types/types'
-import {COLOR_LIST} from "@/components/CreateDashboardModal";
 
 export default function DashboardIdEditPage() {
   const ITEM_PER_PAGE = 4
@@ -103,7 +103,7 @@ export default function DashboardIdEditPage() {
           onSubmit={handleSubmit}
           formId='dashboardForm'
         >
-          <Form.Label className={'flex gap-5 justify-between'}>
+          <Form.Label className={'flex justify-between gap-5'}>
             <div className={'w-fit grow-0'}>
               <Form.LabelHeader className={'text-lg'}>
                 대시보드 이름
