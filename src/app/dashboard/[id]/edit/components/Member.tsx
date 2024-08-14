@@ -2,12 +2,14 @@ import cn from 'classnames'
 import { PropsWithChildren } from 'react'
 
 import Button from '@/components/Button'
+import DeleteAlertModal from '@/components/DeleteAlertModal'
 import UserAvatar from '@/components/UserAvatar'
 import {
   deleteDashboardMember,
   listDashboardMembers,
 } from '@/lib/dashboardsApi'
 import { useMemberStore } from '@/store/useMemberStore'
+import useModalStore from '@/store/useModalStore'
 import { DashboardMember } from '@/types/types'
 
 const classNames = {
@@ -51,6 +53,7 @@ function Item({
   member,
   callBackFunction,
 }: ItemProps) {
+  const { openModal } = useModalStore()
   const { setMembers } = useMemberStore()
 
   const fetchDashboardMembers = async () => {
@@ -58,8 +61,8 @@ function Item({
     setMembers(res.members)
   }
 
-  const handleDelete = async (id: number) => {
-    await deleteDashboardMember(id).then(() => {
+  const handleDeleteMember = async () => {
+    await deleteDashboardMember(member.id).then(() => {
       listDashboardMembers(page, size)
       callBackFunction([])
     })
@@ -98,7 +101,15 @@ function Item({
         <Button
           className={cn(classNames.button.default)}
           color='secondary'
-          onClick={() => handleDelete(member.id)}
+          type={'button'}
+          onClick={() => {
+            openModal(
+              <DeleteAlertModal
+                message={`${member.nickname}을 이 대시보드에서 삭제하시겠습니까?`}
+                onDelete={handleDeleteMember}
+              />
+            )
+          }}
         >
           삭제
         </Button>
