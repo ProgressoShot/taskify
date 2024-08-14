@@ -1,6 +1,8 @@
 import cn from 'classnames'
+import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 
+import crownIcon from '/public/icons/crown.svg'
 import Button from '@/components/Button'
 import DeleteAlertModal from '@/components/DeleteAlertModal'
 import UserAvatar from '@/components/UserAvatar'
@@ -9,6 +11,7 @@ import {
   listDashboardMembers,
 } from '@/lib/dashboardsApi'
 import { useMemberStore } from '@/store/useMemberStore'
+import useUserStore from '@/store/useUserStore'
 import useModalStore from '@/store/useModalStore'
 import { DashboardMember } from '@/types/types'
 
@@ -55,6 +58,7 @@ function Item({
 }: ItemProps) {
   const { openModal } = useModalStore()
   const { setMembers } = useMemberStore()
+  const { user } = useUserStore()
 
   const fetchDashboardMembers = async () => {
     const res = await listDashboardMembers(dashboardId, page, size)
@@ -91,6 +95,15 @@ function Item({
         </p>
         <UserAvatar member={member} />
         <p className={cn(classNames.value.default)}>{member.nickname}</p>
+        {user?.email === member.email && (
+          <Image
+            src={crownIcon}
+            alt={'대시보드 생성자'}
+            width={20}
+            height={20}
+            style={{ color: '#FDD446' }}
+          />
+        )}
       </div>
       <div
         className={cn(
