@@ -29,17 +29,18 @@ const classNames = {
   },
 }
 
-function Item({ inviteeEmail }: {inviteeEmail: string}) {
+function Item({ inviteeEmail }: { inviteeEmail: string }) {
   return (
     <div
       className={cn(
         classNames.inner.default,
         classNames.inner.item,
-        classNames.inner.mobile
+        // classNames.inner.mobile,
+        'flex w-full justify-between'
       )}
     >
       <div
-        className={cn(classNames.cols.default)}
+        className={cn(classNames.cols.default, 'flex w-full items-center')}
         style={classNames.cols.style}
       >
         <p
@@ -54,7 +55,10 @@ function Item({ inviteeEmail }: {inviteeEmail: string}) {
         <p className={cn(classNames.value.default)}>{inviteeEmail}</p>
       </div>
       <div
-        className={cn(classNames.cols.default)}
+        className={cn(
+          classNames.cols.default,
+          'flex w-full items-center justify-end'
+        )}
         style={classNames.cols.style}
       >
         <Button className={cn(classNames.button.default)} color={'secondary'}>
