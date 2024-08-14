@@ -152,50 +152,59 @@ export default function DashboardIdEditPage() {
       </section>
 
       <section className='mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
-        <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
-          구성원
-        </h2>
-        <Pagination>
-          <Pagination.Pages>
-            {totalPages} 페이지 중 {page}
-          </Pagination.Pages>
-          <Pagination.Prev
-            prevPage={() => {}}
-            disabled={noMorePrev}
-          ></Pagination.Prev>
-          <Pagination.Next
-            nextPage={() => {}}
-            disabled={noMoreNext}
-          ></Pagination.Next>
-        </Pagination>
+        <div className={'flex items-center justify-between'}>
+          <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
+            구성원
+          </h2>
+          <Pagination>
+            <Pagination.Pages>
+              {totalPages} 페이지 중 {page}
+            </Pagination.Pages>
+            <Pagination.Prev
+              prevPage={() => {}}
+              disabled={noMorePrev}
+            ></Pagination.Prev>
+            <Pagination.Next
+              nextPage={() => {}}
+              disabled={noMoreNext}
+            ></Pagination.Next>
+          </Pagination>
+        </div>
         <MemberList dashboardId={dashboardId} />
       </section>
 
       <section className='relative mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
-        <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
-          초대 내역
-        </h2>
-        <Button
-          className='absolute right-4 h-8 w-[105px] items-center gap-2 md:right-7 md:w-[105px]'
-          onClick={() => openModal(<InviteModal dashboardId={dashboardId} />)}
-          type='button'
-        >
-          <AddBox />
-          초대하기
-        </Button>
-        <Pagination>
-          <Pagination.Pages>
-            {totalPages} 페이지 중 {page}
-          </Pagination.Pages>
-          <Pagination.Prev
-            prevPage={() => {}}
-            disabled={noMorePrev}
-          ></Pagination.Prev>
-          <Pagination.Next
-            nextPage={() => {}}
-            disabled={noMoreNext}
-          ></Pagination.Next>
-        </Pagination>
+        <div className={'flex items-center justify-between'}>
+          <h2 className='md:text-2x mb-6 flex justify-between text-xl font-bold text-custom-black-200'>
+            초대 내역
+          </h2>
+          <div className={'flex gap-3'}>
+            <Pagination>
+              <Pagination.Pages>
+                {totalPages} 페이지 중 {page}
+              </Pagination.Pages>
+              <Pagination.Prev
+                prevPage={() => {}}
+                disabled={noMorePrev}
+              ></Pagination.Prev>
+              <Pagination.Next
+                nextPage={() => {}}
+                disabled={noMoreNext}
+              ></Pagination.Next>
+            </Pagination>
+            <Button
+              className='right-4 h-8 w-[105px] items-center gap-2 md:right-7 md:w-[105px]'
+              onClick={() =>
+                openModal(<InviteModal dashboardId={dashboardId} />)
+              }
+              type='button'
+            >
+              <AddBox />
+              초대하기
+            </Button>
+          </div>
+        </div>
+
         <SentInvitationList dashboardId={dashboardId} />
       </section>
 
