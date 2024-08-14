@@ -6,7 +6,7 @@ export async function getDashboard(id: number): Promise<Dashboard> {
     const response = await api.get(`/dashboards/${id}`)
     return response.data
   } catch (error: any) {
-    return error.message
+    throw error
   }
 }
 
