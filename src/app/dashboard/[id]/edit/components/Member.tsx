@@ -23,7 +23,7 @@ const classNames = {
     },
   },
   label: {
-    default: 'px-2 text-custom-gray-400 text-nowrap',
+    default: 'px-2 text-custom-gray-400 text-nowrap w-full',
     mobile: 'block w-16 flex-none md:hidden',
   },
   value: {
