@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Member from '@/app/dashboard/[id]/edit/components/Member'
-import {
-  listDashboardMembers,
-} from '@/lib/dashboardsApi'
+import { listDashboardMembers } from '@/lib/dashboardsApi'
 import { DashboardMember } from '@/types/types'
 
 const ITEM_PER_PAGE: number = 4
@@ -11,6 +9,8 @@ const ITEM_PER_PAGE: number = 4
 export default function MemberList({ dashboardId }: { dashboardId: number }) {
   const [list, setList] = useState<DashboardMember[] | null>(null)
   const [page, setPage] = useState<number>(1)
+  const [size, setSize] = useState<number>(4)
+  const [members, setMembers] = useState<DashboardMember[]>()
 
   type ParametersType = Parameters<typeof listDashboardMembers>
 
@@ -20,19 +20,23 @@ export default function MemberList({ dashboardId }: { dashboardId: number }) {
     dashboardId = 1,
   ]: ParametersType) => {
     const response = await listDashboardMembers(dashboardId, page, size)
-    setList(prev =>
-      Boolean(response.members?.length) && prev !== null
-        ? [...prev, ...response.members]
-        : response.members
-    )
+    setList(response.members)
     if (response.members?.length) setPage(page + 1)
   }
 
-  useEffect(() => {
-    if (list === null) getDashboardMember([ITEM_PER_PAGE])
-  })
+  const fetchDashboardMembers = async () => {
+    const res = await listDashboardMembers(dashboardId, page, size)
+    setMembers(res.members)
+  }
 
   useEffect(() => {
+    fetchDashboardMembers()
+  }, [])
+
+  useEffect(() => {})
+
+  useEffect(() => {
+    if (list === null) getDashboardMember([ITEM_PER_PAGE])
     getDashboardMember([ITEM_PER_PAGE, page, dashboardId])
   }, [dashboardId])
 
