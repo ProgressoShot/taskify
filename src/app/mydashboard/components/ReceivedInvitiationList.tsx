@@ -78,7 +78,8 @@ export default function ReceivedInvitiationList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
-  if (list === null || list.length === 0) return <EmptyInvitationList />
+  if ((list === null || list.length === 0) && value === '')
+    return <EmptyInvitationList />
 
   return (
     <>
