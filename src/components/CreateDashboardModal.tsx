@@ -14,7 +14,7 @@ import Button from './Button'
 import ConfirmModalContent from './ConfirmModalContent'
 import moduleCSS from './CreateDashboardModal.module.css'
 
-const COLOR_LIST: Array<DashboardColorHex> = [
+export const COLOR_LIST: Array<DashboardColorHex> = [
   '#7AC555',
   '#760DDE',
   '#FFA500',
