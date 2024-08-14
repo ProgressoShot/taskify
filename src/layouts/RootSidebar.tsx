@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react'
 import AddIcon from '/public/icons/add-box.svg'
 import CreateDashboardModal from '@/components/CreateDashboardModal'
 import DashboardCard from '@/components/DashboardCard'
-import { getDashboardList } from '@/lib/dashboardsApi'
+import { listDashboards } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 
@@ -20,7 +20,7 @@ export default function RootSidebar() {
   const ListElement = useRef<HTMLElement>(null)
 
   const getDashboard = async () => {
-    const data = await getDashboardList()
+    const data = await listDashboards()
     setDashboards(data)
   }
 

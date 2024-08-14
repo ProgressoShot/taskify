@@ -9,7 +9,7 @@ import ConfirmModalContent from '@/components/ConfirmModalContent'
 import Form from '@/components/Form'
 import useToggle from '@/hooks/useToggle'
 import api from '@/lib/axiosInstance'
-import { getDashboardList } from '@/lib/dashboardsApi'
+import { listDashboards } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 
@@ -41,7 +41,7 @@ export default function LoginForm() {
       const { accessToken, user } = response.data
       sessionStorage.setItem('accessToken', accessToken)
       sessionStorage.setItem('user', JSON.stringify(user))
-      const dashboards = await getDashboardList()
+      const dashboards = await listDashboards()
       setDashboards(dashboards)
       router.push('/mydashboard')
     } catch (error) {
