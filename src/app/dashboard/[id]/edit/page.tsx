@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form'
 
 import AddBox from '/public/icons/add-box.svg'
 import CaretLeft from '/public/icons/caret-left.svg'
-import MemberList from '@/app/dashboard/[id]/edit/components/MemberList'
-import SentInvitationList from '@/app/dashboard/[id]/edit/components/SentInvitationList'
+import MemberTable from '@/app/dashboard/[id]/edit/components/MemberTable'
+import SentInvitationTable from '@/app/dashboard/[id]/edit/components/SentInvitationTable'
 import Button from '@/components/Button'
 import ConfirmModalContent from '@/components/ConfirmModalContent'
 import { COLOR_LIST } from '@/components/CreateDashboardModal'
@@ -170,7 +170,7 @@ export default function DashboardIdEditPage() {
             ></Pagination.Next>
           </Pagination>
         </div>
-        <MemberList dashboardId={dashboardId} />
+        <MemberTable dashboardId={dashboardId} />
       </section>
 
       <section className='relative mb-4 max-w-[620px] rounded-lg bg-white px-4 py-5 md:mb-6 md:rounded-2xl md:px-7 md:py-8'>
@@ -205,7 +205,7 @@ export default function DashboardIdEditPage() {
           </div>
         </div>
 
-        <SentInvitationList dashboardId={dashboardId} />
+        <SentInvitationTable dashboardId={dashboardId} />
       </section>
 
       <Button
