@@ -23,10 +23,12 @@ export async function updateDashboard(
 }
 
 export async function listDashboardInvitations(
-  id: number
+  dashboardId: number,
+  page?: number,
+  size?: number
 ): Promise<ListDashboardInvitationsResponse> {
   try {
-    const response = await api.get(`/dashboards/${id}/invitations`)
+    const response = await api.get(`/dashboards/${dashboardId}/invitations`)
     return response.data
   } catch (error: any) {
     return error.message
