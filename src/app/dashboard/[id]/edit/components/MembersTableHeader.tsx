@@ -41,7 +41,7 @@ const classNames = {
   },
 }
 
-export interface ItemProps {
+export interface DashboardMemberProps {
   dashboardId: number
   page: number
   size: number
@@ -49,13 +49,13 @@ export interface ItemProps {
   callBackFunction: Function
 }
 
-function Item({
+function Member({
   dashboardId,
   page,
   size,
   member,
   callBackFunction,
-}: ItemProps) {
+}: DashboardMemberProps) {
   const handleDelete = async (id: number) => {
     await deleteDashboardMember(id).then(() => {
   const { openModal } = useModalStore()
@@ -133,7 +133,7 @@ function Item({
   )
 }
 
-function Member({ children }: PropsWithChildren) {
+function MembersTableHeader({ children }: PropsWithChildren) {
   return (
     <div className='py-4 md:py-8'>
       <div className={cn(classNames.inner.default, 'hidden')}>
@@ -144,6 +144,6 @@ function Member({ children }: PropsWithChildren) {
   )
 }
 
-Member.Item = Item
+MembersTableHeader.Item = Member
 
-export default Member
+export default MembersTableHeader
