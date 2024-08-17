@@ -8,8 +8,12 @@ export async function middleware(request: NextRequest) {
   if (!cookie) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
+
+  if (cookie && request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/mydashboard', request.url))
+  }
 }
 
 export const config = {
-  matcher: ['/mydashboard/:path*', '/dashboard/:path*', '/mypage/:path*'],
+  matcher: ['/', '/mydashboard/:path*', '/dashboard/:path*', '/mypage/:path*'],
 }
