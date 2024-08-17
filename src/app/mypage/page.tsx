@@ -7,7 +7,7 @@ import PasswordEditForm from './components/PasswordEditForm'
 import ProfileEditForm from './components/ProfileEditForm'
 
 export default function MyPagePage() {
-  useRedirect({ requireAuth: true })
+  // useRedirect({ requireAuth: true })
 
   const handleGoBack = useGoBack()
 

@@ -1,26 +1,21 @@
+'use server'
+
 import axios from 'axios'
+import { cookies } from 'next/headers'
 
 const api = axios.create({
   baseURL: 'https://sp-taskify-api.vercel.app/7-2',
   headers: {
     'Content-Type': 'application/json',
   },
-  // withCredentials: true,
+  withCredentials: true,
 })
 
 api.interceptors.request.use(
   config => {
-    function getCookie(name: string) {
-      const value = `; ${document.cookie}`
-      const parts = value.split(`; ${name}=`)
+    console.log('interceptor')
+    const token = cookies().get('Authorization')
 
-      if (parts) {
-        return parts[1].split(';').shift()
-      }
-    }
-
-    const token = getCookie('Authorization')
-    console.log(token)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

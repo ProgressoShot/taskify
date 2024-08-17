@@ -6,7 +6,7 @@ import useRedirect from '@/hooks/useRedirect'
 import { Providers } from './providers'
 
 export default function Home() {
-  useRedirect({ requireAuth: false })
+  // useRedirect({ requireAuth: false })
 
   return (
     <>

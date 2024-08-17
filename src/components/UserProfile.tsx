@@ -18,6 +18,7 @@ export default function UserProfile() {
     try {
       const response = await api.get('users/me')
       setUser(response.data)
+      sessionStorage.setItem('user', response.data)
     } catch (error) {
       throw error
     }
@@ -31,6 +32,8 @@ export default function UserProfile() {
     router.push('/login')
     setUser(null)
     sessionStorage.clear()
+
+    document.cookie = `Authorization=; Max-Age=-99999999;`
   }
 
   useEffect(() => {
