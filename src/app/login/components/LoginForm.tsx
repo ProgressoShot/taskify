@@ -40,26 +40,12 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormValue) => {
     // 로그인 액션 실행
-    console.log(data)
-    loginAction(data)
-    // try {
-    //   const response = await api.post('auth/login', data)
-    //   const { accessToken, user } = response.data
-    //   sessionStorage.setItem('accessToken', accessToken)
-    //   sessionStorage.setItem('user', JSON.stringify(user))
-    //   const dashboards = await getDashboardList()
-    //   setDashboards(dashboards)
-    //   router.push('/mydashboard')
-    // } catch (error) {
-    //   let loginErrorMessage = ''
-    //   if (axios.isAxiosError(error)) {
-    //     loginErrorMessage = error.response?.data.message
-    //   } else {
-    //     loginErrorMessage =
-    //       '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
-    //   }
-    //   openModal(<ConfirmModalContent message={loginErrorMessage} />)
-    // }
+    const errMsg = await loginAction(data)
+
+    // 에러 메시지 팝업
+    if (errMsg) {
+      openModal(<ConfirmModalContent message={errMsg} />)
+    }
   }
 
   const isDisabled = !!(errors.email || errors.password || isLoading)
