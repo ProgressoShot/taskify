@@ -13,6 +13,8 @@ import { getDashboardList } from '@/lib/dashboardsApi'
 import useDashboardStore from '@/store/useDashboardStore'
 import useModalStore from '@/store/useModalStore'
 
+import loginAction from '../loginAction'
+
 export interface LoginFormValue {
   email: string
   password: string
@@ -29,6 +31,7 @@ export default function LoginForm() {
   } = useForm<LoginFormValue>()
 
   const router = useRouter()
+
   const { openModal } = useModalStore()
   const { setDashboards } = useDashboardStore()
 
@@ -36,24 +39,27 @@ export default function LoginForm() {
   const passwordType = pwdVisible ? 'text' : 'password'
 
   const onSubmit = async (data: LoginFormValue) => {
-    try {
-      const response = await api.post('auth/login', data)
-      const { accessToken, user } = response.data
-      sessionStorage.setItem('accessToken', accessToken)
-      sessionStorage.setItem('user', JSON.stringify(user))
-      const dashboards = await getDashboardList()
-      setDashboards(dashboards)
-      router.push('/mydashboard')
-    } catch (error) {
-      let loginErrorMessage = ''
-      if (axios.isAxiosError(error)) {
-        loginErrorMessage = error.response?.data.message
-      } else {
-        loginErrorMessage =
-          '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
-      }
-      openModal(<ConfirmModalContent message={loginErrorMessage} />)
-    }
+    // 로그인 액션 실행
+    console.log(data)
+    loginAction(data)
+    // try {
+    //   const response = await api.post('auth/login', data)
+    //   const { accessToken, user } = response.data
+    //   sessionStorage.setItem('accessToken', accessToken)
+    //   sessionStorage.setItem('user', JSON.stringify(user))
+    //   const dashboards = await getDashboardList()
+    //   setDashboards(dashboards)
+    //   router.push('/mydashboard')
+    // } catch (error) {
+    //   let loginErrorMessage = ''
+    //   if (axios.isAxiosError(error)) {
+    //     loginErrorMessage = error.response?.data.message
+    //   } else {
+    //     loginErrorMessage =
+    //       '서버에 문제가 있는거 같아요. 잠시 후에 다시 시도해보시겠어요?'
+    //   }
+    //   openModal(<ConfirmModalContent message={loginErrorMessage} />)
+    // }
   }
 
   const isDisabled = !!(errors.email || errors.password || isLoading)
