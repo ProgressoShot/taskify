@@ -26,12 +26,13 @@ export default function SentInvitationTable({
     dashboardId = 1,
   ]: ParametersType) => {
     const response = await listDashboardInvitations(dashboardId, page, size)
-    setDashboardInvitations(response.invitations ? response.invitations : [])
-    if (response.invitations?.length) {
+    const newInvitations = response.invitations ?? [] // response.invitations가 null이면 빈 배열을 반환
+    setDashboardInvitations(newInvitations)
+    if (newInvitations?.length) {
       setDashboardInvitations(prev =>
-        prev !== null ? [dashboardInvitations, ...prev] : response.invitations
+        prev !== null ? [...prev, ...newInvitations] : newInvitations // prev가 null이 아닐 경우, 기존 목록에 새로운 초대 목록을 추가
       )
-      setPage(page + 1)
+      setPage(page + 1) // 페이지를 증가시킴
     }
   }
 
