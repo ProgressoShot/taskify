@@ -2,7 +2,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import api from '@/lib/axiosInstance'
+import api from '@/lib/axiosServer'
 
 import { LoginFormValue } from './components/LoginForm'
 
@@ -15,9 +15,9 @@ export default async function loginAction(data: LoginFormValue) {
     // 가져온 json token 쿠키 설정 하기
     cookies().set('Authorization', accessToken, {
       secure: true,
-      httpOnly: true,
+      // httpOnly: true,
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 3),
-      path: '/',
+      // path: '/',
       sameSite: 'strict',
     })
   } catch (error: any) {
