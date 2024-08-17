@@ -5,7 +5,7 @@ import useRedirect from '@/hooks/useRedirect'
 import AuthPageLayout from '@/layouts/AuthPageLayout'
 
 export default function SignupPage() {
-  useRedirect({ requireAuth: false })
+  // useRedirect({ requireAuth: false })
   return (
     <AuthPageLayout page='signup'>
       <SignupForm />

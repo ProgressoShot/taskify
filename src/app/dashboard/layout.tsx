@@ -13,7 +13,7 @@ import useDashboardStore from '@/store/useDashboardStore'
  * 주스탠드에 저장된 대시보드 목록에서 dashboardid 로 title 가져올 수 잇을 듯
  */
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
-  useRedirect({ requireAuth: true })
+  // useRedirect({ requireAuth: true })
 
   const { id } = useParams()
   const { dashboards, dashboard, setDashboard } = useDashboardStore()

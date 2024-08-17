@@ -18,7 +18,7 @@ type PaginationAction = 'prev' | 'next'
 const ITEM_PER_PAGE = 5
 
 export default function MyDashboard() {
-  useRedirect({ requireAuth: true })
+  // useRedirect({ requireAuth: true })
 
   const { openModal } = useModalStore()
   const { dashboards } = useDashboardStore()
