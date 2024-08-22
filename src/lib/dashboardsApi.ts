@@ -39,9 +39,8 @@ export const listDashboards = async (): Promise<any> => {
     page: 0,
     size: 10,
   }
-
   try {
-    const response = await api.get(convertURL('dashboards', params))
+    const response = await api.get(`dashboards?navigationMethod=${params.navigationMethod}&page=${params.page}&size=${params.size}`)
     const { dashboards } = response.data
     return dashboards
   } catch (error) {
