@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Image from 'next/image'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 
 import crownIcon from '/public/icons/crown.svg'
 import Button from '@/components/Button'
@@ -11,7 +11,6 @@ import {
   listDashboardMembers,
 } from '@/lib/dashboardsApi'
 import { useMemberStore } from '@/store/useMemberStore'
-import useUserStore from '@/store/useUserStore'
 import useModalStore from '@/store/useModalStore'
 import { DashboardMember } from '@/types/types'
 
@@ -56,16 +55,8 @@ function Member({
   member,
   callBackFunction,
 }: DashboardMemberProps) {
-  const handleDelete = async (id: number) => {
-    await deleteDashboardMember(id).then(() => {
   const { openModal } = useModalStore()
   const { setMembers } = useMemberStore()
-  const { user } = useUserStore()
-
-  const fetchDashboardMembers = async () => {
-    const res = await listDashboardMembers(dashboardId, page, size)
-    setMembers(res.members)
-  }
 
   const handleDeleteMember = async () => {
     await deleteDashboardMember(member.id).then(() => {
@@ -73,6 +64,15 @@ function Member({
       callBackFunction([])
     })
   }
+
+  const fetchDashboardMembers = async () => {
+    const res = await listDashboardMembers(dashboardId, page, size)
+    setMembers(res.members)
+  }
+
+  useEffect(() => {
+    fetchDashboardMembers().then()
+  }, [fetchDashboardMembers])
 
   return (
     <div
